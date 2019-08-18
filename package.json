@@ -1,0 +1,89 @@
+{
+  "name": "ts-gir",
+  "version": "0.0.1",
+  "description": "generate typescript from gir",
+  "keywords": [
+    "ts-gir",
+    "ts",
+    "typescript",
+    "gir",
+    "gobject",
+    "introspect",
+    "introspection",
+    "babel",
+    "generate"
+  ],
+  "homepage": "https://github.com/codejamninja/ts-gir",
+  "bugs": {
+    "url": "https://github.com/codejamninja/ts-gir/issues",
+    "email": "jam@codejam.ninja"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jam Risser",
+    "email": "jam@codejam.ninja",
+    "url": "https://codejam.ninja"
+  },
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "main": "lib/index.js",
+  "bin": {
+    "ts-gir": "bin/ts-gir.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codejamninja/ts-gir"
+  },
+  "scripts": {
+    "build": "npm run test && babel src -d lib --extensions \".ts,.tsx\" --source-maps inline && tsc -d --emitDeclarationOnly",
+    "clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/* && jest --clearCache",
+    "clean:purge": "jest --clearCache && git clean -fXd",
+    "format": "prettier --write ./**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx} --ignore-path .gitignore",
+    "lint": "npm run format && tsc --allowJs --noEmit && eslint --ext .ts,.tsx ./",
+    "lint:fix": "npm run format && tsc --noEmit && eslint --ext .ts,.tsx --fix ./",
+    "prepublish": "npm run build",
+    "start": "babel-node --extensions \".ts,.tsx\" src",
+    "test": "npm run lint && jest"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.5.18",
+    "@oclif/config": "^1.13.3",
+    "@oclif/errors": "^1.2.2",
+    "@oclif/plugin-help": "^2.2.1",
+    "@types/fs-extra": "^8.0.0",
+    "core-js": "^3.2.1",
+    "decorator-cache-getter": "^1.0.0",
+    "err": "^2.1.11",
+    "fast-xml-parser": "^3.12.20",
+    "fs-extra": "^8.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.17",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "babel-preset-jam": "^0.4.3",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-typescript": "^4.0.1",
+    "eslint-config-jam": "^0.2.17",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "eslintIgnore": [
+    "lib"
+  ],
+  "jest": {
+    "testRegex": "tests(/|/.*/)[^_/]*[jt]sx?$",
+    "verbose": true
+  }
+}
