@@ -16,5 +16,7 @@ export default class TSGir extends Command {
     const girFile = args.GIR_FILE;
     const gir = new Gir();
     await gir.loadFile(girFile);
+    const code = gir.generateTypescript();
+    console.log(code);
   }
 }

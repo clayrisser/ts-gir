@@ -1,3 +1,5 @@
+import Err from 'err';
+import GirGenerator from './GirGenerator';
 import fs from 'fs-extra';
 import path from 'path';
 import { parse } from 'fast-xml-parser';
@@ -10,11 +12,16 @@ export default class Gir {
 
   async loadFile(girFile: string) {
     const filePath = path.resolve(process.cwd(), girFile);
-    this.loadXml((await fs.readFile(filePath)).toString());
+    this.xml = (await fs.readFile(filePath)).toString();
+    this.repository = parse(this.xml, {
+      ignoreAttributes: false
+    }).repository;
   }
 
-  loadXml(xml: string) {
-    const json = parse(xml);
-    this.repository = json.repository;
+  generateTypescript(): string {
+    if (!this.repository) throw new Err('xml not loaded');
+    const girGenerator = new GirGenerator(this.repository);
+    girGenerator.build();
+    return girGenerator.generate();
   }
 }
