@@ -2,12 +2,13 @@ import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
 import Generator from './Generator';
 import {
-  GirType,
   Class,
+  DeepArray,
+  GirType,
   Method,
-  Repository,
   Namespace,
-  DeepArray
+  Parameter,
+  Repository
 } from './types';
 
 export default class GirTypescriptGenerator extends Generator {
@@ -23,22 +24,22 @@ export default class GirTypescriptGenerator extends Generator {
   }
 
   build() {
-    this.buildNamespace();
+    this.buildModule();
   }
 
-  buildNamespace() {
+  buildModule() {
     const $namespace = this.repository.namespace;
     const moduleName = $namespace['@_name'];
     this.append(`declare module '${moduleName}' {}`);
-    this.buildClasses($namespace, 0, '');
+    this.buildClassDeclarations($namespace, 0, '');
   }
 
-  buildClasses(
+  buildClassDeclarations(
     $namespace: Namespace,
     position: number,
     path: string | DeepArray<string>
   ) {
-    const $classes = Array.isArray($namespace.class) ? $namespace.class : [];
+    const $classes = oc($namespace).class([]);
     $classes.forEach(($class: Class, i) => {
       const className = $class['@_name'];
       this.symbols.add(className);
@@ -51,17 +52,18 @@ export default class GirTypescriptGenerator extends Generator {
           [path, `${position}.body.body`]
         );
       }
-      this.buildMethods($class, i, [path, `${position}.body.body`]);
+      this.buildMethodDeclarations($class, i, [path, `${position}.body.body`]);
     });
   }
 
-  buildMethods(
+  buildMethodDeclarations(
     $class: Class,
     position: number,
     path: string | DeepArray<string>
   ) {
-    const $methods = Array.isArray($class.method) ? $class.method : [];
-    $methods.forEach(($method: Method) => {
+    let $methods = oc($class).method([]);
+    if (!Array.isArray($methods)) $methods = [$methods];
+    $methods.forEach(($method: Method, i) => {
       const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
       this.symbols.add(methodName);
@@ -70,10 +72,36 @@ export default class GirTypescriptGenerator extends Generator {
         [path, `${position}.declaration.body.body`],
         'body.body'
       );
+      this.buildMethodDeclarationParams($method, i, [
+        path,
+        `${position}.declaration.body.body`
+      ]);
     });
   }
 
-  getType(girType: GirType, isArray = false): string {
+  buildMethodDeclarationParams(
+    $method: Method,
+    position: number,
+    path: string | DeepArray<string>
+  ) {
+    let $parameters = oc($method).parameters.parameter([]);
+    if (!Array.isArray($parameters)) $parameters = [$parameters];
+    $parameters.forEach(($parameter: Parameter) => {
+      const paramName = $parameter['@_name'];
+      const paramType = this.getType($parameter);
+      if (paramType) {
+        // TODO: some param types not supported
+        this.append(
+          `function hello(${paramName}: ${paramType}) {}`,
+          [path, `${position}.params`],
+          'params.0'
+        );
+      }
+    });
+  }
+
+  getType(girType: GirType, isArray = false): string | null {
+    // TODO: some param types not supported
     let girTypeStr: string = '';
     if (typeof girType !== 'string') {
       if (girType.array) {
@@ -81,10 +109,12 @@ export default class GirTypescriptGenerator extends Generator {
         girTypeStr = oc(girType)
           .array.type['@_name']()
           .toString();
-      } else {
+      } else if (girType.type) {
         girTypeStr = oc(girType)
           .type['@_name']()
           .toString();
+      } else {
+        return null;
       }
     }
     const girTypeSplit = girTypeStr.split(' ');

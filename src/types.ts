@@ -15,7 +15,21 @@ export interface Class {
 
 export interface Method {
   '@_name': string;
-  'return-value': string;
+  parameters?: { parameter: Parameter[] };
+  'return-value': {
+    type?: string;
+    array?: {
+      type?: string;
+    };
+  };
+}
+
+export interface Parameter {
+  '@_name': string;
+  type?: string;
+  array?: {
+    type?: string;
+  };
 }
 
 export type GirType =
