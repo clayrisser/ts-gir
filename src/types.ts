@@ -11,6 +11,15 @@ export interface Class {
   '@_name': string;
   '@_parent': Class;
   method: Method[];
+  property: Property[];
+}
+
+export interface Property {
+  '@_name': string;
+  type?: string;
+  array?: {
+    type?: string;
+  };
 }
 
 export interface Method {

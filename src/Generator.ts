@@ -14,7 +14,10 @@ export default class Generator {
     this.ast = parse(code, this.options);
   }
 
-  templateAst(code: string, codePath?: string): Statement | Statement[] {
+  templateAst(
+    code: string,
+    codePath?: string | DeepArray<string>
+  ): Statement | Statement[] {
     if (Array.isArray(codePath)) {
       codePath = _.flattenDeep(codePath)
         .filter((s: string) => s.length)
@@ -30,7 +33,11 @@ export default class Generator {
     return generate(this.ast, {}).code;
   }
 
-  prepend(code: string, injectPath = '', codePath?: string): void {
+  prepend(
+    code: string,
+    injectPath: string | DeepArray<string> = '',
+    codePath?: string | DeepArray<string>
+  ): void {
     if (Array.isArray(injectPath)) {
       injectPath = _.flattenDeep(injectPath)
         .filter((s: string) => s.length)
@@ -50,7 +57,7 @@ export default class Generator {
   append(
     code: string,
     injectPath: string | DeepArray<string> = '',
-    codePath?: string
+    codePath?: string | DeepArray<string>
   ): void {
     if (Array.isArray(injectPath)) {
       injectPath = _.flattenDeep(injectPath)

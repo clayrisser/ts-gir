@@ -8,6 +8,7 @@ import {
   Method,
   Namespace,
   Parameter,
+  Property,
   Repository
 } from './types';
 
@@ -27,65 +28,79 @@ export default class GirTypescriptGenerator extends Generator {
     this.buildModule();
   }
 
-  buildModule() {
+  buildModule(): number {
     const $namespace = this.repository.namespace;
     const moduleName = $namespace['@_name'];
     this.append(`declare module '${moduleName}' {}`);
-    this.buildClassDeclarations($namespace, 0, '');
+    this.buildClassDeclarations($namespace, [0], '');
+    return 1;
   }
 
   buildClassDeclarations(
     $namespace: Namespace,
-    position: number,
+    position: number[],
     path: string | DeepArray<string>
-  ) {
+  ): number {
     const $classes = oc($namespace).class([]);
+    let count = 0;
     $classes.forEach(($class: Class, i) => {
       const className = $class['@_name'];
       this.symbols.add(className);
       const parentClassName = $class['@_parent'];
-      if (parentClassName) {
-        this.append(
-          `export class ${className} ${
-            parentClassName ? `extends ${parentClassName} ` : ''
-          }{}`,
-          [path, `${position}.body.body`]
-        );
-      }
-      this.buildMethodDeclarations($class, i, [path, `${position}.body.body`]);
+      this.append(
+        `export class ${className} ${
+          parentClassName ? `extends ${parentClassName} ` : ''
+        }{}`,
+        [path, `${position[0]}.body.body`]
+      );
+      count++;
+      const childCount = this.buildPropertyDeclarations(
+        $class,
+        [i],
+        [path, `${position[0]}.body.body`]
+      );
+      this.buildMethodDeclarations(
+        $class,
+        [i, childCount],
+        [path, `${position[0]}.body.body`]
+      );
     });
+    return count;
   }
 
   buildMethodDeclarations(
     $class: Class,
-    position: number,
+    position: number[],
     path: string | DeepArray<string>
-  ) {
+  ): number {
     let $methods = oc($class).method([]);
     if (!Array.isArray($methods)) $methods = [$methods];
+    let count = 0;
     $methods.forEach(($method: Method, i) => {
       const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
-      this.symbols.add(methodName);
       this.append(
         `class C {${methodName}(): ${returnType}}`,
-        [path, `${position}.declaration.body.body`],
+        [path, `${position[0]}.declaration.body.body`],
         'body.body'
       );
-      this.buildMethodDeclarationParams($method, i, [
-        path,
-        `${position}.declaration.body.body`
-      ]);
+      this.buildMethodDeclarationParams(
+        $method,
+        [position[1] + i],
+        [path, `${position[0]}.declaration.body.body`]
+      );
     });
+    return count;
   }
 
   buildMethodDeclarationParams(
     $method: Method,
-    position: number,
+    position: number[],
     path: string | DeepArray<string>
-  ) {
+  ): number {
     let $parameters = oc($method).parameters.parameter([]);
     if (!Array.isArray($parameters)) $parameters = [$parameters];
+    let count = 0;
     $parameters.forEach(($parameter: Parameter) => {
       const paramName = $parameter['@_name'];
       const paramType = this.getType($parameter);
@@ -93,11 +108,34 @@ export default class GirTypescriptGenerator extends Generator {
         // TODO: some param types not supported
         this.append(
           `function hello(${paramName}: ${paramType}) {}`,
-          [path, `${position}.params`],
+          [path, `${position[0]}.params`],
           'params.0'
         );
+        count++;
       }
     });
+    return count;
+  }
+
+  buildPropertyDeclarations(
+    $class: Class,
+    position: number[],
+    path: string | DeepArray<string>
+  ): number {
+    let $properties = oc($class).property([]);
+    if (!Array.isArray($properties)) $properties = [$properties];
+    let count = 0;
+    $properties.forEach(($property: Property) => {
+      const propertyName = $property['@_name'];
+      const propertyType = this.getType($property);
+      this.append(
+        `class C {'${propertyName}': ${propertyType}}`,
+        [path, `${position[0]}.declaration.body.body`],
+        'body.body.0'
+      );
+      count++;
+    });
+    return count;
   }
 
   getType(girType: GirType, isArray = false): string | null {

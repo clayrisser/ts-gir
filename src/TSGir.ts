@@ -6,17 +6,20 @@ export default class TSGir extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
+    output: flags.string({ char: 'o' }),
+    silent: flags.boolean({ char: 's' }),
+    verbose: flags.boolean(),
     version: flags.version({ char: 'v' })
   };
 
   static args = [{ name: 'GIR_FILE', required: true }];
 
   async run() {
-    const { args } = this.parse(TSGir);
+    const { args, flags } = this.parse(TSGir);
     const girFile = args.GIR_FILE;
     const gir = new Gir();
     await gir.loadFile(girFile);
     const code = gir.generateTypescript();
-    console.log(code);
+    if (!flags.silent) this.log(code);
   }
 }
