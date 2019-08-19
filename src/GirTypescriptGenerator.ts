@@ -4,6 +4,7 @@ import Generator from './Generator';
 import {
   Class,
   DeepArray,
+  Function,
   GirType,
   Method,
   Namespace,
@@ -32,8 +33,57 @@ export default class GirTypescriptGenerator extends Generator {
     const $namespace = this.repository.namespace;
     const moduleName = $namespace['@_name'];
     this.append(`declare module '${moduleName}' {}`);
-    this.buildClassDeclarations($namespace, [0], '');
+    const childCount = this.buildClassDeclarations($namespace, [0, 0], '');
+    this.buildFunctionDeclarations($namespace, [0, childCount], '');
     return 1;
+  }
+
+  buildFunctionDeclarations(
+    $namespace: Namespace,
+    position: number[],
+    path: string | DeepArray<string>
+  ) {
+    const $functions: Function[] = oc($namespace).function([]);
+    let count = 0;
+    $functions.forEach(($function: Function, i: number) => {
+      const returnType = this.getType($function['return-value']);
+      const functionName = $function['@_name'];
+      this.append(`export function ${functionName}(): ${returnType} {}`, [
+        path,
+        `${position[0]}.body.body`
+      ]);
+      count++;
+      this.buildFunctionDeclarationParams(
+        $function,
+        [position[1] + i, 0],
+        [path, `${position[0]}.body.body`]
+      );
+    });
+    return count;
+  }
+
+  buildFunctionDeclarationParams(
+    $function: Function,
+    position: number[],
+    path: string | DeepArray<string>
+  ): number {
+    let $parameters = oc($function).parameters.parameter([]);
+    if (!Array.isArray($parameters)) $parameters = [$parameters];
+    let count = 0;
+    $parameters.forEach(($parameter: Parameter) => {
+      const paramName = $parameter['@_name'];
+      const paramType = this.getType($parameter);
+      if (paramType) {
+        // TODO: some param types not supported
+        this.append(
+          `function hello(${paramName}: ${paramType}) {}`,
+          [path, `${position[0]}.declaration.params`],
+          'params.0'
+        );
+        count++;
+      }
+    });
+    return count;
   }
 
   buildClassDeclarations(
@@ -43,7 +93,7 @@ export default class GirTypescriptGenerator extends Generator {
   ): number {
     const $classes = oc($namespace).class([]);
     let count = 0;
-    $classes.forEach(($class: Class, i) => {
+    $classes.forEach(($class: Class, i: number) => {
       const className = $class['@_name'];
       this.symbols.add(className);
       const parentClassName = $class['@_parent'];
@@ -56,12 +106,12 @@ export default class GirTypescriptGenerator extends Generator {
       count++;
       const childCount = this.buildPropertyDeclarations(
         $class,
-        [i],
+        [position[1] + i, 0],
         [path, `${position[0]}.body.body`]
       );
       this.buildMethodDeclarations(
         $class,
-        [i, childCount],
+        [position[1] + i, childCount],
         [path, `${position[0]}.body.body`]
       );
     });
@@ -76,7 +126,7 @@ export default class GirTypescriptGenerator extends Generator {
     let $methods = oc($class).method([]);
     if (!Array.isArray($methods)) $methods = [$methods];
     let count = 0;
-    $methods.forEach(($method: Method, i) => {
+    $methods.forEach(($method: Method, i: number) => {
       const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
       this.append(
@@ -86,7 +136,7 @@ export default class GirTypescriptGenerator extends Generator {
       );
       this.buildMethodDeclarationParams(
         $method,
-        [position[1] + i],
+        [position[1] + i, 0],
         [path, `${position[0]}.declaration.body.body`]
       );
     });

@@ -2,9 +2,21 @@ export interface Repository {
   namespace: Namespace;
 }
 
+export interface Function {
+  '@_name': string;
+  parameters?: { parameter: Parameter[] };
+  'return-value': {
+    type?: string;
+    array?: {
+      type?: string;
+    };
+  };
+}
+
 export interface Namespace {
   '@_name': string;
   class: Class[];
+  function: Function[];
 }
 
 export interface Class {
