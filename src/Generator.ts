@@ -1,41 +1,50 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import generate from '@babel/generator';
+import template from '@babel/template';
 import { File, Statement } from '@babel/types';
-import { parse, ParserPlugin } from '@babel/parser';
+import { parse, ParserOptions } from '@babel/parser';
 
 export default class Generator {
   ast: File;
 
-  plugins: ParserPlugin[] = [];
+  options: ParserOptions = {};
 
   constructor(code = '') {
-    this.ast = parse(code, { plugins: this.plugins });
+    this.ast = parse(code, this.options);
   }
 
-  parse(code: string, path = ''): Statement[] {
-    return _.get(
-      parse(code, {
-        plugins: this.plugins
-      }).program,
-      `body${path.length ? `[0]${path}` : ''}`
-    );
+  templateAst(code: string, codePath?: string): Statement | Statement[] {
+    if (codePath) {
+      return _.get(template.ast(code, this.options), codePath);
+    }
+    return template.ast(code, this.options);
   }
 
   generate(): string {
     return generate(this.ast, {}).code;
   }
 
-  prepend(code: string, injectPath = '', parsePath?: string): void {
-    _.set(this.ast.program, `body${injectPath}`, [
-      ...this.parse(code, parsePath),
-      ..._.get(this.ast.program, `body${injectPath}`)
-    ]);
+  prepend(code: string, injectPath = '', codePath?: string): void {
+    let ast = this.ast.program.body;
+    if (injectPath.length) ast = _.get(this.ast.program.body, injectPath);
+    let templateAst = this.templateAst(code, codePath);
+    if (!Array.isArray(templateAst)) templateAst = [templateAst];
+    if (injectPath.length) {
+      _.set(this.ast.program.body, injectPath, [...templateAst, ...ast]);
+    } else {
+      this.ast.program.body = [...templateAst, ...ast];
+    }
   }
 
-  append(code: string, injectPath = '', parsePath?: string): void {
-    _.set(this.ast.program, `body${injectPath}`, [
-      ..._.get(this.ast.program, `body${injectPath}`),
-      ...this.parse(code, parsePath)
-    ]);
+  append(code: string, injectPath = '', codePath?: string): void {
+    let ast = this.ast.program.body;
+    if (injectPath.length) ast = _.get(this.ast.program.body, injectPath);
+    let templateAst = this.templateAst(code, codePath);
+    if (!Array.isArray(templateAst)) templateAst = [templateAst];
+    if (injectPath.length) {
+      _.set(this.ast.program.body, injectPath, [...ast, ...templateAst]);
+    } else {
+      this.ast.program.body = [...ast, ...templateAst];
+    }
   }
 }
