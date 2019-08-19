@@ -3,6 +3,7 @@ import generate from '@babel/generator';
 import template from '@babel/template';
 import { File, Statement } from '@babel/types';
 import { parse, ParserOptions } from '@babel/parser';
+import { DeepArray } from './types';
 
 export default class Generator {
   ast: File;
@@ -14,6 +15,11 @@ export default class Generator {
   }
 
   templateAst(code: string, codePath?: string): Statement | Statement[] {
+    if (Array.isArray(codePath)) {
+      codePath = _.flattenDeep(codePath)
+        .filter((s: string) => s.length)
+        .join('.');
+    }
     if (codePath) {
       return _.get(template.ast(code, this.options), codePath);
     }
@@ -25,6 +31,11 @@ export default class Generator {
   }
 
   prepend(code: string, injectPath = '', codePath?: string): void {
+    if (Array.isArray(injectPath)) {
+      injectPath = _.flattenDeep(injectPath)
+        .filter((s: string) => s.length)
+        .join('.');
+    }
     let ast = this.ast.program.body;
     if (injectPath.length) ast = _.get(this.ast.program.body, injectPath);
     let templateAst = this.templateAst(code, codePath);
@@ -36,7 +47,16 @@ export default class Generator {
     }
   }
 
-  append(code: string, injectPath = '', codePath?: string): void {
+  append(
+    code: string,
+    injectPath: string | DeepArray<string> = '',
+    codePath?: string
+  ): void {
+    if (Array.isArray(injectPath)) {
+      injectPath = _.flattenDeep(injectPath)
+        .filter((s: string) => s.length)
+        .join('.');
+    }
     let ast = this.ast.program.body;
     if (injectPath.length) ast = _.get(this.ast.program.body, injectPath);
     let templateAst = this.templateAst(code, codePath);

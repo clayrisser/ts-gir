@@ -1,7 +1,14 @@
 import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
 import Generator from './Generator';
-import { GirType, Class, Method, Repository, Namespace } from './types';
+import {
+  GirType,
+  Class,
+  Method,
+  Repository,
+  Namespace,
+  DeepArray
+} from './types';
 
 export default class GirTypescriptGenerator extends Generator {
   options: ParserOptions = {
@@ -26,7 +33,11 @@ export default class GirTypescriptGenerator extends Generator {
     this.buildClasses($namespace, 0, '');
   }
 
-  buildClasses($namespace: Namespace, position: number, path: string) {
+  buildClasses(
+    $namespace: Namespace,
+    position: number,
+    path: string | DeepArray<string>
+  ) {
     const $classes = Array.isArray($namespace.class) ? $namespace.class : [];
     $classes.forEach(($class: Class, i) => {
       const className = $class['@_name'];
@@ -37,14 +48,18 @@ export default class GirTypescriptGenerator extends Generator {
           `export class ${className} ${
             parentClassName ? `extends ${parentClassName} ` : ''
           }{}`,
-          `${path}${position}.body.body`
+          [path, `${position}.body.body`]
         );
       }
-      this.buildMethods($class, i, `${path}${position}.body.body.`);
+      this.buildMethods($class, i, [path, `${position}.body.body`]);
     });
   }
 
-  buildMethods($class: Class, position: number, path: string) {
+  buildMethods(
+    $class: Class,
+    position: number,
+    path: string | DeepArray<string>
+  ) {
     const $methods = Array.isArray($class.method) ? $class.method : [];
     $methods.forEach(($method: Method) => {
       const returnType = this.getType($method['return-value']);
@@ -52,7 +67,7 @@ export default class GirTypescriptGenerator extends Generator {
       this.symbols.add(methodName);
       this.append(
         `class C {${methodName}(): ${returnType}}`,
-        `${path}${position}.declaration.body.body`,
+        [path, `${position}.declaration.body.body`],
         'body.body'
       );
     });

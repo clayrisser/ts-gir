@@ -23,3 +23,5 @@ export type GirType =
       [key: string]: any;
     }
   | string;
+
+export interface DeepArray<T> extends Array<T | DeepArray<T>> {}
