@@ -13,10 +13,19 @@ export interface Function {
   };
 }
 
+export interface Constant {
+  '@_name': string;
+  type?: string;
+  array?: {
+    type?: string;
+  };
+}
+
 export interface Namespace {
   '@_name': string;
   class: Class[];
   function: Function[];
+  constant: Constant[];
 }
 
 export interface Class {
@@ -28,6 +37,7 @@ export interface Class {
 
 export interface Property {
   '@_name': string;
+  '@_optional': string;
   type?: string;
   array?: {
     type?: string;
@@ -47,6 +57,7 @@ export interface Method {
 
 export interface Parameter {
   '@_name': string;
+  '@_optional': string;
   type?: string;
   array?: {
     type?: string;
