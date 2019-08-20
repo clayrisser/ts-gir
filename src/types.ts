@@ -1,5 +1,11 @@
 export interface Repository {
+  include: Include[];
   namespace: Namespace;
+}
+
+export interface Include {
+  '@_name': string;
+  '@_version': string;
 }
 
 export interface Function {
@@ -26,6 +32,7 @@ export interface Namespace {
   class: Class[];
   function: Function[];
   constant: Constant[];
+  enumeration: Enumeration[];
 }
 
 export interface Class {
@@ -62,6 +69,16 @@ export interface Parameter {
   array?: {
     type?: string;
   };
+}
+
+export interface Enumeration {
+  '@_name': string;
+  member: Member[];
+}
+
+export interface Member {
+  '@_name': string;
+  '@_c:identifier': string;
 }
 
 export type GirType =
