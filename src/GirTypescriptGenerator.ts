@@ -44,10 +44,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
-    let count = 0;
-    $namespaces.forEach(($namespace: Namespace, i: number) => {
+    return this.forEach($namespaces, ($namespace: Namespace, i: number) => {
       const moduleName = $namespace['@_name'];
-      count = this.append(`declare module '${moduleName}' {}`, path);
+      const count = this.append(`declare module '${moduleName}' {}`, path);
       let childCount = this.buildConstantDeclarations(
         oc($namespace).constant([]),
         [position[1] + i, 0],
@@ -68,8 +67,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         [position[1] + i, childCount],
         ''
       );
+      return count;
     });
-    return count;
   }
 
   buildImports(
@@ -78,15 +77,13 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($includes)) $includes = [$includes];
-    let count = 0;
-    $includes.forEach(($include: Include) => {
+    return this.forEach($includes, ($include: Include) => {
       const importName = $include['@_name'];
-      count = this.append(
+      return this.append(
         `import * as ${importName} from '${importName}'`,
         path
       );
     });
-    return count;
   }
 
   buildEnumDeclarations(
@@ -95,20 +92,22 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($enumerations)) $enumerations = [$enumerations];
-    let count = 0;
-    $enumerations.forEach(($enumeration: Enumeration, i: number) => {
-      const enumName = $enumeration['@_name'];
-      count = this.append(`export enum ${enumName} {}`, [
-        path,
-        `${position[0]}.body.body`
-      ]);
-      this.buildEnumDeclarationMembers(
-        oc($enumeration).member([]),
-        [position[1] + i, 0],
-        [path, `${position[0]}.body.body`]
-      );
-    });
-    return count;
+    return this.forEach(
+      $enumerations,
+      ($enumeration: Enumeration, i: number) => {
+        const enumName = $enumeration['@_name'];
+        const count = this.append(`export enum ${enumName} {}`, [
+          path,
+          `${position[0]}.body.body`
+        ]);
+        this.buildEnumDeclarationMembers(
+          oc($enumeration).member([]),
+          [position[1] + i, 0],
+          [path, `${position[0]}.body.body`]
+        );
+        return count;
+      }
+    );
   }
 
   buildEnumDeclarationMembers(
@@ -117,16 +116,14 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($members)) $members = [$members];
-    let count = 0;
-    $members.forEach(($member: Member) => {
+    return this.forEach($members, ($member: Member) => {
       const identifierName = $member['@_c:identifier'];
-      count = this.append(
+      return this.append(
         `enum E {${identifierName}}`,
         [path, `${position[0]}.declaration.members`],
         'members.0'
       );
     });
-    return count;
   }
 
   buildConstantDeclarations(
@@ -135,16 +132,14 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($constants)) $constants = [$constants];
-    let count = 0;
-    $constants.forEach(($constant: Constant) => {
+    return this.forEach($constants, ($constant: Constant) => {
       const constantName = $constant['@_name'];
       const constantType = this.getType($constant);
-      count = this.append(`export const ${constantName}: ${constantType};`, [
+      return this.append(`export const ${constantName}: ${constantType};`, [
         path,
         `${position[0]}.body.body`
       ]);
     });
-    return count;
   }
 
   buildFunctionDeclarations(
@@ -152,21 +147,20 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     position: number[],
     path: string | DeepArray<string>
   ): number {
-    let count = 0;
-    $functions.forEach(($function: Function, i: number) => {
+    return this.forEach($functions, ($function: Function, i: number) => {
       const returnType = this.getType($function['return-value']);
       const functionName = $function['@_name'];
-      count = this.append(`export function ${functionName}(): ${returnType}`, [
-        path,
-        `${position[0]}.body.body`
-      ]);
+      const count = this.append(
+        `export function ${functionName}(): ${returnType}`,
+        [path, `${position[0]}.body.body`]
+      );
       this.buildFunctionDeclarationParams(
         oc($function).parameters.parameter([]),
         [position[1] + i, 0],
         [path, `${position[0]}.body.body`]
       );
+      return count;
     });
-    return count;
   }
 
   buildFunctionDeclarationParams(
@@ -175,23 +169,25 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
-    let count = 0;
-    $parameters.forEach(($parameter: Parameter) => {
-      const paramName = $parameter['@_name'];
-      const paramRequired = $parameter['@_optional'] !== '1';
-      const paramType = this.getType($parameter);
-      if (paramType) {
-        // TODO: some param types not supported
-        count = this.append(
-          `function hello(${paramName}${
-            paramRequired ? '' : '?'
-          }: ${paramType}) {}`,
-          [path, `${position[0]}.declaration.params`],
-          'params.0'
-        );
+    return this.forEach(
+      $parameters,
+      ($parameter: Parameter, _i: number, count: number) => {
+        const paramName = $parameter['@_name'];
+        const paramRequired = $parameter['@_optional'] !== '1';
+        const paramType = this.getType($parameter);
+        if (paramType) {
+          // TODO: some param types not supported
+          return this.append(
+            `function hello(${paramName}${
+              paramRequired ? '' : '?'
+            }: ${paramType}) {}`,
+            [path, `${position[0]}.declaration.params`],
+            'params.0'
+          );
+        }
+        return count;
       }
-    });
-    return count;
+    );
   }
 
   buildClassDeclarations(
@@ -199,12 +195,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     position: number[],
     path: string | DeepArray<string>
   ): number {
-    let count = 0;
-    $classes.forEach(($class: Class, i: number) => {
+    return this.forEach($classes, ($class: Class, i: number) => {
       const className = $class['@_name'];
       this.symbols.add(className);
       const parentClassName = $class['@_parent'];
-      count = this.append(
+      const count = this.append(
         `export class ${className} ${
           parentClassName ? `extends ${parentClassName} ` : ''
         }{}`,
@@ -220,8 +215,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         [position[1] + i, childCount],
         [path, `${position[0]}.body.body`]
       );
+      return count;
     });
-    return count;
   }
 
   buildMethodDeclarations(
@@ -230,11 +225,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string>
   ): number {
     if (!Array.isArray($methods)) $methods = [$methods];
-    let count = 0;
-    $methods.forEach(($method: Method, i: number) => {
+    return this.forEach($methods, ($method: Method, i: number) => {
       const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
-      count = this.append(
+      const count = this.append(
         `class C {${methodName}(): ${returnType}}`,
         [path, `${position[0]}.declaration.body.body`],
         'body.body'
@@ -244,8 +238,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         [position[1] + i, 0],
         [path, `${position[0]}.declaration.body.body`]
       );
+      return count;
     });
-    return count;
   }
 
   buildMethodDeclarationParams(
