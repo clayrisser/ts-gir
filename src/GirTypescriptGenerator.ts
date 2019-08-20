@@ -30,97 +30,76 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   build() {
-    const childCount = this.buildImports(
-      oc(this.repository).include([]),
-      [0, 0],
-      ''
-    );
-    this.buildModules(oc(this.repository).namespace([]), [0, childCount], '');
+    this.buildImports(oc(this.repository).include([]));
+    this.buildModules(oc(this.repository).namespace([]));
   }
 
   buildModules(
     $namespaces: Namespace[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
-    return this.forEach($namespaces, ($namespace: Namespace, i: number) => {
+    $namespaces.forEach(($namespace: Namespace) => {
       const moduleName = $namespace['@_name'];
       const count = this.append(`declare module '${moduleName}' {}`, path);
-      let childCount = this.buildConstantDeclarations(
-        oc($namespace).constant([]),
-        [position[1] + i, 0],
-        ''
-      );
-      childCount = this.buildEnumDeclarations(
-        oc($namespace).enumeration([]),
-        [position[1] + i, childCount],
-        ''
-      );
-      childCount = this.buildClassDeclarations(
-        oc($namespace).class([]),
-        [position[1] + i, childCount],
-        ''
-      );
-      this.buildFunctionDeclarations(
-        oc($namespace).function([]),
-        [position[1] + i, childCount],
-        ''
-      );
-      return count;
+      this.buildConstantDeclarations(oc($namespace).constant([]), [
+        path,
+        `${count - 1}`
+      ]);
+      this.buildEnumDeclarations(oc($namespace).enumeration([]), [
+        path,
+        `${count - 1}`
+      ]);
+      this.buildClassDeclarations(oc($namespace).class([]), [
+        path,
+        `${count - 1}`
+      ]);
+      this.buildFunctionDeclarations(oc($namespace).function([]), [
+        path,
+        `${count - 1}`
+      ]);
     });
   }
 
   buildImports(
     $includes: Include[],
-    _position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($includes)) $includes = [$includes];
-    return this.forEach($includes, ($include: Include) => {
+    $includes.forEach(($include: Include) => {
       const importName = $include['@_name'];
-      return this.append(
-        `import * as ${importName} from '${importName}'`,
-        path
-      );
+      this.append(`import * as ${importName} from '${importName}'`, path);
     });
   }
 
   buildEnumDeclarations(
     $enumerations: Enumeration[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($enumerations)) $enumerations = [$enumerations];
-    return this.forEach(
-      $enumerations,
-      ($enumeration: Enumeration, i: number) => {
-        const enumName = $enumeration['@_name'];
-        const count = this.append(`export enum ${enumName} {}`, [
-          path,
-          `${position[0]}.body.body`
-        ]);
-        this.buildEnumDeclarationMembers(
-          oc($enumeration).member([]),
-          [position[1] + i, 0],
-          [path, `${position[0]}.body.body`]
-        );
-        return count;
-      }
-    );
+    $enumerations.forEach(($enumeration: Enumeration) => {
+      const enumName = $enumeration['@_name'];
+      const count = this.append(`export enum ${enumName} {}`, [
+        path,
+        'body.body'
+      ]);
+      this.buildEnumDeclarationMembers(oc($enumeration).member([]), [
+        path,
+        `body.body.${count - 1}`
+      ]);
+    });
   }
 
   buildEnumDeclarationMembers(
     $members: Member[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($members)) $members = [$members];
-    return this.forEach($members, ($member: Member) => {
+    $members.forEach(($member: Member) => {
       const identifierName = $member['@_c:identifier'];
-      return this.append(
+      this.append(
         `enum E {${identifierName}}`,
-        [path, `${position[0]}.declaration.members`],
+        [path, 'declaration.members'],
         'members.0'
       );
     });
@@ -128,74 +107,64 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
 
   buildConstantDeclarations(
     $constants: Constant[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($constants)) $constants = [$constants];
-    return this.forEach($constants, ($constant: Constant) => {
+    $constants.forEach(($constant: Constant) => {
       const constantName = $constant['@_name'];
       const constantType = this.getType($constant);
-      return this.append(`export const ${constantName}: ${constantType};`, [
+      this.append(`export const ${constantName}: ${constantType};`, [
         path,
-        `${position[0]}.body.body`
+        'body.body'
       ]);
     });
   }
 
   buildFunctionDeclarations(
     $functions: Function[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
-    return this.forEach($functions, ($function: Function, i: number) => {
+    path: string | DeepArray<string> = ''
+  ): void {
+    $functions.forEach(($function: Function) => {
       const returnType = this.getType($function['return-value']);
       const functionName = $function['@_name'];
       const count = this.append(
         `export function ${functionName}(): ${returnType}`,
-        [path, `${position[0]}.body.body`]
+        [path, 'body.body']
       );
       this.buildFunctionDeclarationParams(
         oc($function).parameters.parameter([]),
-        [position[1] + i, 0],
-        [path, `${position[0]}.body.body`]
+        [path, `body.body.${count - 1}`]
       );
-      return count;
     });
   }
 
   buildFunctionDeclarationParams(
     $parameters: Parameter[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
-    return this.forEach(
-      $parameters,
-      ($parameter: Parameter, _i: number, count: number) => {
-        const paramName = $parameter['@_name'];
-        const paramRequired = $parameter['@_optional'] !== '1';
-        const paramType = this.getType($parameter);
-        if (paramType) {
-          // TODO: some param types not supported
-          return this.append(
-            `function hello(${paramName}${
-              paramRequired ? '' : '?'
-            }: ${paramType}) {}`,
-            [path, `${position[0]}.declaration.params`],
-            'params.0'
-          );
-        }
-        return count;
+    $parameters.forEach(($parameter: Parameter) => {
+      const paramName = $parameter['@_name'];
+      const paramRequired = $parameter['@_optional'] !== '1';
+      const paramType = this.getType($parameter);
+      if (paramType) {
+        // TODO: some param types not supported
+        this.append(
+          `function hello(${paramName}${
+            paramRequired ? '' : '?'
+          }: ${paramType}) {}`,
+          [path, 'declaration.params'],
+          'params.0'
+        );
       }
-    );
+    });
   }
 
   buildClassDeclarations(
     $classes: Class[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
-    return this.forEach($classes, ($class: Class, i: number) => {
+    path: string | DeepArray<string> = ''
+  ): void {
+    return $classes.forEach(($class: Class) => {
       const className = $class['@_name'];
       this.symbols.add(className);
       const parentClassName = $class['@_parent'];
@@ -203,74 +172,64 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         `export class ${className} ${
           parentClassName ? `extends ${parentClassName} ` : ''
         }{}`,
-        [path, `${position[0]}.body.body`]
+        [path, 'body.body']
       );
-      const childCount = this.buildPropertyDeclarations(
-        oc($class).property([]),
-        [position[1] + i, 0],
-        [path, `${position[0]}.body.body`]
-      );
-      this.buildMethodDeclarations(
-        oc($class).method([]),
-        [position[1] + i, childCount],
-        [path, `${position[0]}.body.body`]
-      );
-      return count;
+      this.buildPropertyDeclarations(oc($class).property([]), [
+        path,
+        `body.body.${count - 1}`
+      ]);
+      this.buildMethodDeclarations(oc($class).method([]), [
+        path,
+        `body.body.${count - 1}`
+      ]);
     });
   }
 
   buildMethodDeclarations(
     $methods: Method[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
-    return this.forEach($methods, ($method: Method, i: number) => {
+    $methods.forEach(($method: Method) => {
       const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
       const count = this.append(
         `class C {${methodName}(): ${returnType}}`,
-        [path, `${position[0]}.declaration.body.body`],
+        [path, 'declaration.body.body'],
         'body.body'
       );
-      this.buildMethodDeclarationParams(
-        oc($method).parameters.parameter([]),
-        [position[1] + i, 0],
-        [path, `${position[0]}.declaration.body.body`]
-      );
-      return count;
+      this.buildMethodDeclarationParams(oc($method).parameters.parameter([]), [
+        path,
+        `declaration.body.body.${count - 1}`
+      ]);
     });
   }
 
   buildMethodDeclarationParams(
     $parameters: Parameter[],
-    position: number[],
-    path: string | DeepArray<string>
-  ): number {
+    path: string | DeepArray<string> = ''
+  ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
-    let count = 0;
     $parameters.forEach(($parameter: Parameter) => {
       const paramName = $parameter['@_name'];
       const paramRequired = $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter);
       if (paramType) {
         // TODO: some param types not supported
-        count = this.append(
+        this.append(
           `function hello(${paramName}${
             paramRequired ? '' : '?'
           }: ${paramType}) {}`,
-          [path, `${position[0]}.params`],
+          [path, 'params'],
           'params.0'
         );
       }
     });
-    return count;
   }
 
   buildPropertyDeclarations(
     $properties: Property[],
-    position: number[],
-    path: string | DeepArray<string>
+    path: string | DeepArray<string> = ''
   ): number {
     if (!Array.isArray($properties)) $properties = [$properties];
     let count = 0;
@@ -279,7 +238,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const propertyType = this.getType($property);
       count = this.append(
         `class C {'${propertyName}': ${propertyType}}`,
-        [path, `${position[0]}.declaration.body.body`],
+        [path, 'declaration.body.body'],
         'body.body.0'
       );
     });
