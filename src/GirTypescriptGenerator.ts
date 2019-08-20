@@ -39,7 +39,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   buildModules(
-    $namespaces: Namespace,
+    $namespaces: Namespace[],
     position: number[],
     path: string | DeepArray<string>
   ): number {

@@ -1,6 +1,6 @@
 export interface Repository {
   include: Include[];
-  namespace: Namespace;
+  namespace: Namespace[];
 }
 
 export interface Include {
