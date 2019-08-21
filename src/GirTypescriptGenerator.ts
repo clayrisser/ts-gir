@@ -251,16 +251,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     });
   }
 
-  getClassIdentifiers($class?: Class): Set<string> {
-    let $namespaces = this.repository.namespace;
-    if (!Array.isArray($namespaces)) {
-      $namespaces = [($namespaces as unknown) as Namespace];
-    }
-    if (!$namespaces.length || !$class) return new Set();
-    const $namespace = $namespaces[0];
+  getClassIdentifiers($class?: Class, $namespace?: Namespace): Set<string> {
+    if (!$class || !$namespace) return new Set();
     const $parentClass = _.find(
       $namespace.class,
-      $class => $class['@_name'] === $class['@_parent']
+      $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
     );
     let $properties = oc($class).property([]);
     if (!Array.isArray($properties)) {
@@ -269,24 +264,25 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     let $methods = oc($class).method([]);
     if (!Array.isArray($methods)) $methods = [($methods as unknown) as Method];
     return new Set([
-      ...($parentClass ? this.getParentClassIdentifiers($parentClass) : []),
+      ...($parentClass
+        ? this.getClassIdentifiers($parentClass, $namespace)
+        : []),
       ...$methods.map(($method: Method) => $method['@_name']),
       ...$properties.map(($property: Property) => $property['@_name'])
     ]);
   }
 
-  getParentClassIdentifiers($class?: Class): Set<string> {
-    let $namespaces = this.repository.namespace;
-    if (!Array.isArray($namespaces)) {
-      $namespaces = [($namespaces as unknown) as Namespace];
-    }
-    if (!$namespaces.length || !$class) return new Set();
-    const $namespace = $namespaces[0];
+  getParentClassIdentifiers(
+    $class?: Class,
+    $namespace?: Namespace
+  ): Set<string> {
+    if (!$class || !$namespace) return new Set();
     const $parentClass = _.find(
       $namespace.class,
-      $class => $class['@_name'] === $class['@_parent']
+      $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
     );
-    return this.getClassIdentifiers($parentClass);
+    if (!$parentClass) return new Set();
+    return this.getClassIdentifiers($parentClass, $namespace);
   }
 
   buildMethodDeclarations(
@@ -296,10 +292,12 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     $namespace?: Namespace
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
-    const classIdentifiers = this.getParentClassIdentifiers($class);
+    const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
     $methods.forEach(($method: Method) => {
       const methodName = $method['@_name'];
-      if (!classIdentifiers.has(methodName)) {
+      if (classIdentifiers.has(methodName)) {
+        this.logger.warn(`duplicate method '${methodName}' ignored`);
+      } else {
         const returnType = this.getType($method['return-value'], $namespace);
         const count = this.append(
           `class C {${methodName}(): ${returnType}}`,
@@ -346,10 +344,12 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     $namespace?: Namespace
   ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
-    const classIdentifiers = this.getParentClassIdentifiers($class);
+    const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
     $properties.forEach(($property: Property) => {
       const propertyName = $property['@_name'];
-      if (!classIdentifiers.has(propertyName)) {
+      if (classIdentifiers.has(propertyName)) {
+        this.logger.warn(`duplicate property '${propertyName}' ignored`);
+      } else {
         const propertyType = this.getType($property, $namespace);
         this.append(
           `class C {'${propertyName}': ${propertyType}}`,

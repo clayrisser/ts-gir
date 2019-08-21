@@ -14,12 +14,25 @@ export default class TSGir extends Command {
 
   static args = [{ name: 'GIR_FILE', required: true }];
 
+  warnings: Set<string> = new Set();
+
   async run() {
     const { args, flags } = this.parse(TSGir);
     const girFile = args.GIR_FILE;
     const gir = new Gir();
     await gir.loadFile(girFile);
-    const code = gir.generateTypescript({ info: this.log, warn: this.warn });
+    const code = gir.generateTypescript({
+      info: this.log,
+      warn: this.handleWarn.bind(this)
+    });
     if (!flags.silent) this.log(code);
+  }
+
+  handleWarn(input: string | Error): void {
+    if (typeof input === 'string') {
+      if (this.warnings.has(input)) return;
+      this.warnings.add(input);
+    }
+    return this.warn(input);
   }
 }
