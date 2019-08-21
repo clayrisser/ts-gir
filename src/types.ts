@@ -1,3 +1,7 @@
+export interface ModulesTypes {
+  [key: string]: Set<string>;
+}
+
 export interface Repository {
   include: Include[];
   namespace: Namespace[];
