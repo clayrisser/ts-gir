@@ -9,6 +9,7 @@ import {
   Enumeration,
   Function,
   GirType,
+  Interface,
   Logger,
   Member,
   Method,
@@ -90,6 +91,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         path,
         `${count - 1}`
       ]);
+      this.buildInterfaceDeclarations(
+        oc($namespace).interface([]),
+        [path, `${count - 1}`],
+        $namespace
+      );
       this.buildClassDeclarations(
         oc($namespace).class([]),
         [path, `${count - 1}`],
@@ -210,6 +216,32 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
           'params.0'
         );
       }
+    });
+  }
+
+  buildInterfaceDeclarations(
+    $interfaces: Interface[],
+    path: string | DeepArray<string> = '',
+    $namespace?: Namespace
+  ): void {
+    return $interfaces.forEach(($interface: Interface) => {
+      const interfaceName = $interface['@_name'];
+      const count = this.append(`export interface ${interfaceName} {}`, [
+        path,
+        'body.body'
+      ]);
+      this.buildPropertyDeclarations(
+        oc($interface).property([]),
+        [path, `body.body.${count - 1}`],
+        $interface,
+        $namespace
+      );
+      this.buildMethodDeclarations(
+        oc($interface).method([]),
+        [path, `body.body.${count - 1}`],
+        $interface,
+        $namespace
+      );
     });
   }
 
@@ -363,7 +395,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   getType(
     girType: GirType,
     $namespace?: Namespace,
-    isArray = false
+    isArray?: boolean,
+    nullable?: boolean
   ): string | null {
     // TODO: some param types not supported
     let girTypeStr: string = '';
@@ -373,14 +406,22 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         girTypeStr = oc(girType)
           .array.type['@_name']()
           .toString();
+        nullable =
+          oc(girType)['@_nullable']() === '1' &&
+          oc(girType)['@_optional']() !== '1';
       } else if (girType.type) {
         girTypeStr = oc(girType)
           .type['@_name']()
           .toString();
+        nullable =
+          oc(girType)['@_nullable']() === '1' &&
+          oc(girType)['@_optional']() !== '1';
       } else {
         return null;
       }
     }
+    if (typeof isArray === 'undefined' || isArray === null) isArray = false;
+    if (typeof nullable === 'undefined' || nullable === null) nullable = false;
     girTypeStr = girTypeStr.split(' ').pop() || '';
     if (!girTypeStr) return 'any';
     let array = '';
@@ -437,6 +478,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         tsType = `any${array}`;
       }
     }
+    if (nullable) tsType = `${tsType} | null`;
     return tsType;
   }
 }

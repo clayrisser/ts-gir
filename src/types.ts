@@ -12,6 +12,13 @@ export interface Include {
   '@_version': string;
 }
 
+export interface Interface {
+  '@_name': string;
+  '@_parent': string;
+  method: Method[];
+  property: Property[];
+}
+
 export interface Logger {
   info(message?: string, ...args: any[]): void;
   warn(input: string | Error): void;
@@ -39,9 +46,10 @@ export interface Constant {
 export interface Namespace {
   '@_name': string;
   class: Class[];
-  function: Function[];
   constant: Constant[];
   enumeration: Enumeration[];
+  function: Function[];
+  interface: Interface[];
 }
 
 export interface Class {
