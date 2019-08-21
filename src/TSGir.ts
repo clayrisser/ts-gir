@@ -33,6 +33,6 @@ export default class TSGir extends Command {
       if (this.warnings.has(input)) return;
       this.warnings.add(input);
     }
-    return this.warn(input);
+    this.warn(input);
   }
 }
