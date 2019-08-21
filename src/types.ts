@@ -8,6 +8,11 @@ export interface Include {
   '@_version': string;
 }
 
+export interface Logger {
+  info(message?: string, ...args: any[]): void;
+  warn(input: string | Error): void;
+}
+
 export interface Function {
   '@_name': string;
   parameters?: { parameter: Parameter[] };
@@ -37,7 +42,7 @@ export interface Namespace {
 
 export interface Class {
   '@_name': string;
-  '@_parent': Class;
+  '@_parent': string;
   method: Method[];
   property: Property[];
 }

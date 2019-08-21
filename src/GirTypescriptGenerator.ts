@@ -1,4 +1,5 @@
 import BabelParserGenerator from 'babel-parser-generator';
+import _ from 'lodash';
 import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
 import {
@@ -9,6 +10,7 @@ import {
   Function,
   GirType,
   Include,
+  Logger,
   Member,
   Method,
   Namespace,
@@ -25,7 +27,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
 
   symbols: Set<string> = new Set();
 
-  constructor(public repository: Repository) {
+  constructor(public repository: Repository, public logger: Logger) {
     super();
   }
 
@@ -126,7 +128,13 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   ): void {
     $functions.forEach(($function: Function) => {
       const returnType = this.getType($function['return-value']);
-      const functionName = $function['@_name'];
+      let functionName = $function['@_name'];
+      if (this.isReservedKeyword(functionName)) {
+        functionName = `g_${functionName}`;
+        this.logger.warn(
+          `'${$function['@_name']}' renamed to '${functionName}'`
+        );
+      }
       const count = this.append(
         `export function ${functionName}(): ${returnType}`,
         [path, 'body.body']
@@ -143,9 +151,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
+    let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
-      const paramName = $parameter['@_name'];
-      const paramRequired = $parameter['@_optional'] !== '1';
+      const paramName = this.safeWord($parameter['@_name']);
+      paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter);
       if (paramType) {
         // TODO: some param types not supported
@@ -174,34 +183,64 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         }{}`,
         [path, 'body.body']
       );
-      this.buildPropertyDeclarations(oc($class).property([]), [
-        path,
-        `body.body.${count - 1}`
-      ]);
-      this.buildMethodDeclarations(oc($class).method([]), [
-        path,
-        `body.body.${count - 1}`
-      ]);
+      this.buildPropertyDeclarations(
+        oc($class).property([]),
+        [path, `body.body.${count - 1}`],
+        $class
+      );
+      this.buildMethodDeclarations(
+        oc($class).method([]),
+        [path, `body.body.${count - 1}`],
+        $class
+      );
     });
+  }
+
+  getClassIdentifiers($class?: Class): Set<string> {
+    let $namespaces = this.repository.namespace;
+    if (!Array.isArray($namespaces)) {
+      $namespaces = [($namespaces as unknown) as Namespace];
+    }
+    if (!$namespaces.length || !$class) return new Set();
+    const $namespace = $namespaces[0];
+    const $parentClass = _.find(
+      $namespace.class,
+      $class => $class['@_name'] === $class['@_parent']
+    );
+    let $properties = oc($class).property([]);
+    if (!Array.isArray($properties)) {
+      $properties = [($properties as unknown) as Property];
+    }
+    let $methods = oc($class).method([]);
+    if (!Array.isArray($methods)) $methods = [($methods as unknown) as Method];
+    return new Set([
+      ...($parentClass ? this.getClassIdentifiers($parentClass) : []),
+      ...$methods.map(($method: Method) => $method['@_name']),
+      ...$properties.map(($property: Property) => $property['@_name'])
+    ]);
   }
 
   buildMethodDeclarations(
     $methods: Method[],
-    path: string | DeepArray<string> = ''
+    path: string | DeepArray<string> = '',
+    $class?: Class
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
+    const classIdentifiers = this.getClassIdentifiers($class);
     $methods.forEach(($method: Method) => {
-      const returnType = this.getType($method['return-value']);
       const methodName = $method['@_name'];
-      const count = this.append(
-        `class C {${methodName}(): ${returnType}}`,
-        [path, 'declaration.body.body'],
-        'body.body'
-      );
-      this.buildMethodDeclarationParams(oc($method).parameters.parameter([]), [
-        path,
-        `declaration.body.body.${count - 1}`
-      ]);
+      if (!classIdentifiers.has(methodName)) {
+        const returnType = this.getType($method['return-value']);
+        const count = this.append(
+          `class C {${methodName}(): ${returnType}}`,
+          [path, 'declaration.body.body'],
+          'body.body'
+        );
+        this.buildMethodDeclarationParams(
+          oc($method).parameters.parameter([]),
+          [path, `declaration.body.body.${count - 1}`]
+        );
+      }
     });
   }
 
@@ -210,9 +249,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
+    let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
-      const paramName = $parameter['@_name'];
-      const paramRequired = $parameter['@_optional'] !== '1';
+      const paramName = this.safeWord($parameter['@_name']);
+      paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter);
       if (paramType) {
         // TODO: some param types not supported
@@ -229,20 +269,22 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
 
   buildPropertyDeclarations(
     $properties: Property[],
-    path: string | DeepArray<string> = ''
-  ): number {
+    path: string | DeepArray<string> = '',
+    $class?: Class
+  ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
-    let count = 0;
+    const classIdentifiers = this.getClassIdentifiers($class);
     $properties.forEach(($property: Property) => {
       const propertyName = $property['@_name'];
-      const propertyType = this.getType($property);
-      count = this.append(
-        `class C {'${propertyName}': ${propertyType}}`,
-        [path, 'declaration.body.body'],
-        'body.body.0'
-      );
+      if (!classIdentifiers.has(propertyName)) {
+        const propertyType = this.getType($property);
+        this.append(
+          `class C {'${propertyName}': ${propertyType}}`,
+          [path, 'declaration.body.body'],
+          'body.body.0'
+        );
+      }
     });
-    return count;
   }
 
   getType(girType: GirType, isArray = false): string | null {
