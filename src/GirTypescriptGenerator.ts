@@ -9,6 +9,7 @@ import {
   Constant,
   DeepArray,
   Enumeration,
+  Field,
   Function,
   GirType,
   Interface,
@@ -176,12 +177,16 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
     $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
       const typeName = $aliasOrUnion['@_name'];
-      let types: Field[] | Alias[] = $aliasOrUnion;
-      if ($aliasOrUnion.field) {
-        types = $aliasOrUnion.field as Field[];
+      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as (
+        | Field[]
+        | Alias[]);
+      if (($aliasOrUnion as Union).field) {
+        types = ($aliasOrUnion as Union).field as Field[];
       }
       if (!Array.isArray(types)) types = [types];
-      const typeString = _.uniq(types.map(t => this.getType(t))).join(' | ');
+      const typeString = _.uniq(
+        (types as GirType[]).map(t => this.getType(t))
+      ).join(' | ');
       this.append(`export type ${typeName} = ${typeString}`, [
         path,
         this.isModule ? 'body.body' : ''
