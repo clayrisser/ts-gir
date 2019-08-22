@@ -18,12 +18,12 @@ export default class Gir {
     }).repository;
   }
 
-  generateTypescript(logger: Logger, isModule = false): string {
+  generateTypescript(logger: Logger, moduleName = ''): string {
     if (!this.repository) throw new Err('xml not loaded');
     const girGenerator = new GirTypescriptGenerator(
       this.repository,
       logger,
-      isModule
+      moduleName
     );
     girGenerator.build();
     return girGenerator.generate();

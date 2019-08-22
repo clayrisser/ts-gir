@@ -1,3 +1,5 @@
+import fs from 'fs-extra';
+import path from 'path';
 import { Command, flags } from '@oclif/command';
 import Gir from './Gir';
 
@@ -6,7 +8,7 @@ export default class TSGir extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    module: flags.boolean({ char: 'm' }),
+    module: flags.string({ char: 'm' }),
     output: flags.string({ char: 'o' }),
     silent: flags.boolean({ char: 's' }),
     verbose: flags.boolean(),
@@ -29,7 +31,9 @@ export default class TSGir extends Command {
       },
       flags.module
     );
-    if (!flags.silent) this.log(code);
+    if (flags.output) {
+      await fs.writeFile(path.resolve(process.cwd(), flags.output), code);
+    } else if (!flags.silent) this.log(code);
   }
 
   handleWarn(input: string | Error): void {

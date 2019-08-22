@@ -34,6 +34,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     sourceType: 'module'
   };
 
+  isModule = false;
+
   modulesTypes: ModulesTypes = {};
 
   imports: Set<string> = new Set();
@@ -41,9 +43,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   constructor(
     public repository: Repository,
     public logger: Logger,
-    public isModule = false
+    public moduleName = ''
   ) {
     super();
+    this.isModule = !!moduleName.length;
   }
 
   build() {
@@ -179,7 +182,12 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string> = ''
   ): void {
     imports.forEach((importName: string) => {
-      const importPath = `gnome-${_.kebabCase(importName)}`;
+      let importPath = `./${_.kebabCase(importName)}`;
+      if (this.isModule) {
+        importPath = `${
+          this.moduleName ? `${this.moduleName}-` : ''
+        }${_.kebabCase(importName)}`;
+      }
       this.prepend(`import * as ${importName} from '${importPath}'`, path);
       this.logger.warn(`importing '${importName}' from '${importPath}'`);
     });
@@ -324,7 +332,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
       let paramName = this.safeWord($parameter['@_name']);
-      if (paramName === '...') paramName = '...args';
+      if (paramName === 'arguments' || paramName === 'eval') {
+        paramName = `_${paramName}`;
+      } else if (paramName === '...') paramName = '...args';
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
       if (paramType) {
@@ -482,6 +492,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
             $class ? ` in class '${$class['@_name']}'` : ''
           }`
         );
+      } else if (!methodName.length) {
+        this.logger.warn(
+          `empty method name${$class ? ` in class '${$class['@_name']}'` : ''}`
+        );
+        return true;
       }
       if (classIdentifiers.has(methodName)) {
         this.logger.warn(
@@ -504,6 +519,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
           $namespace
         );
       }
+      return true;
     });
   }
 
@@ -539,7 +555,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
-      const paramName = this.safeWord($parameter['@_name']);
+      let paramName = this.safeWord($parameter['@_name']);
+      if (paramName === 'arguments' || paramName === 'eval') {
+        paramName = `_${paramName}`;
+      } else if (paramName === '...') paramName = '...args';
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
       if (paramType && paramName !== '...') {
@@ -619,7 +638,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         const girTypescriptGenerator = new GirTypescriptGenerator(
           this.repository,
           this.logger,
-          this.isModule
+          this.moduleName
         );
         girTypescriptGenerator.append(
           `type T = () => ${returnType}`,
