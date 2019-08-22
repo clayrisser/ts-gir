@@ -5,6 +5,7 @@ import { oc } from 'ts-optchain.macro';
 import {
   Alias,
   Bitfield,
+  Callback,
   Class,
   Constant,
   DeepArray,
@@ -12,6 +13,7 @@ import {
   Field,
   Function,
   GirType,
+  GirTypeStrict,
   Interface,
   Logger,
   Member,
@@ -78,6 +80,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       if (!Array.isArray($functions)) {
         $functions = [($functions as unknown) as Function];
       }
+      let $callbacks = oc($namespace).callback([]);
+      if (!Array.isArray($callbacks)) {
+        $callbacks = [($callbacks as unknown) as Callback];
+      }
       $constants.forEach(($constant: Constant) => {
         this.modulesTypes[$namespace['@_name']].add($constant['@_name']);
       });
@@ -101,6 +107,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       });
       $functions.forEach(($function: Function) => {
         this.modulesTypes[$namespace['@_name']].add($function['@_name']);
+      });
+      $callbacks.forEach(($callback: Callback) => {
+        this.modulesTypes[$namespace['@_name']].add($callback['@_name']);
       });
     });
   }
@@ -153,6 +162,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       );
       this.buildFunctionDeclarations(
         oc($namespace).function([]),
+        [path, this.isModule ? `${count - 1}` : ''],
+        $namespace
+      );
+      this.buildCallbackDeclarations(
+        oc($namespace).callback([]),
         [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
@@ -255,22 +269,52 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       if (this.isReservedKeyword(functionName)) {
         functionName = `g_${functionName}`;
         this.logger.warn(
-          `'${$function['@_name']}' renamed to '${functionName}'`
+          `function '${$function['@_name']}' renamed to '${functionName}'`
         );
       }
       const count = this.append(
         `export function ${functionName}(): ${returnType}`,
         [path, this.isModule ? 'body.body' : '']
       );
-      this.buildFunctionDeclarationParams(
+      this.buildFunctionParams(
         oc($function).parameters.parameter([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [
+          path,
+          this.isModule ? 'body.body' : '',
+          (count - 1).toString(),
+          'declaration.params'
+        ],
         $namespace
       );
     });
   }
 
-  buildFunctionDeclarationParams(
+  buildCallbackDeclarations(
+    $callbacks: Callback[],
+    path: string | DeepArray<string> = '',
+    $namespace?: Namespace
+  ): void {
+    $callbacks.forEach(($callback: Callback) => {
+      const returnType = this.getType($callback['return-value'], $namespace);
+      const callbackName = $callback['@_name'];
+      const count = this.append(
+        `export type ${callbackName} = () => ${returnType}`,
+        [path, this.isModule ? 'body.body' : '']
+      );
+      this.buildFunctionParams(
+        oc($callback).parameters.parameter([]),
+        [
+          path,
+          this.isModule ? 'body.body' : '',
+          (count - 1).toString(),
+          'declaration.typeAnnotation.parameters'
+        ],
+        $namespace
+      );
+    });
+  }
+
+  buildFunctionParams(
     $parameters: Parameter[],
     path: string | DeepArray<string> = '',
     $namespace?: Namespace
@@ -287,7 +331,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
           `function f(${paramName}${
             paramRequired ? '' : '?'
           }: ${paramType}) {}`,
-          [path, 'declaration.params'],
+          path,
           'params.0'
         );
       }
@@ -408,9 +452,21 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($methods)) $methods = [$methods];
     const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
     $methods.forEach(($method: Method) => {
-      const methodName = $method['@_name'];
+      let methodName = $method['@_name'];
+      if (this.isReservedKeyword(methodName) || methodName === 'constructor') {
+        methodName = `g_${methodName}`;
+        this.logger.warn(
+          `method '${$method['@_name']}' renamed to '${methodName}'${
+            $class ? ` in class '${$class['@_name']}'` : ''
+          }`
+        );
+      }
       if (classIdentifiers.has(methodName)) {
-        this.logger.warn(`duplicate method '${methodName}' ignored`);
+        this.logger.warn(
+          `duplicate method '${methodName}' ignored${
+            $class ? ` in class '${$class['@_name']}'` : ''
+          }`
+        );
       } else {
         const returnType = this.getType($method['return-value'], $namespace);
         const count = this.append(
@@ -467,7 +523,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       ) {
         propertyName = `g_${propertyName}`;
         this.logger.warn(
-          `property '${$property['@_name']}' renamed to '${propertyName}'`
+          `property '${$property['@_name']}' renamed to '${propertyName}'${
+            $class ? ` in class '${$class['@_name']}'` : ''
+          }`
         );
       }
       if (classIdentifiers.has(propertyName)) {
@@ -491,36 +549,68 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     isArray?: boolean,
     nullable?: boolean
   ): string | null {
+    const girTypeStrict = girType as GirTypeStrict;
     // TODO: some param types not supported
     let girTypeStr: string = '';
-    let unknownType = false;
-    if (typeof girType !== 'string') {
-      if (girType.array) {
+    let knownType = null;
+    if (typeof girTypeStrict !== 'string') {
+      if (girTypeStrict.array) {
         isArray = true;
-        girTypeStr = oc(girType)
-          .array.type['@_name']()
+        girTypeStr = oc(girTypeStrict)
+          .array.type['@_name']('')
           .toString();
         nullable =
-          oc(girType)['@_nullable']() === '1' &&
-          oc(girType)['@_optional']() !== '1';
-      } else if (girType.type) {
-        girTypeStr = oc(girType)
-          .type['@_name']()
+          oc(girTypeStrict)['@_nullable']() === '1' &&
+          oc(girTypeStrict)['@_optional']() !== '1';
+      } else if (girTypeStrict.callback) {
+        const returnType = this.getType(
+          girTypeStrict.callback['return-value'],
+          $namespace
+        );
+        const girTypescriptGenerator = new GirTypescriptGenerator(
+          this.repository,
+          this.logger,
+          this.isModule
+        );
+        girTypescriptGenerator.append(
+          `type T = () => ${returnType}`,
+          '',
+          'typeAnnotation'
+        );
+        if ($namespace) {
+          girTypescriptGenerator.repository.namespace = [$namespace];
+        }
+        girTypescriptGenerator.modulesTypes = this.modulesTypes;
+        girTypescriptGenerator.buildFunctionParams(
+          oc(girTypeStrict).callback.parameters.parameter([]),
+          ['0', 'parameters'],
+          $namespace
+        );
+        knownType = girTypescriptGenerator.generate();
+      } else if (girTypeStrict.type) {
+        girTypeStr = oc(girTypeStrict)
+          .type['@_name']('')
           .toString();
         nullable =
-          oc(girType)['@_nullable']() === '1' &&
-          oc(girType)['@_optional']() !== '1';
+          oc(girTypeStrict)['@_nullable']() === '1' &&
+          oc(girTypeStrict)['@_optional']() !== '1';
       } else {
-        unknownType = true;
+        knownType = 'any';
       }
     }
     if (typeof isArray === 'undefined' || isArray === null) isArray = false;
     if (typeof nullable === 'undefined' || nullable === null) nullable = false;
     girTypeStr = girTypeStr.split(' ').pop() || '';
-    if (!girTypeStr) return 'any';
+    if (!girTypeStr && !knownType) knownType = 'any';
     let array = '';
     if (isArray) array = '[]';
-    if (unknownType) return `any${array}`;
+    if (knownType) {
+      if (knownType.indexOf(' ') && array.length) {
+        knownType = `(${knownType})`;
+      }
+      knownType = `${knownType}${array}`;
+      return knownType;
+    }
     let tsType: string = ({
       '': `any${array}`,
       double: `number${array}`,

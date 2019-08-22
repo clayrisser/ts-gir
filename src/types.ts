@@ -2,6 +2,25 @@ export interface ModulesTypes {
   [key: string]: Set<string>;
 }
 
+export interface Type {
+  '@_name': string;
+}
+
+export interface Callback {
+  '@_name': string;
+  parameters?: { parameter: Parameter[] };
+  'return-value': ReturnValue;
+}
+
+export interface ReturnValue {
+  type?: Type;
+  callback?: Callback;
+  array?: {
+    type?: Type;
+    callback?: Callback;
+  };
+}
+
 export interface Repository {
   include: Include[];
   namespace: Namespace[];
@@ -45,19 +64,16 @@ export interface Logger {
 export interface Function {
   '@_name': string;
   parameters?: { parameter: Parameter[] };
-  'return-value': {
-    type?: string;
-    array?: {
-      type?: string;
-    };
-  };
+  'return-value': ReturnValue;
 }
 
 export interface Constant {
   '@_name': string;
-  type?: string;
+  type?: Type;
+  callback?: Callback;
   array?: {
-    type?: string;
+    type?: Type;
+    callback?: Callback;
   };
 }
 
@@ -65,6 +81,7 @@ export interface Namespace {
   '@_name': string;
   alias: Alias[];
   bitfield: Bitfield[];
+  callback: Callback[];
   class: Class[];
   constant: Constant[];
   enumeration: Enumeration[];
@@ -85,38 +102,39 @@ export interface Class {
 export interface Property {
   '@_name': string;
   '@_optional': string;
-  type?: string;
+  type?: Type;
+  callback?: Callback;
   array?: {
-    type?: string;
+    type?: Type;
+    callback?: Callback;
   };
 }
 
 export interface Field {
   '@_name': string;
   '@_optional': string;
-  type?: string;
+  type?: Type;
+  callback?: Callback;
   array?: {
-    type?: string;
+    type?: Type;
+    callback?: Callback;
   };
 }
 
 export interface Method {
   '@_name': string;
   parameters?: { parameter: Parameter[] };
-  'return-value': {
-    type?: string;
-    array?: {
-      type?: string;
-    };
-  };
+  'return-value': ReturnValue;
 }
 
 export interface Parameter {
   '@_name': string;
   '@_optional': string;
-  type?: string;
+  type?: Type;
+  callback?: Callback;
   array?: {
-    type?: string;
+    type?: Type;
+    callback?: Callback;
   };
 }
 
@@ -136,9 +154,25 @@ export interface Member {
 }
 
 export type GirType =
-  | {
-      [key: string]: any;
-    }
+  | Parameter
+  | Callback
+  | Method
+  | Function
+  | Constant
+  | Field
+  | Property
+  | ReturnValue
   | string;
+
+export interface GirTypeStrict {
+  '@_nullable': string;
+  '@_optional': string;
+  callback: Callback;
+  type: Type;
+  array: {
+    type: Type;
+    callback: Callback;
+  };
+}
 
 export interface DeepArray<T> extends Array<T | DeepArray<T>> {}
