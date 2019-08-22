@@ -20,7 +20,8 @@ import {
   Parameter,
   Property,
   Record,
-  Repository
+  Repository,
+  Union
 } from './types';
 
 export default class GirTypescriptGenerator extends BabelParserGenerator {
@@ -62,6 +63,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       }
       let $aliases = oc($namespace).alias([]);
       if (!Array.isArray($aliases)) $aliases = [($aliases as unknown) as Alias];
+      let $unions = oc($namespace).union([]);
+      if (!Array.isArray($unions)) $unions = [$unions];
       let $classes = oc($namespace).class([]);
       if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
       let $records = oc($namespace).record([]);
@@ -79,6 +82,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       });
       $aliases.forEach(($alias: Alias) => {
         this.modulesTypes[$namespace['@_name']].add($alias['@_name']);
+      });
+      $unions.forEach(($union: Union) => {
+        this.modulesTypes[$namespace['@_name']].add($union['@_name']);
       });
       $enumerations.forEach(($enumeration: Enumeration) => {
         this.modulesTypes[$namespace['@_name']].add($enumeration['@_name']);
@@ -125,6 +131,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         path,
         this.isModule ? `${count - 1}` : ''
       ]);
+      this.buildTypeDeclarations(oc($namespace).union([]), [
+        path,
+        this.isModule ? `${count - 1}` : ''
+      ]);
       this.buildInterfaceDeclarations(
         oc($namespace).interface([]),
         [path, this.isModule ? `${count - 1}` : ''],
@@ -160,14 +170,19 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   buildTypeDeclarations(
-    $aliases: Alias[],
+    $aliasesOrUnions: Alias[] | Union[],
     path: string | DeepArray<string> = ''
   ): void {
-    if (!Array.isArray($aliases)) $aliases = [$aliases];
-    $aliases.forEach(($alias: Alias) => {
-      const typeName = $alias['@_name'];
-      const typeType = this.getType($alias);
-      this.append(`export type ${typeName} = ${typeType}`, [
+    if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
+    $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
+      const typeName = $aliasOrUnion['@_name'];
+      let types: Field[] | Alias[] = $aliasOrUnion;
+      if ($aliasOrUnion.field) {
+        types = $aliasOrUnion.field as Field[];
+      }
+      if (!Array.isArray(types)) types = [types];
+      const typeString = _.uniq(types.map(t => this.getType(t))).join(' | ');
+      this.append(`export type ${typeName} = ${typeString}`, [
         path,
         this.isModule ? 'body.body' : ''
       ]);
@@ -261,10 +276,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const paramName = this.safeWord($parameter['@_name']);
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
-      if (paramType) {
+      if (paramType && paramName !== '...') {
         // TODO: some param types not supported
         this.append(
-          `function hello(${paramName}${
+          `function f(${paramName}${
             paramRequired ? '' : '?'
           }: ${paramType}) {}`,
           [path, 'declaration.params'],
@@ -418,10 +433,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const paramName = this.safeWord($parameter['@_name']);
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
-      if (paramType) {
+      if (paramType && paramName !== '...') {
         // TODO: some param types not supported
         this.append(
-          `function hello(${paramName}${
+          `function f(${paramName}${
             paramRequired ? '' : '?'
           }: ${paramType}) {}`,
           [path, 'params'],
@@ -473,6 +488,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   ): string | null {
     // TODO: some param types not supported
     let girTypeStr: string = '';
+    let unknownType = false;
     if (typeof girType !== 'string') {
       if (girType.array) {
         isArray = true;
@@ -490,7 +506,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
           oc(girType)['@_nullable']() === '1' &&
           oc(girType)['@_optional']() !== '1';
       } else {
-        return null;
+        unknownType = true;
       }
     }
     if (typeof isArray === 'undefined' || isArray === null) isArray = false;
@@ -499,6 +515,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!girTypeStr) return 'any';
     let array = '';
     if (isArray) array = '[]';
+    if (unknownType) return `any${array}`;
     let tsType: string = ({
       '': `any${array}`,
       double: `number${array}`,

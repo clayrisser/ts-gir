@@ -11,6 +11,11 @@ export interface Alias {
   '@_name': string;
 }
 
+export interface Union {
+  '@_name': string;
+  field: Field[];
+}
+
 export interface Include {
   '@_name': string;
   '@_version': string;
@@ -66,6 +71,7 @@ export interface Namespace {
   function: Function[];
   interface: Interface[];
   record: Record[];
+  union: Union[];
 }
 
 export interface Class {
