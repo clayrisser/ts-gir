@@ -51,6 +51,7 @@ export interface Interface {
 export interface Record {
   '@_name': string;
   '@_parent': string;
+  constructor: Constructor[];
   field: Field[];
   method: Method[];
   property: Property[];
@@ -94,9 +95,15 @@ export interface Namespace {
 export interface Class {
   '@_name': string;
   '@_parent': string;
+  constructor: Constructor[];
   field: Field[];
   method: Method[];
   property: Property[];
+}
+
+export interface Constructor {
+  '@_name': string;
+  parameters?: { parameter: Parameter[] };
 }
 
 export interface Property {

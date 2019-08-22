@@ -8,6 +8,7 @@ import {
   Callback,
   Class,
   Constant,
+  Constructor,
   DeepArray,
   Enumeration,
   Field,
@@ -388,6 +389,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         }{}`,
         [path, this.isModule ? 'body.body' : '']
       );
+      this.buildConstructorDeclaration(
+        oc($class).constructor([]),
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        $namespace
+      );
       this.buildPropertyDeclarations(
         oc($class).property([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
@@ -431,7 +437,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   getParentClassIdentifiers(
-    $class?: Class,
+    $class?: Class | Interface,
     $namespace?: Namespace
   ): Set<string> {
     if (!$class || !$namespace) return new Set();
@@ -446,7 +452,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   buildMethodDeclarations(
     $methods: Method[],
     path: string | DeepArray<string> = '',
-    $class?: Class,
+    $class?: Class | Interface,
     $namespace?: Namespace
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
@@ -483,6 +489,30 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     });
   }
 
+  buildConstructorDeclaration(
+    $constructors: Constructor[],
+    path: string | DeepArray<string> = '',
+    $namespace?: Namespace
+  ): void {
+    let $constructor = ($constructors as unknown) as Constructor;
+    if (Array.isArray($constructors)) {
+      if ($constructors.length) {
+        $constructor = $constructors[0] as Constructor;
+      }
+    }
+    if (!$constructor['@_name']) return;
+    const count = this.append(
+      `class C {constructor()}`,
+      [path, 'declaration.body.body'],
+      'body.body.0'
+    );
+    this.buildFunctionParams(
+      oc($constructor).parameters.parameter([]),
+      [path, 'declaration.body.body', (count - 1).toString(), 'params'],
+      $namespace
+    );
+  }
+
   buildMethodDeclarationParams(
     $parameters: Parameter[],
     path: string | DeepArray<string> = '',
@@ -510,7 +540,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   buildPropertyDeclarations(
     $properties: Property[],
     path: string | DeepArray<string> = '',
-    $class?: Class,
+    $class?: Class | Interface,
     $namespace?: Namespace
   ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
