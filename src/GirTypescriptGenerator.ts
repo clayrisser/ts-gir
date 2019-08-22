@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
 import {
+  Alias,
   Class,
   Constant,
   DeepArray,
@@ -17,6 +18,7 @@ import {
   Namespace,
   Parameter,
   Property,
+  Record,
   Repository
 } from './types';
 
@@ -57,8 +59,13 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       if (!Array.isArray($enumerations)) {
         $enumerations = [($enumerations as unknown) as Enumeration];
       }
+      let $aliases = oc($namespace).alias([]);
+      if (!Array.isArray($aliases)) $aliases = [($aliases as unknown) as Alias];
       let $classes = oc($namespace).class([]);
       if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
+      let $records = oc($namespace).record([]);
+      if (!Array.isArray($records))
+        $records = [($records as unknown) as Record];
       let $functions = oc($namespace).function([]);
       if (!Array.isArray($functions)) {
         $functions = [($functions as unknown) as Function];
@@ -66,11 +73,17 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       $constants.forEach(($constant: Constant) => {
         this.modulesTypes[$namespace['@_name']].add($constant['@_name']);
       });
+      $aliases.forEach(($alias: Alias) => {
+        this.modulesTypes[$namespace['@_name']].add($alias['@_name']);
+      });
       $enumerations.forEach(($enumeration: Enumeration) => {
         this.modulesTypes[$namespace['@_name']].add($enumeration['@_name']);
       });
       $classes.forEach(($class: Class) => {
         this.modulesTypes[$namespace['@_name']].add($class['@_name']);
+      });
+      $records.forEach(($record: Record) => {
+        this.modulesTypes[$namespace['@_name']].add($record['@_name']);
       });
       $functions.forEach(($function: Function) => {
         this.modulesTypes[$namespace['@_name']].add($function['@_name']);
@@ -97,6 +110,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         path,
         this.isModule ? `${count - 1}` : ''
       ]);
+      this.buildTypeDeclarations(oc($namespace).alias([]), [
+        path,
+        this.isModule ? `${count - 1}` : ''
+      ]);
       this.buildInterfaceDeclarations(
         oc($namespace).interface([]),
         [path, this.isModule ? `${count - 1}` : ''],
@@ -104,6 +121,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       );
       this.buildClassDeclarations(
         oc($namespace).class([]),
+        [path, this.isModule ? `${count - 1}` : ''],
+        $namespace
+      );
+      this.buildClassDeclarations(
+        oc($namespace).record([]),
         [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
@@ -123,6 +145,21 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const importPath = `gnome-${_.kebabCase(importName)}`;
       this.prepend(`import * as ${importName} from '${importPath}'`, path);
       this.logger.warn(`importing '${importName}' from '${importPath}'`);
+    });
+  }
+
+  buildTypeDeclarations(
+    $aliases: Alias[],
+    path: string | DeepArray<string> = ''
+  ): void {
+    if (!Array.isArray($aliases)) $aliases = [$aliases];
+    $aliases.forEach(($alias: Alias) => {
+      const typeName = $alias['@_name'];
+      const typeType = this.getType($alias);
+      this.append(`export type ${typeName} = ${typeType}`, [
+        path,
+        this.isModule ? 'body.body' : ''
+      ]);
     });
   }
 
@@ -282,6 +319,12 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         $class,
         $namespace
       );
+      this.buildPropertyDeclarations(
+        oc($class).field([]),
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        $class,
+        $namespace
+      );
       this.buildMethodDeclarations(
         oc($class).method([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
@@ -386,13 +429,24 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($properties)) $properties = [$properties];
     const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
     $properties.forEach(($property: Property) => {
-      const propertyName = $property['@_name'];
+      let propertyName = $property['@_name'];
+      if (
+        this.isReservedKeyword(propertyName) ||
+        propertyName === 'constructor'
+      ) {
+        propertyName = `g_${propertyName}`;
+        this.logger.warn(
+          `property '${$property['@_name']}' renamed to '${propertyName}'`
+        );
+      }
       if (classIdentifiers.has(propertyName)) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
         const propertyType = this.getType($property, $namespace);
         this.append(
-          `class C {'${propertyName}': ${propertyType}}`,
+          `class C {${
+            propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
+          }: ${propertyType}}`,
           [path, 'declaration.body.body'],
           'body.body.0'
         );

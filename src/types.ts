@@ -7,6 +7,10 @@ export interface Repository {
   namespace: Namespace[];
 }
 
+export interface Alias {
+  '@_name': string;
+}
+
 export interface Include {
   '@_name': string;
   '@_version': string;
@@ -15,6 +19,15 @@ export interface Include {
 export interface Interface {
   '@_name': string;
   '@_parent': string;
+  field: Field[];
+  method: Method[];
+  property: Property[];
+}
+
+export interface Record {
+  '@_name': string;
+  '@_parent': string;
+  field: Field[];
   method: Method[];
   property: Property[];
 }
@@ -45,21 +58,33 @@ export interface Constant {
 
 export interface Namespace {
   '@_name': string;
+  alias: Alias[];
   class: Class[];
   constant: Constant[];
   enumeration: Enumeration[];
   function: Function[];
   interface: Interface[];
+  record: Record[];
 }
 
 export interface Class {
   '@_name': string;
   '@_parent': string;
+  field: Field[];
   method: Method[];
   property: Property[];
 }
 
 export interface Property {
+  '@_name': string;
+  '@_optional': string;
+  type?: string;
+  array?: {
+    type?: string;
+  };
+}
+
+export interface Field {
   '@_name': string;
   '@_optional': string;
   type?: string;
