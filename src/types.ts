@@ -59,6 +59,7 @@ export interface Constant {
 export interface Namespace {
   '@_name': string;
   alias: Alias[];
+  bitfield: Bitfield[];
   class: Class[];
   constant: Constant[];
   enumeration: Enumeration[];
@@ -114,6 +115,11 @@ export interface Parameter {
 }
 
 export interface Enumeration {
+  '@_name': string;
+  member: Member[];
+}
+
+export interface Bitfield {
   '@_name': string;
   member: Member[];
 }

@@ -4,6 +4,7 @@ import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
 import {
   Alias,
+  Bitfield,
   Class,
   Constant,
   DeepArray,
@@ -64,8 +65,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       let $classes = oc($namespace).class([]);
       if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
       let $records = oc($namespace).record([]);
-      if (!Array.isArray($records))
+      if (!Array.isArray($records)) {
         $records = [($records as unknown) as Record];
+      }
+      let $bitfields = oc($namespace).bitfield([]);
+      if (!Array.isArray($bitfields)) $bitfields = [$bitfields];
       let $functions = oc($namespace).function([]);
       if (!Array.isArray($functions)) {
         $functions = [($functions as unknown) as Function];
@@ -81,6 +85,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       });
       $classes.forEach(($class: Class) => {
         this.modulesTypes[$namespace['@_name']].add($class['@_name']);
+      });
+      $bitfields.forEach(($bitfield: Bitfield) => {
+        this.modulesTypes[$namespace['@_name']].add($bitfield['@_name']);
       });
       $records.forEach(($record: Record) => {
         this.modulesTypes[$namespace['@_name']].add($record['@_name']);
@@ -107,6 +114,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         $namespace
       );
       this.buildEnumDeclarations(oc($namespace).enumeration([]), [
+        path,
+        this.isModule ? `${count - 1}` : ''
+      ]);
+      this.buildEnumDeclarations(oc($namespace).bitfield([]), [
         path,
         this.isModule ? `${count - 1}` : ''
       ]);
