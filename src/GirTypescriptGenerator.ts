@@ -30,7 +30,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
 
   imports: Set<string> = new Set();
 
-  constructor(public repository: Repository, public logger: Logger) {
+  constructor(
+    public repository: Repository,
+    public logger: Logger,
+    public isModule = false
+  ) {
     super();
   }
 
@@ -81,29 +85,31 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
     $namespaces.forEach(($namespace: Namespace) => {
       const moduleName = $namespace['@_name'];
-      const count = this.append(`declare module '${moduleName}' {}`, path);
+      const count = this.isModule
+        ? this.append(`declare module '${moduleName}' {}`, path)
+        : 0;
       this.buildConstantDeclarations(
         oc($namespace).constant([]),
-        [path, `${count - 1}`],
+        [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
       this.buildEnumDeclarations(oc($namespace).enumeration([]), [
         path,
-        `${count - 1}`
+        this.isModule ? `${count - 1}` : ''
       ]);
       this.buildInterfaceDeclarations(
         oc($namespace).interface([]),
-        [path, `${count - 1}`],
+        [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
       this.buildClassDeclarations(
         oc($namespace).class([]),
-        [path, `${count - 1}`],
+        [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
       this.buildFunctionDeclarations(
         oc($namespace).function([]),
-        [path, `${count - 1}`],
+        [path, this.isModule ? `${count - 1}` : ''],
         $namespace
       );
     });
@@ -129,11 +135,12 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const enumName = $enumeration['@_name'];
       const count = this.append(`export enum ${enumName} {}`, [
         path,
-        'body.body'
+        this.isModule ? 'body.body' : ''
       ]);
       this.buildEnumDeclarationMembers(oc($enumeration).member([]), [
         path,
-        `body.body.${count - 1}`
+        this.isModule ? 'body.body' : '',
+        (count - 1).toString()
       ]);
     });
   }
@@ -164,7 +171,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       const constantType = this.getType($constant, $namespace);
       this.append(`export const ${constantName}: ${constantType};`, [
         path,
-        'body.body'
+        this.isModule ? 'body.body' : ''
       ]);
     });
   }
@@ -185,11 +192,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       }
       const count = this.append(
         `export function ${functionName}(): ${returnType}`,
-        [path, 'body.body']
+        [path, this.isModule ? 'body.body' : '']
       );
       this.buildFunctionDeclarationParams(
         oc($function).parameters.parameter([]),
-        [path, `body.body.${count - 1}`],
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $namespace
       );
     });
@@ -224,21 +231,22 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     path: string | DeepArray<string> = '',
     $namespace?: Namespace
   ): void {
+    if (!Array.isArray($interfaces)) $interfaces = [$interfaces];
     return $interfaces.forEach(($interface: Interface) => {
       const interfaceName = $interface['@_name'];
       const count = this.append(`export interface ${interfaceName} {}`, [
         path,
-        'body.body'
+        this.isModule ? 'body.body' : ''
       ]);
       this.buildPropertyDeclarations(
         oc($interface).property([]),
-        [path, `body.body.${count - 1}`],
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $interface,
         $namespace
       );
       this.buildMethodDeclarations(
         oc($interface).method([]),
-        [path, `body.body.${count - 1}`],
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $interface,
         $namespace
       );
@@ -253,7 +261,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     return $classes.forEach(($class: Class) => {
       const className = $class['@_name'];
       const parentClassName = $class['@_parent'];
-      if ($namespace) {
+      if ($namespace && parentClassName) {
         const parentClassNameSplit = parentClassName.split('.');
         if (
           parentClassNameSplit.length > 1 &&
@@ -266,17 +274,17 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         `export class ${className} ${
           parentClassName ? `extends ${parentClassName} ` : ''
         }{}`,
-        [path, 'body.body']
+        [path, this.isModule ? 'body.body' : '']
       );
       this.buildPropertyDeclarations(
         oc($class).property([]),
-        [path, `body.body.${count - 1}`],
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
         $namespace
       );
       this.buildMethodDeclarations(
         oc($class).method([]),
-        [path, `body.body.${count - 1}`],
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
         $namespace
       );
