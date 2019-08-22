@@ -43,7 +43,9 @@ export interface Include {
 export interface Interface {
   '@_name': string;
   '@_parent': string;
+  'virtual-method': Method[];
   field: Field[];
+  function: Function[];
   method: Method[];
   property: Property[];
 }
@@ -51,8 +53,10 @@ export interface Interface {
 export interface Record {
   '@_name': string;
   '@_parent': string;
+  'virtual-method': Method[];
   constructor: Constructor[];
   field: Field[];
+  function: Function[];
   method: Method[];
   property: Property[];
 }
@@ -95,8 +99,10 @@ export interface Namespace {
 export interface Class {
   '@_name': string;
   '@_parent': string;
+  'virtual-method': Method[];
   constructor: Constructor[];
   field: Field[];
+  function: Function[];
   method: Method[];
   property: Property[];
 }

@@ -323,10 +323,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
-      const paramName = this.safeWord($parameter['@_name']);
+      let paramName = this.safeWord($parameter['@_name']);
+      if (paramName === '...') paramName = '...args';
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
-      if (paramType && paramName !== '...') {
+      if (paramType) {
         // TODO: some param types not supported
         this.append(
           `function f(${paramName}${
@@ -404,13 +405,27 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         oc($class).field([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
-        $namespace
+        $namespace,
+        true
       );
       this.buildMethodDeclarations(
         oc($class).method([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
         $namespace
+      );
+      this.buildMethodDeclarations(
+        oc($class)['virtual-method']([]),
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        $class,
+        $namespace
+      );
+      this.buildMethodDeclarations(
+        oc($class).function([]),
+        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        $class,
+        $namespace,
+        true
       );
     });
   }
@@ -450,10 +465,11 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   buildMethodDeclarations(
-    $methods: Method[],
+    $methods: Method[] | Function[],
     path: string | DeepArray<string> = '',
     $class?: Class | Interface,
-    $namespace?: Namespace
+    $namespace?: Namespace,
+    isStatic = false
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
     const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
@@ -476,7 +492,9 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       } else {
         const returnType = this.getType($method['return-value'], $namespace);
         const count = this.append(
-          `class C {${methodName}(): ${returnType}}`,
+          `class C {${
+            isStatic ? 'static ' : ''
+          }${methodName}(): ${returnType}}`,
           [path, 'declaration.body.body'],
           'body.body'
         );
@@ -541,7 +559,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
     $properties: Property[],
     path: string | DeepArray<string> = '',
     $class?: Class | Interface,
-    $namespace?: Namespace
+    $namespace?: Namespace,
+    isStatic = false
   ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
     const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
@@ -563,7 +582,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       } else {
         const propertyType = this.getType($property, $namespace);
         this.append(
-          `class C {${
+          `class C {${isStatic ? 'static ' : ''}${
             propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
           }: ${propertyType}}`,
           [path, 'declaration.body.body'],
