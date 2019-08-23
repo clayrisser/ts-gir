@@ -1,4 +1,4 @@
-import BabelParserGenerator from 'babel-parser-generator';
+import BabelParserGenerator, { InjectPath } from 'babel-parser-generator';
 import _ from 'lodash';
 import { ParserOptions } from '@babel/parser';
 import { oc } from 'ts-optchain.macro';
@@ -9,7 +9,6 @@ import {
   Class,
   Constant,
   Constructor,
-  DeepArray,
   Enumeration,
   Field,
   Function,
@@ -117,57 +116,54 @@ export default class GirTSGenerator extends BabelParserGenerator {
     });
   }
 
-  buildModules(path: string | DeepArray<string> = ''): void {
+  buildModules(path: InjectPath = ''): void {
     const moduleName = this.$namespace['@_name'];
     const count = this.isModule
       ? this.append(`declare module '${moduleName}' {}`, path)
       : 0;
     this.buildConstantDeclarations(oc(this.$namespace).constant([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildEnumDeclarations(oc(this.$namespace).enumeration([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildEnumDeclarations(oc(this.$namespace).bitfield([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildTypeDeclarations(oc(this.$namespace).alias([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildTypeDeclarations(oc(this.$namespace).union([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildInterfaceDeclarations(oc(this.$namespace).interface([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildClassDeclarations(oc(this.$namespace).class([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildClassDeclarations(oc(this.$namespace).record([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildFunctionDeclarations(oc(this.$namespace).function([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
     this.buildCallbackDeclarations(oc(this.$namespace).callback([]), [
       path,
-      this.isModule ? `${count - 1}` : ''
+      this.isModule ? count - 1 : ''
     ]);
   }
 
-  buildImports(
-    imports: Set<string>,
-    path: string | DeepArray<string> = ''
-  ): void {
+  buildImports(imports: Set<string>, path: InjectPath = ''): void {
     imports.forEach((importName: string) => {
       let importPath = `./${_.kebabCase(importName)}`;
       if (this.isModule) {
@@ -182,7 +178,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildTypeDeclarations(
     $aliasesOrUnions: Alias[] | Union[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
     $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
@@ -206,7 +202,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildEnumDeclarations(
     $enumerations: Enumeration[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     if (!Array.isArray($enumerations)) $enumerations = [$enumerations];
     $enumerations.forEach(($enumeration: Enumeration) => {
@@ -218,15 +214,12 @@ export default class GirTSGenerator extends BabelParserGenerator {
       this.buildEnumDeclarationMembers(oc($enumeration).member([]), [
         path,
         this.isModule ? 'body.body' : '',
-        (count - 1).toString()
+        count - 1
       ]);
     });
   }
 
-  buildEnumDeclarationMembers(
-    $members: Member[],
-    path: string | DeepArray<string> = ''
-  ): void {
+  buildEnumDeclarationMembers($members: Member[], path: InjectPath = ''): void {
     if (!Array.isArray($members)) $members = [$members];
     $members.forEach(($member: Member) => {
       const identifierName = $member['@_c:identifier'];
@@ -240,7 +233,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildConstantDeclarations(
     $constants: Constant[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     if (!Array.isArray($constants)) $constants = [$constants];
     $constants.forEach(($constant: Constant) => {
@@ -255,7 +248,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildFunctionDeclarations(
     $functions: Function[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     $functions.forEach(($function: Function) => {
       const returnType = this.getType($function['return-value']);
@@ -274,7 +267,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
       this.buildFunctionParams(oc($function).parameters.parameter([]), [
         path,
         this.isModule ? 'body.body' : '',
-        (count - 1).toString(),
+        count - 1,
         'declaration.params'
       ]);
     });
@@ -282,7 +275,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildCallbackDeclarations(
     $callbacks: Callback[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     $callbacks.forEach(($callback: Callback) => {
       const returnType = this.getType($callback['return-value']);
@@ -294,16 +287,13 @@ export default class GirTSGenerator extends BabelParserGenerator {
       this.buildFunctionParams(oc($callback).parameters.parameter([]), [
         path,
         this.isModule ? 'body.body' : '',
-        (count - 1).toString(),
+        count - 1,
         'declaration.typeAnnotation.parameters'
       ]);
     });
   }
 
-  buildFunctionParams(
-    $parameters: Parameter[],
-    path: string | DeepArray<string> = ''
-  ): void {
+  buildFunctionParams($parameters: Parameter[], path: InjectPath = ''): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
@@ -330,7 +320,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildInterfaceDeclarations(
     $interfaces: Interface[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     if (!Array.isArray($interfaces)) $interfaces = [$interfaces];
     return $interfaces.forEach(($interface: Interface) => {
@@ -341,21 +331,18 @@ export default class GirTSGenerator extends BabelParserGenerator {
       ]);
       this.buildPropertyDeclarations(
         oc($interface).property([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $interface
       );
       this.buildMethodDeclarations(
         oc($interface).method([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $interface
       );
     });
   }
 
-  buildClassDeclarations(
-    $classes: Class[],
-    path: string | DeepArray<string> = ''
-  ): void {
+  buildClassDeclarations($classes: Class[], path: InjectPath = ''): void {
     return $classes.forEach(($class: Class) => {
       const className = $class['@_name'];
       const parentClassName = $class['@_parent'];
@@ -377,32 +364,32 @@ export default class GirTSGenerator extends BabelParserGenerator {
       this.buildConstructorDeclaration(oc($class).constructor([]), [
         path,
         this.isModule ? 'body.body' : '',
-        (count - 1).toString()
+        count - 1
       ]);
       this.buildPropertyDeclarations(
         oc($class).property([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $class
       );
       this.buildPropertyDeclarations(
         oc($class).field([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $class,
         true
       );
       this.buildMethodDeclarations(
         oc($class).method([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $class
       );
       this.buildMethodDeclarations(
         oc($class)['virtual-method']([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $class
       );
       this.buildMethodDeclarations(
         oc($class).function([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
+        [path, this.isModule ? 'body.body' : '', count - 1],
         $class,
         true
       );
@@ -440,7 +427,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildMethodDeclarations(
     $methods: Method[] | Function[],
-    path: string | DeepArray<string> = '',
+    path: InjectPath = '',
     $class?: Class | Interface,
     isStatic = false
   ): void {
@@ -486,7 +473,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
         );
         this.buildMethodDeclarationParams(
           oc($method).parameters.parameter([]),
-          [path, `declaration.body.body.${count - 1}`]
+          [path, 'declaration.body.body', count - 1]
         );
       }
       return true;
@@ -495,7 +482,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildConstructorDeclaration(
     $constructors: Constructor[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     let $constructor = ($constructors as unknown) as Constructor;
     if (Array.isArray($constructors)) {
@@ -512,14 +499,14 @@ export default class GirTSGenerator extends BabelParserGenerator {
     this.buildFunctionParams(oc($constructor).parameters.parameter([]), [
       path,
       'declaration.body.body',
-      (count - 1).toString(),
+      count - 1,
       'params'
     ]);
   }
 
   buildMethodDeclarationParams(
     $parameters: Parameter[],
-    path: string | DeepArray<string> = ''
+    path: InjectPath = ''
   ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
@@ -545,7 +532,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildPropertyDeclarations(
     $properties: Property[],
-    path: string | DeepArray<string> = '',
+    path: InjectPath = '',
     $class?: Class | Interface,
     isStatic = false
   ): void {

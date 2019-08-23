@@ -194,5 +194,3 @@ export interface GirTypeStrict {
     callback: Callback;
   };
 }
-
-export interface DeepArray<T> extends Array<T | DeepArray<T>> {}

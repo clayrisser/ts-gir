@@ -1,7 +1,6 @@
-import BabelParserGenerator from 'babel-parser-generator';
-import _ from 'lodash';
+import BabelParserGenerator, { InjectPath } from 'babel-parser-generator';
 import { ParserOptions } from '@babel/parser';
-import { DeepArray, Renamed, Namespace } from './types';
+import { Renamed, Namespace } from './types';
 
 export default class GirTSGenerator extends BabelParserGenerator {
   constructor(public $namespace: Namespace, public renamed: Renamed) {
@@ -20,7 +19,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     this.buildFunctions();
   }
 
-  buildFunctions(path: string | DeepArray<string> = ''): void {
+  buildFunctions(path: InjectPath = ''): void {
     const namespaceName = this.$namespace['@_name'];
     return Object.entries(this.renamed.functions).forEach(
       ([fromFunction, toFunction]: [string, string]) => {
@@ -32,7 +31,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     );
   }
 
-  buildClasses(path: string | DeepArray<string> = ''): void {
+  buildClasses(path: InjectPath = ''): void {
     const namespaceName = this.$namespace['@_name'];
     return Object.entries(this.renamed.classes).forEach(
       ([className, properties]: [string, { [key: string]: string }]) => {
@@ -57,8 +56,7 @@ ${namespaceName}.${className} = class ${className} extends ${namespaceName}${cla
 
   buildPropertyDeclarations(
     properties: { [key: string]: string },
-    path: string | DeepArray<string> = '',
-    _isStatic = false
+    path: InjectPath = ''
   ): void {
     return Object.entries(properties).forEach(
       ([fromProperty, toProperty]: [string, string]) => {
