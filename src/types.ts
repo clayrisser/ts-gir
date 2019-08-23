@@ -6,6 +6,17 @@ export interface Type {
   '@_name': string;
 }
 
+export interface Renamed {
+  classes: {
+    [key: string]: {
+      [key: string]: string;
+    };
+  };
+  functions: {
+    [key: string]: string;
+  };
+}
+
 export interface Callback {
   '@_name': string;
   parameters?: { parameter: Parameter[] };

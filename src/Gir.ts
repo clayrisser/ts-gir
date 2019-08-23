@@ -1,9 +1,7 @@
-import Err from 'err';
 import fs from 'fs-extra';
 import path from 'path';
 import { parse } from 'fast-xml-parser';
-import GirTypescriptGenerator from './GirTypescriptGenerator';
-import { Logger, Repository } from './types';
+import { Repository } from './types';
 
 export default class Gir {
   repository: Repository;
@@ -16,16 +14,5 @@ export default class Gir {
     this.repository = parse(this.xml, {
       ignoreAttributes: false
     }).repository;
-  }
-
-  generateTypescript(logger: Logger, moduleName = ''): string {
-    if (!this.repository) throw new Err('xml not loaded');
-    const girGenerator = new GirTypescriptGenerator(
-      this.repository,
-      logger,
-      moduleName
-    );
-    girGenerator.build();
-    return girGenerator.generate();
   }
 }

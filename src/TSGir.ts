@@ -1,7 +1,13 @@
+import Err from 'err';
+import _ from 'lodash';
 import fs from 'fs-extra';
 import path from 'path';
 import { Command, flags } from '@oclif/command';
+import { mapSeries } from 'bluebird';
 import Gir from './Gir';
+import GirJSGenerator from './GirJSGenerator';
+import GirTSGenerator from './GirTSGenerator';
+import { Namespace } from './types';
 
 export default class TSGir extends Command {
   static description = 'generate typescript from gir';
@@ -24,16 +30,36 @@ export default class TSGir extends Command {
     const girFile = args.GIR_FILE;
     const gir = new Gir();
     await gir.loadFile(girFile);
-    const code = gir.generateTypescript(
-      {
-        info: this.log,
-        warn: this.handleWarn.bind(this)
-      },
-      flags.module
-    );
-    if (flags.output) {
-      await fs.writeFile(path.resolve(process.cwd(), flags.output), code);
-    } else if (!flags.silent) this.log(code);
+    if (!gir.repository) throw new Err('xml not loaded');
+    let $namespaces = gir.repository.namespace;
+    if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
+    await mapSeries($namespaces, async ($namespace: Namespace) => {
+      const namespaceName = $namespace['@_name'];
+      const girTSGenerator = new GirTSGenerator(
+        $namespace,
+        {
+          info: this.log,
+          warn: this.handleWarn.bind(this)
+        },
+        flags.module
+      );
+      girTSGenerator.build();
+      const girJSGenerator = new GirJSGenerator(
+        $namespace,
+        girTSGenerator.renamed
+      );
+      girJSGenerator.build();
+      const tsCode = girTSGenerator.generate();
+      const jsCode = girJSGenerator.generate();
+      await fs.writeFile(
+        path.resolve(process.cwd(), `${_.kebabCase(namespaceName)}.d.ts`),
+        tsCode
+      );
+      await fs.writeFile(
+        path.resolve(process.cwd(), `${_.kebabCase(namespaceName)}.js`),
+        jsCode
+      );
+    });
   }
 
   handleWarn(input: string | Error): void {

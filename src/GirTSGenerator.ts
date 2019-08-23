@@ -24,24 +24,29 @@ import {
   Parameter,
   Property,
   Record,
-  Repository,
+  Renamed,
   Union
 } from './types';
 
-export default class GirTypescriptGenerator extends BabelParserGenerator {
+export default class GirTSGenerator extends BabelParserGenerator {
   options: ParserOptions = {
     plugins: ['jsx', 'typescript'],
     sourceType: 'module'
   };
 
+  imports: Set<string> = new Set();
+
   isModule = false;
 
   modulesTypes: ModulesTypes = {};
 
-  imports: Set<string> = new Set();
+  renamed: Renamed = {
+    classes: {},
+    functions: {}
+  };
 
   constructor(
-    public repository: Repository,
+    public $namespace: Namespace,
     public logger: Logger,
     public moduleName = ''
   ) {
@@ -50,9 +55,8 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
   }
 
   build() {
-    const $namespaces = oc(this.repository).namespace([]);
-    this.setModulesTypes($namespaces);
-    this.buildModules($namespaces);
+    this.setModulesTypes([this.$namespace]);
+    this.buildModules([this.$namespace]);
     this.buildImports(this.imports);
   }
 
@@ -277,6 +281,7 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       let functionName = $function['@_name'];
       if (this.isReservedKeyword(functionName)) {
         functionName = `g_${functionName}`;
+        this.renamed.functions[$function['@_name']] = functionName;
         this.logger.warn(
           `function '${$function['@_name']}' renamed to '${functionName}'`
         );
@@ -334,8 +339,10 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       let paramName = this.safeWord($parameter['@_name']);
       if (paramName === 'arguments' || paramName === 'eval') {
         paramName = `_${paramName}`;
+        paramRequired = !paramRequired
+          ? false
+          : $parameter['@_optional'] !== '1';
       } else if (paramName === '...') paramName = '...args';
-      paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       const paramType = this.getType($parameter, $namespace);
       if (paramType) {
         // TODO: some param types not supported
@@ -487,6 +494,14 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
       let methodName = $method['@_name'];
       if (this.isReservedKeyword(methodName) || methodName === 'constructor') {
         methodName = `g_${methodName}`;
+        if ($class) {
+          if (!this.renamed.classes[$class['@_name']]) {
+            this.renamed.classes[$class['@_name']] = {};
+          }
+          this.renamed.classes[$class['@_name']][
+            $method['@_name']
+          ] = methodName;
+        }
         this.logger.warn(
           `method '${$method['@_name']}' renamed to '${methodName}'${
             $class ? ` in class '${$class['@_name']}'` : ''
@@ -590,6 +605,14 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
         propertyName === 'constructor'
       ) {
         propertyName = `g_${propertyName}`;
+        if ($class) {
+          if (!this.renamed.classes[$class['@_name']]) {
+            this.renamed.classes[$class['@_name']] = {};
+          }
+          this.renamed.classes[$class['@_name']][
+            $property['@_name']
+          ] = propertyName;
+        }
         this.logger.warn(
           `property '${$property['@_name']}' renamed to '${propertyName}'${
             $class ? ` in class '${$class['@_name']}'` : ''
@@ -635,26 +658,25 @@ export default class GirTypescriptGenerator extends BabelParserGenerator {
           girTypeStrict.callback['return-value'],
           $namespace
         );
-        const girTypescriptGenerator = new GirTypescriptGenerator(
-          this.repository,
-          this.logger,
-          this.moduleName
-        );
-        girTypescriptGenerator.append(
-          `type T = () => ${returnType}`,
-          '',
-          'typeAnnotation'
-        );
         if ($namespace) {
-          girTypescriptGenerator.repository.namespace = [$namespace];
+          const girTypescriptGenerator = new GirTSGenerator(
+            $namespace,
+            this.logger,
+            this.moduleName
+          );
+          girTypescriptGenerator.append(
+            `type T = () => ${returnType}`,
+            '',
+            'typeAnnotation'
+          );
+          girTypescriptGenerator.modulesTypes = this.modulesTypes;
+          girTypescriptGenerator.buildFunctionParams(
+            oc(girTypeStrict).callback.parameters.parameter([]),
+            ['0', 'parameters'],
+            $namespace
+          );
+          knownType = girTypescriptGenerator.generate();
         }
-        girTypescriptGenerator.modulesTypes = this.modulesTypes;
-        girTypescriptGenerator.buildFunctionParams(
-          oc(girTypeStrict).callback.parameters.parameter([]),
-          ['0', 'parameters'],
-          $namespace
-        );
-        knownType = girTypescriptGenerator.generate();
       } else if (girTypeStrict.type) {
         girTypeStr = oc(girTypeStrict)
           .type['@_name']('')
