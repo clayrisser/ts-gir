@@ -1,7 +1,3 @@
-export interface ModulesTypes {
-  [key: string]: Set<string>;
-}
-
 export interface Type {
   '@_name': string;
 }

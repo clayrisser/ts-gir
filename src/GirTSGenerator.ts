@@ -19,7 +19,6 @@ import {
   Logger,
   Member,
   Method,
-  ModulesTypes,
   Namespace,
   Parameter,
   Property,
@@ -38,7 +37,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   isModule = false;
 
-  modulesTypes: ModulesTypes = {};
+  moduleTypes: Set<string> = new Set();
 
   renamed: Renamed = {
     classes: {},
@@ -55,130 +54,114 @@ export default class GirTSGenerator extends BabelParserGenerator {
   }
 
   build() {
-    this.setModulesTypes([this.$namespace]);
-    this.buildModules([this.$namespace]);
+    this.setModulesTypes();
+    this.buildModules();
     this.buildImports(this.imports);
   }
 
-  setModulesTypes($namespaces: Namespace[]) {
-    if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
-    $namespaces.forEach(($namespace: Namespace) => {
-      this.modulesTypes[$namespace['@_name']] = new Set();
-      let $constants = oc($namespace).constant([]);
-      if (!Array.isArray($constants)) {
-        $constants = [($constants as unknown) as Constant];
-      }
-      let $enumerations = oc($namespace).enumeration([]);
-      if (!Array.isArray($enumerations)) {
-        $enumerations = [($enumerations as unknown) as Enumeration];
-      }
-      let $aliases = oc($namespace).alias([]);
-      if (!Array.isArray($aliases)) $aliases = [($aliases as unknown) as Alias];
-      let $unions = oc($namespace).union([]);
-      if (!Array.isArray($unions)) $unions = [$unions];
-      let $classes = oc($namespace).class([]);
-      if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
-      let $records = oc($namespace).record([]);
-      if (!Array.isArray($records)) {
-        $records = [($records as unknown) as Record];
-      }
-      let $bitfields = oc($namespace).bitfield([]);
-      if (!Array.isArray($bitfields)) $bitfields = [$bitfields];
-      let $functions = oc($namespace).function([]);
-      if (!Array.isArray($functions)) {
-        $functions = [($functions as unknown) as Function];
-      }
-      let $callbacks = oc($namespace).callback([]);
-      if (!Array.isArray($callbacks)) {
-        $callbacks = [($callbacks as unknown) as Callback];
-      }
-      $constants.forEach(($constant: Constant) => {
-        this.modulesTypes[$namespace['@_name']].add($constant['@_name']);
-      });
-      $aliases.forEach(($alias: Alias) => {
-        this.modulesTypes[$namespace['@_name']].add($alias['@_name']);
-      });
-      $unions.forEach(($union: Union) => {
-        this.modulesTypes[$namespace['@_name']].add($union['@_name']);
-      });
-      $enumerations.forEach(($enumeration: Enumeration) => {
-        this.modulesTypes[$namespace['@_name']].add($enumeration['@_name']);
-      });
-      $classes.forEach(($class: Class) => {
-        this.modulesTypes[$namespace['@_name']].add($class['@_name']);
-      });
-      $bitfields.forEach(($bitfield: Bitfield) => {
-        this.modulesTypes[$namespace['@_name']].add($bitfield['@_name']);
-      });
-      $records.forEach(($record: Record) => {
-        this.modulesTypes[$namespace['@_name']].add($record['@_name']);
-      });
-      $functions.forEach(($function: Function) => {
-        this.modulesTypes[$namespace['@_name']].add($function['@_name']);
-      });
-      $callbacks.forEach(($callback: Callback) => {
-        this.modulesTypes[$namespace['@_name']].add($callback['@_name']);
-      });
+  setModulesTypes() {
+    let $constants = oc(this.$namespace).constant([]);
+    if (!Array.isArray($constants)) {
+      $constants = [($constants as unknown) as Constant];
+    }
+    let $enumerations = oc(this.$namespace).enumeration([]);
+    if (!Array.isArray($enumerations)) {
+      $enumerations = [($enumerations as unknown) as Enumeration];
+    }
+    let $aliases = oc(this.$namespace).alias([]);
+    if (!Array.isArray($aliases)) $aliases = [($aliases as unknown) as Alias];
+    let $unions = oc(this.$namespace).union([]);
+    if (!Array.isArray($unions)) $unions = [$unions];
+    let $classes = oc(this.$namespace).class([]);
+    if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
+    let $records = oc(this.$namespace).record([]);
+    if (!Array.isArray($records)) {
+      $records = [($records as unknown) as Record];
+    }
+    let $bitfields = oc(this.$namespace).bitfield([]);
+    if (!Array.isArray($bitfields)) $bitfields = [$bitfields];
+    let $functions = oc(this.$namespace).function([]);
+    if (!Array.isArray($functions)) {
+      $functions = [($functions as unknown) as Function];
+    }
+    let $callbacks = oc(this.$namespace).callback([]);
+    if (!Array.isArray($callbacks)) {
+      $callbacks = [($callbacks as unknown) as Callback];
+    }
+    $constants.forEach(($constant: Constant) => {
+      this.moduleTypes.add($constant['@_name']);
+    });
+    $aliases.forEach(($alias: Alias) => {
+      this.moduleTypes.add($alias['@_name']);
+    });
+    $unions.forEach(($union: Union) => {
+      this.moduleTypes.add($union['@_name']);
+    });
+    $enumerations.forEach(($enumeration: Enumeration) => {
+      this.moduleTypes.add($enumeration['@_name']);
+    });
+    $classes.forEach(($class: Class) => {
+      this.moduleTypes.add($class['@_name']);
+    });
+    $bitfields.forEach(($bitfield: Bitfield) => {
+      this.moduleTypes.add($bitfield['@_name']);
+    });
+    $records.forEach(($record: Record) => {
+      this.moduleTypes.add($record['@_name']);
+    });
+    $functions.forEach(($function: Function) => {
+      this.moduleTypes.add($function['@_name']);
+    });
+    $callbacks.forEach(($callback: Callback) => {
+      this.moduleTypes.add($callback['@_name']);
     });
   }
 
-  buildModules(
-    $namespaces: Namespace[],
-    path: string | DeepArray<string> = ''
-  ): void {
-    if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
-    $namespaces.forEach(($namespace: Namespace) => {
-      const moduleName = $namespace['@_name'];
-      const count = this.isModule
-        ? this.append(`declare module '${moduleName}' {}`, path)
-        : 0;
-      this.buildConstantDeclarations(
-        oc($namespace).constant([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-      this.buildEnumDeclarations(oc($namespace).enumeration([]), [
-        path,
-        this.isModule ? `${count - 1}` : ''
-      ]);
-      this.buildEnumDeclarations(oc($namespace).bitfield([]), [
-        path,
-        this.isModule ? `${count - 1}` : ''
-      ]);
-      this.buildTypeDeclarations(oc($namespace).alias([]), [
-        path,
-        this.isModule ? `${count - 1}` : ''
-      ]);
-      this.buildTypeDeclarations(oc($namespace).union([]), [
-        path,
-        this.isModule ? `${count - 1}` : ''
-      ]);
-      this.buildInterfaceDeclarations(
-        oc($namespace).interface([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-      this.buildClassDeclarations(
-        oc($namespace).class([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-      this.buildClassDeclarations(
-        oc($namespace).record([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-      this.buildFunctionDeclarations(
-        oc($namespace).function([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-      this.buildCallbackDeclarations(
-        oc($namespace).callback([]),
-        [path, this.isModule ? `${count - 1}` : ''],
-        $namespace
-      );
-    });
+  buildModules(path: string | DeepArray<string> = ''): void {
+    const moduleName = this.$namespace['@_name'];
+    const count = this.isModule
+      ? this.append(`declare module '${moduleName}' {}`, path)
+      : 0;
+    this.buildConstantDeclarations(oc(this.$namespace).constant([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildEnumDeclarations(oc(this.$namespace).enumeration([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildEnumDeclarations(oc(this.$namespace).bitfield([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildTypeDeclarations(oc(this.$namespace).alias([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildTypeDeclarations(oc(this.$namespace).union([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildInterfaceDeclarations(oc(this.$namespace).interface([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildClassDeclarations(oc(this.$namespace).class([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildClassDeclarations(oc(this.$namespace).record([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildFunctionDeclarations(oc(this.$namespace).function([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
+    this.buildCallbackDeclarations(oc(this.$namespace).callback([]), [
+      path,
+      this.isModule ? `${count - 1}` : ''
+    ]);
   }
 
   buildImports(
@@ -257,13 +240,12 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildConstantDeclarations(
     $constants: Constant[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($constants)) $constants = [$constants];
     $constants.forEach(($constant: Constant) => {
       const constantName = $constant['@_name'];
-      const constantType = this.getType($constant, $namespace);
+      const constantType = this.getType($constant);
       this.append(`export const ${constantName}: ${constantType};`, [
         path,
         this.isModule ? 'body.body' : ''
@@ -273,11 +255,10 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildFunctionDeclarations(
     $functions: Function[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     $functions.forEach(($function: Function) => {
-      const returnType = this.getType($function['return-value'], $namespace);
+      const returnType = this.getType($function['return-value']);
       let functionName = $function['@_name'];
       if (this.isReservedKeyword(functionName)) {
         functionName = `g_${functionName}`;
@@ -290,48 +271,38 @@ export default class GirTSGenerator extends BabelParserGenerator {
         `export function ${functionName}(): ${returnType}`,
         [path, this.isModule ? 'body.body' : '']
       );
-      this.buildFunctionParams(
-        oc($function).parameters.parameter([]),
-        [
-          path,
-          this.isModule ? 'body.body' : '',
-          (count - 1).toString(),
-          'declaration.params'
-        ],
-        $namespace
-      );
+      this.buildFunctionParams(oc($function).parameters.parameter([]), [
+        path,
+        this.isModule ? 'body.body' : '',
+        (count - 1).toString(),
+        'declaration.params'
+      ]);
     });
   }
 
   buildCallbackDeclarations(
     $callbacks: Callback[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     $callbacks.forEach(($callback: Callback) => {
-      const returnType = this.getType($callback['return-value'], $namespace);
+      const returnType = this.getType($callback['return-value']);
       const callbackName = $callback['@_name'];
       const count = this.append(
         `export type ${callbackName} = () => ${returnType}`,
         [path, this.isModule ? 'body.body' : '']
       );
-      this.buildFunctionParams(
-        oc($callback).parameters.parameter([]),
-        [
-          path,
-          this.isModule ? 'body.body' : '',
-          (count - 1).toString(),
-          'declaration.typeAnnotation.parameters'
-        ],
-        $namespace
-      );
+      this.buildFunctionParams(oc($callback).parameters.parameter([]), [
+        path,
+        this.isModule ? 'body.body' : '',
+        (count - 1).toString(),
+        'declaration.typeAnnotation.parameters'
+      ]);
     });
   }
 
   buildFunctionParams(
     $parameters: Parameter[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
@@ -343,7 +314,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
           ? false
           : $parameter['@_optional'] !== '1';
       } else if (paramName === '...') paramName = '...args';
-      const paramType = this.getType($parameter, $namespace);
+      const paramType = this.getType($parameter);
       if (paramType) {
         // TODO: some param types not supported
         this.append(
@@ -359,8 +330,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildInterfaceDeclarations(
     $interfaces: Interface[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($interfaces)) $interfaces = [$interfaces];
     return $interfaces.forEach(($interface: Interface) => {
@@ -372,31 +342,28 @@ export default class GirTSGenerator extends BabelParserGenerator {
       this.buildPropertyDeclarations(
         oc($interface).property([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $interface,
-        $namespace
+        $interface
       );
       this.buildMethodDeclarations(
         oc($interface).method([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $interface,
-        $namespace
+        $interface
       );
     });
   }
 
   buildClassDeclarations(
     $classes: Class[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     return $classes.forEach(($class: Class) => {
       const className = $class['@_name'];
       const parentClassName = $class['@_parent'];
-      if ($namespace && parentClassName) {
+      if (parentClassName) {
         const parentClassNameSplit = parentClassName.split('.');
         if (
           parentClassNameSplit.length > 1 &&
-          parentClassNameSplit[0] !== $namespace['@_name']
+          parentClassNameSplit[0] !== this.$namespace['@_name']
         ) {
           this.imports.add(parentClassNameSplit[0]);
         }
@@ -407,50 +374,45 @@ export default class GirTSGenerator extends BabelParserGenerator {
         }{}`,
         [path, this.isModule ? 'body.body' : '']
       );
-      this.buildConstructorDeclaration(
-        oc($class).constructor([]),
-        [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $namespace
-      );
+      this.buildConstructorDeclaration(oc($class).constructor([]), [
+        path,
+        this.isModule ? 'body.body' : '',
+        (count - 1).toString()
+      ]);
       this.buildPropertyDeclarations(
         oc($class).property([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $class,
-        $namespace
+        $class
       );
       this.buildPropertyDeclarations(
         oc($class).field([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
-        $namespace,
         true
       );
       this.buildMethodDeclarations(
         oc($class).method([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $class,
-        $namespace
+        $class
       );
       this.buildMethodDeclarations(
         oc($class)['virtual-method']([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
-        $class,
-        $namespace
+        $class
       );
       this.buildMethodDeclarations(
         oc($class).function([]),
         [path, this.isModule ? 'body.body' : '', (count - 1).toString()],
         $class,
-        $namespace,
         true
       );
     });
   }
 
-  getClassIdentifiers($class?: Class, $namespace?: Namespace): Set<string> {
-    if (!$class || !$namespace) return new Set();
+  getClassIdentifiers($class?: Class): Set<string> {
+    if (!$class) return new Set();
     const $parentClass = _.find(
-      $namespace.class,
+      oc(this.$namespace).class([]),
       $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
     );
     let $properties = oc($class).property([]);
@@ -460,36 +422,30 @@ export default class GirTSGenerator extends BabelParserGenerator {
     let $methods = oc($class).method([]);
     if (!Array.isArray($methods)) $methods = [($methods as unknown) as Method];
     return new Set([
-      ...($parentClass
-        ? this.getClassIdentifiers($parentClass, $namespace)
-        : []),
+      ...($parentClass ? this.getClassIdentifiers($parentClass) : []),
       ...$methods.map(($method: Method) => $method['@_name']),
       ...$properties.map(($property: Property) => $property['@_name'])
     ]);
   }
 
-  getParentClassIdentifiers(
-    $class?: Class | Interface,
-    $namespace?: Namespace
-  ): Set<string> {
-    if (!$class || !$namespace) return new Set();
+  getParentClassIdentifiers($class?: Class | Interface): Set<string> {
+    if (!$class) return new Set();
     const $parentClass = _.find(
-      $namespace.class,
+      oc(this.$namespace).class([]),
       $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
     );
     if (!$parentClass) return new Set();
-    return this.getClassIdentifiers($parentClass, $namespace);
+    return this.getClassIdentifiers($parentClass);
   }
 
   buildMethodDeclarations(
     $methods: Method[] | Function[],
     path: string | DeepArray<string> = '',
     $class?: Class | Interface,
-    $namespace?: Namespace,
     isStatic = false
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
-    const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
+    const classIdentifiers = this.getParentClassIdentifiers($class);
     $methods.forEach(($method: Method) => {
       let methodName = $method['@_name'];
       if (this.isReservedKeyword(methodName) || methodName === 'constructor') {
@@ -520,7 +476,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
           }`
         );
       } else {
-        const returnType = this.getType($method['return-value'], $namespace);
+        const returnType = this.getType($method['return-value']);
         const count = this.append(
           `class C {${
             isStatic ? 'static ' : ''
@@ -530,8 +486,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
         );
         this.buildMethodDeclarationParams(
           oc($method).parameters.parameter([]),
-          [path, `declaration.body.body.${count - 1}`],
-          $namespace
+          [path, `declaration.body.body.${count - 1}`]
         );
       }
       return true;
@@ -540,8 +495,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildConstructorDeclaration(
     $constructors: Constructor[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     let $constructor = ($constructors as unknown) as Constructor;
     if (Array.isArray($constructors)) {
@@ -555,17 +509,17 @@ export default class GirTSGenerator extends BabelParserGenerator {
       [path, 'declaration.body.body'],
       'body.body.0'
     );
-    this.buildFunctionParams(
-      oc($constructor).parameters.parameter([]),
-      [path, 'declaration.body.body', (count - 1).toString(), 'params'],
-      $namespace
-    );
+    this.buildFunctionParams(oc($constructor).parameters.parameter([]), [
+      path,
+      'declaration.body.body',
+      (count - 1).toString(),
+      'params'
+    ]);
   }
 
   buildMethodDeclarationParams(
     $parameters: Parameter[],
-    path: string | DeepArray<string> = '',
-    $namespace?: Namespace
+    path: string | DeepArray<string> = ''
   ): void {
     if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
@@ -575,7 +529,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
         paramName = `_${paramName}`;
       } else if (paramName === '...') paramName = '...args';
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
-      const paramType = this.getType($parameter, $namespace);
+      const paramType = this.getType($parameter);
       if (paramType && paramName !== '...') {
         // TODO: some param types not supported
         this.append(
@@ -593,11 +547,10 @@ export default class GirTSGenerator extends BabelParserGenerator {
     $properties: Property[],
     path: string | DeepArray<string> = '',
     $class?: Class | Interface,
-    $namespace?: Namespace,
     isStatic = false
   ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
-    const classIdentifiers = this.getParentClassIdentifiers($class, $namespace);
+    const classIdentifiers = this.getParentClassIdentifiers($class);
     $properties.forEach(($property: Property) => {
       let propertyName = $property['@_name'];
       if (
@@ -622,7 +575,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
       if (classIdentifiers.has(propertyName)) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
-        const propertyType = this.getType($property, $namespace);
+        const propertyType = this.getType($property);
         this.append(
           `class C {${isStatic ? 'static ' : ''}${
             propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
@@ -636,7 +589,6 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   getType(
     girType: GirType,
-    $namespace?: Namespace,
     isArray?: boolean,
     nullable?: boolean
   ): string | null {
@@ -654,29 +606,23 @@ export default class GirTSGenerator extends BabelParserGenerator {
           oc(girTypeStrict)['@_nullable']() === '1' &&
           oc(girTypeStrict)['@_optional']() !== '1';
       } else if (girTypeStrict.callback) {
-        const returnType = this.getType(
-          girTypeStrict.callback['return-value'],
-          $namespace
+        const returnType = this.getType(girTypeStrict.callback['return-value']);
+        const girTypescriptGenerator = new GirTSGenerator(
+          this.$namespace,
+          this.logger,
+          this.moduleName
         );
-        if ($namespace) {
-          const girTypescriptGenerator = new GirTSGenerator(
-            $namespace,
-            this.logger,
-            this.moduleName
-          );
-          girTypescriptGenerator.append(
-            `type T = () => ${returnType}`,
-            '',
-            'typeAnnotation'
-          );
-          girTypescriptGenerator.modulesTypes = this.modulesTypes;
-          girTypescriptGenerator.buildFunctionParams(
-            oc(girTypeStrict).callback.parameters.parameter([]),
-            ['0', 'parameters'],
-            $namespace
-          );
-          knownType = girTypescriptGenerator.generate();
-        }
+        girTypescriptGenerator.append(
+          `type T = () => ${returnType}`,
+          '',
+          'typeAnnotation'
+        );
+        girTypescriptGenerator.moduleTypes = this.moduleTypes;
+        girTypescriptGenerator.buildFunctionParams(
+          oc(girTypeStrict).callback.parameters.parameter([]),
+          ['0', 'parameters']
+        );
+        knownType = girTypescriptGenerator.generate();
       } else if (girTypeStrict.type) {
         girTypeStr = oc(girTypeStrict)
           .type['@_name']('')
@@ -732,18 +678,13 @@ export default class GirTSGenerator extends BabelParserGenerator {
       va_list: `any${array}`
     } as { [key: string]: string })[girTypeStr];
     if (!tsType) {
-      let moduleName = '';
-      let moduleTypes = new Set();
-      if ($namespace) {
-        moduleName = $namespace['@_name'];
-        moduleTypes = this.modulesTypes[moduleName];
-      }
+      const moduleName = this.$namespace['@_name'];
       let moduleType = girTypeStr;
       const girTypeStrSplit = girTypeStr.split('.');
       if (girTypeStrSplit[0] === moduleName) {
         moduleType = girTypeStrSplit.pop() || girTypeStr;
       }
-      if (moduleTypes.has(moduleType)) {
+      if (this.moduleTypes.has(moduleType)) {
         tsType = moduleType + array;
       } else if (girTypeStrSplit.length > 1) {
         this.imports.add(girTypeStrSplit[0]);
