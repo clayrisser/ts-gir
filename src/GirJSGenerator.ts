@@ -17,6 +17,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     this.append(`const ${namespaceName} = imports.gi.${namespaceName}`);
     this.buildClasses();
     this.buildFunctions();
+    this.append(`export default ${namespaceName}`);
   }
 
   buildFunctions(path: InjectPath = ''): void {
