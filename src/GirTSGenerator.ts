@@ -251,6 +251,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     $functions: Function[],
     path: InjectPath = ''
   ): void {
+    if (!Array.isArray($functions)) $functions = [$functions];
     $functions.forEach(($function: Function) => {
       const returnType = this.getType($function['return-value']);
       let functionName = $function['@_name'];
