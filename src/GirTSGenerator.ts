@@ -7,6 +7,7 @@ import {
   Bitfield,
   Callback,
   Class,
+  ClassIdentifiers,
   Constant,
   Constructor,
   Enumeration,
@@ -400,8 +401,12 @@ export default class GirTSGenerator extends BabelParserGenerator {
     });
   }
 
-  getClassIdentifiers($class?: Class): Set<string> {
-    if (!$class) return new Set();
+  getClassIdentifiers(
+    $class?: Class | Interface,
+    recursive = true
+  ): ClassIdentifiers {
+    const result: ClassIdentifiers = {};
+    if (!$class) return result;
     const $parentClass = _.find(
       oc(this.$namespace).class([]),
       $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
@@ -412,21 +417,45 @@ export default class GirTSGenerator extends BabelParserGenerator {
     }
     let $methods = oc($class).method([]);
     if (!Array.isArray($methods)) $methods = [($methods as unknown) as Method];
-    return new Set([
-      ...($parentClass ? this.getClassIdentifiers($parentClass) : []),
+    let $fields = oc($class).field([]);
+    if (!Array.isArray($fields)) $fields = [($fields as unknown) as Field];
+    let $functions = oc($class).function([]);
+    if (!Array.isArray($functions)) {
+      $functions = [($functions as unknown) as Function];
+    }
+    let $virtualMethods = oc($class)['virtual-method']([]);
+    if (!Array.isArray($virtualMethods)) {
+      $virtualMethods = [($virtualMethods as unknown) as Method];
+    }
+    const identifiers = [
+      ...(recursive
+        ? $parentClass
+          ? Object.keys(this.getClassIdentifiers($parentClass))
+          : []
+        : []),
+      ...$fields.map(($field: Field) => $field['@_name']),
+      ...$functions.map(($function: Function) => $function['@_name']),
       ...$methods.map(($method: Method) => $method['@_name']),
-      ...$properties.map(($property: Property) => $property['@_name'])
-    ]);
+      ...$properties.map(($property: Property) => $property['@_name']),
+      ...$virtualMethods.map(($method: Method) => $method['@_name'])
+    ];
+    identifiers.forEach((identifier: string) => {
+      result[identifier] = result[identifier] ? ++result[identifier] : 1;
+    });
+    return result;
   }
 
-  getParentClassIdentifiers($class?: Class | Interface): Set<string> {
-    if (!$class) return new Set();
+  getParentClassIdentifiers(
+    $class?: Class | Interface,
+    recursive = true
+  ): ClassIdentifiers {
+    if (!$class) return {};
     const $parentClass = _.find(
       oc(this.$namespace).class([]),
       $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
     );
-    if (!$parentClass) return new Set();
-    return this.getClassIdentifiers($parentClass);
+    if (!$parentClass) return {};
+    return this.getClassIdentifiers($parentClass, recursive);
   }
 
   buildMethodDeclarations(
@@ -436,7 +465,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
     isStatic = false
   ): void {
     if (!Array.isArray($methods)) $methods = [$methods];
-    const classIdentifiers = this.getParentClassIdentifiers($class);
+    const parentClassIdentifiers = this.getParentClassIdentifiers($class);
+    const classIdentifiers = this.getClassIdentifiers($class, false);
     $methods.forEach(($method: Method) => {
       let methodName = $method['@_name'];
       if (this.isReservedKeyword(methodName) || methodName === 'constructor') {
@@ -460,7 +490,10 @@ export default class GirTSGenerator extends BabelParserGenerator {
         );
         return true;
       }
-      if (classIdentifiers.has(methodName)) {
+      if (
+        parentClassIdentifiers[methodName] ||
+        classIdentifiers[methodName] > 1
+      ) {
         this.logger.warn(
           `duplicate method '${methodName}' ignored${
             $class ? ` in class '${$class['@_name']}'` : ''
@@ -545,7 +578,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
     isStatic = false
   ): void {
     if (!Array.isArray($properties)) $properties = [$properties];
-    const classIdentifiers = this.getParentClassIdentifiers($class);
+    const parentClassIdentifiers = this.getParentClassIdentifiers($class);
+    const classIdentifiers = this.getClassIdentifiers($class, false);
     $properties.forEach(($property: Property) => {
       let propertyName = $property['@_name'];
       if (
@@ -567,7 +601,10 @@ export default class GirTSGenerator extends BabelParserGenerator {
           }`
         );
       }
-      if (classIdentifiers.has(propertyName)) {
+      if (
+        parentClassIdentifiers[propertyName] ||
+        classIdentifiers[propertyName] > 1
+      ) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
         const propertyType = this.getType($property);

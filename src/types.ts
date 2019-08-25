@@ -73,6 +73,10 @@ export interface Logger {
   warn(input: string | Error): void;
 }
 
+export interface ClassIdentifiers {
+  [key: string]: number;
+}
+
 export interface Function {
   '@_name': string;
   parameters?: { parameter: Parameter[] };
