@@ -427,12 +427,11 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!Array.isArray($virtualMethods)) {
       $virtualMethods = [($virtualMethods as unknown) as Method];
     }
+    const parentClassIdentifiers = $parentClass
+      ? Object.keys(this.getClassIdentifiers($parentClass))
+      : [];
     const identifiers = [
-      ...(recursive
-        ? $parentClass
-          ? Object.keys(this.getClassIdentifiers($parentClass))
-          : []
-        : []),
+      ...(recursive ? parentClassIdentifiers : []),
       ...$fields.map(($field: Field) => $field['@_name']),
       ...$functions.map(($function: Function) => $function['@_name']),
       ...$methods.map(($method: Method) => $method['@_name']),
