@@ -56,10 +56,12 @@
     "babel-parser-generator": "^0.1.5",
     "bluebird": "^3.5.5",
     "core-js": "^3.2.1",
+    "cosmiconfig": "^5.2.1",
     "err": "^2.1.11",
     "fast-xml-parser": "^3.12.20",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
+    "pkg-dir": "^4.2.0",
     "ts-optchain.macro": "^1.1.5"
   },
   "devDependencies": {
@@ -69,6 +71,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/babel-generator": "^6.25.3",
     "@types/bluebird": "^3.5.27",
+    "@types/cosmiconfig": "^5.0.3",
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.137",
@@ -92,5 +95,12 @@
   "jest": {
     "testRegex": "tests(/|/.*/)[^_/]*[jt]sx?$",
     "verbose": true
+  },
+  "tsgir": {
+    "moduleName": "gnome-gobject",
+    "output": "index",
+    "importMap": {
+      "g-lib": "gnome-glib"
+    }
   }
 }

@@ -2,6 +2,16 @@ export interface Type {
   '@_name': string;
 }
 
+export interface UserConfig {
+  importMap: ImportMap;
+  moduleName?: string;
+  output?: string;
+}
+
+export interface ImportMap {
+  [key: string]: string;
+}
+
 export interface Renamed {
   classes: {
     [key: string]: {

@@ -24,7 +24,8 @@ import {
   Property,
   Record,
   Renamed,
-  Union
+  Union,
+  UserConfig
 } from './types';
 
 export default class GirTSGenerator extends BabelParserGenerator {
@@ -46,6 +47,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   constructor(
     public $namespace: Namespace,
+    public userConfig: UserConfig,
     public logger: Logger,
     public moduleName = ''
   ) {
@@ -118,9 +120,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
   }
 
   buildModules(path: InjectPath = ''): void {
-    const moduleName = this.$namespace['@_name'];
     const count = this.isModule
-      ? this.append(`declare module '${moduleName}' {}`, path)
+      ? this.append(`declare module '${this.moduleName}' {}`, path)
       : 0;
     this.buildConstantDeclarations(oc(this.$namespace).constant([]), [
       path,
@@ -166,12 +167,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   buildImports(imports: Set<string>, path: InjectPath = ''): void {
     imports.forEach((importName: string) => {
-      let importPath = `./${_.kebabCase(importName)}`;
-      if (this.isModule) {
-        importPath = `${
-          this.moduleName ? `${this.moduleName}-` : ''
-        }${_.kebabCase(importName)}`;
-      }
+      let importPath = this.userConfig.importMap[_.kebabCase(importName)];
+      if (!importPath) importPath = `./${_.kebabCase(importName)}`;
       this.prepend(`import * as ${importName} from '${importPath}'`, path);
       this.logger.warn(`importing '${importName}' from '${importPath}'`);
     });
@@ -649,6 +646,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
         const returnType = this.getType(girTypeStrict.callback['return-value']);
         const girTypescriptGenerator = new GirTSGenerator(
           this.$namespace,
+          this.userConfig,
           this.logger,
           this.moduleName
         );

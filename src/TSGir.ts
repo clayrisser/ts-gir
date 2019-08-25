@@ -1,13 +1,18 @@
 import Err from 'err';
 import _ from 'lodash';
+import cosmiconfig from 'cosmiconfig';
 import fs from 'fs-extra';
 import path from 'path';
+import pkgDir from 'pkg-dir';
 import { Command, flags } from '@oclif/command';
 import { mapSeries } from 'bluebird';
+import { oc } from 'ts-optchain.macro';
 import Gir from './Gir';
 import GirJSGenerator from './GirJSGenerator';
 import GirTSGenerator from './GirTSGenerator';
-import { Namespace } from './types';
+import { Namespace, UserConfig } from './types';
+
+const rootPath = pkgDir.sync(process.cwd()) || process.cwd();
 
 export default class TSGir extends Command {
   static description = 'generate typescript from gir';
@@ -25,6 +30,16 @@ export default class TSGir extends Command {
 
   warnings: Set<string> = new Set();
 
+  get userConfig(): UserConfig {
+    const userConfig: Partial<UserConfig> = oc(
+      cosmiconfig('tsgir').searchSync(rootPath)
+    ).config({});
+    return {
+      importMap: {},
+      ...userConfig
+    };
+  }
+
   async run() {
     const { args, flags } = this.parse(TSGir);
     const girFile = args.GIR_FILE;
@@ -37,11 +52,12 @@ export default class TSGir extends Command {
       const namespaceName = $namespace['@_name'];
       const girTSGenerator = new GirTSGenerator(
         $namespace,
+        this.userConfig,
         {
           info: this.log,
           warn: this.handleWarn.bind(this)
         },
-        flags.module
+        flags.module || this.userConfig.moduleName
       );
       girTSGenerator.build();
       const girJSGenerator = new GirJSGenerator(
@@ -52,11 +68,21 @@ export default class TSGir extends Command {
       const tsCode = girTSGenerator.generate();
       const jsCode = girJSGenerator.generate();
       await fs.writeFile(
-        path.resolve(process.cwd(), `${_.kebabCase(namespaceName)}.d.ts`),
+        path.resolve(
+          process.cwd(),
+          `${flags.output ||
+            this.userConfig.output ||
+            _.kebabCase(namespaceName)}.d.ts`
+        ),
         tsCode
       );
       await fs.writeFile(
-        path.resolve(process.cwd(), `${_.kebabCase(namespaceName)}.js`),
+        path.resolve(
+          process.cwd(),
+          `${flags.output ||
+            this.userConfig.output ||
+            _.kebabCase(namespaceName)}.js`
+        ),
         jsCode
       );
     });
