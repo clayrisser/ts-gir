@@ -1,6 +1,6 @@
 {
   "name": "ts-gir",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "generate typescript from gir",
   "keywords": [
     "ts-gir",
@@ -30,7 +30,7 @@
   ],
   "main": "lib/index.js",
   "bin": {
-    "ts-gir": "bin/ts-gir.js"
+    "ts-gir": "bin/bin.js"
   },
   "repository": {
     "type": "git",
