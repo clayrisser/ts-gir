@@ -298,13 +298,17 @@ export default class GirTSGenerator extends BabelParserGenerator {
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
       let paramName = this.safeWord($parameter['@_name']);
+      let paramType = this.getType($parameter);
       if (paramName === 'arguments' || paramName === 'eval') {
         paramName = `_${paramName}`;
         paramRequired = !paramRequired
           ? false
           : $parameter['@_optional'] !== '1';
-      } else if (paramName === '...') paramName = '...args';
-      const paramType = this.getType($parameter);
+      } else if (paramName === '...') {
+        paramName = '...args';
+        paramRequired = true;
+        paramType = this.getType($parameter, { isArray: true });
+      }
       if (paramType) {
         // TODO: some param types not supported
         this.append(
@@ -512,11 +516,15 @@ export default class GirTSGenerator extends BabelParserGenerator {
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
       let paramName = this.safeWord($parameter['@_name']);
+      let paramType = this.getType($parameter);
       if (paramName === 'arguments' || paramName === 'eval') {
         paramName = `_${paramName}`;
-      } else if (paramName === '...') paramName = '...args';
+      } else if (paramName === '...') {
+        paramName = '...args';
+        paramRequired = true;
+        paramType = this.getType($parameter, { isArray: true });
+      }
       paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
-      const paramType = this.getType($parameter);
       if (paramType && paramName !== '...') {
         // TODO: some param types not supported
         this.append(
@@ -576,16 +584,24 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   getType(
     girType: GirType,
-    isArray?: boolean,
-    nullable?: boolean
+    options: {
+      isArray?: boolean | null;
+      nullable?: boolean | null;
+    } = {
+      isArray: null,
+      nullable: null
+    }
   ): string | null {
+    let { isArray, nullable } = options;
+    if (typeof isArray === 'undefined') isArray = null;
+    if (typeof nullable === 'undefined') nullable = null;
     const girTypeStrict = girType as GirTypeStrict;
     // TODO: some param types not supported
     let girTypeStr: string = '';
     let knownType = null;
     if (typeof girTypeStrict !== 'string') {
       if (girTypeStrict.array) {
-        isArray = true;
+        if (isArray === null) isArray = true;
         girTypeStr = oc(girTypeStrict)
           .array.type['@_name']('')
           .toString();
@@ -621,14 +637,14 @@ export default class GirTSGenerator extends BabelParserGenerator {
         knownType = 'any';
       }
     }
-    if (typeof isArray === 'undefined' || isArray === null) isArray = false;
-    if (typeof nullable === 'undefined' || nullable === null) nullable = false;
+    if (isArray === null) isArray = false;
+    if (nullable === null) nullable = false;
     girTypeStr = girTypeStr.split(' ').pop() || '';
     if (!girTypeStr && !knownType) knownType = 'any';
     let array = '';
     if (isArray) array = '[]';
     if (knownType) {
-      if (knownType.indexOf(' ') && array.length) {
+      if (knownType.indexOf(' ') > -1 && array.length) {
         knownType = `(${knownType})`;
       }
       knownType = `${knownType}${array}`;

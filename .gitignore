@@ -79,4 +79,5 @@ package-lock.json
 yarn.lock
 tsconfig.tsbuildinfo
 .DS_Store
-g-*
+/g*.js
+/g*.d.ts
