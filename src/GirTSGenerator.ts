@@ -509,18 +509,19 @@ export default class GirTSGenerator extends BabelParserGenerator {
             [path, 'declaration.body.body'],
             'body.body'
           );
+        } else {
+          const count = this.append(
+            `class Class {${
+              isStatic ? 'static ' : ''
+            }${methodName}(): ${returnType}}`,
+            [path, 'declaration.body.body'],
+            'body.body'
+          );
+          this.buildMethodDeclarationParams(
+            oc($method).parameters.parameter([]),
+            [path, 'declaration.body.body', count - 1]
+          );
         }
-        const count = this.append(
-          `class Class {${
-            isStatic ? 'static ' : ''
-          }${methodName}(): ${returnType}}`,
-          [path, 'declaration.body.body'],
-          'body.body'
-        );
-        this.buildMethodDeclarationParams(
-          oc($method).parameters.parameter([]),
-          [path, 'declaration.body.body', count - 1]
-        );
       }
       return true;
     });
