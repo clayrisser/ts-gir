@@ -1,6 +1,6 @@
 {
   "name": "ts-gir",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "generate typescript from gir",
   "keywords": [
     "ts-gir",
