@@ -497,14 +497,11 @@ export default class GirTSGenerator extends BabelParserGenerator {
           }`
         );
       } else {
-        const duplicate =
-          parentClassIdentifiers[methodName] ||
-          classIdentifiers[methodName] > 1;
         const returnType = this.getType($method['return-value']);
         const count = this.append(
-          `class Class {
-${duplicate ? '// @ts-ignore' : ''}
-${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
+          `class Class {${
+            isStatic ? 'static ' : ''
+          }${methodName}(): ${returnType}}`,
           [path, 'declaration.body.body'],
           'body.body'
         );
@@ -608,14 +605,9 @@ ${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
       ) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
-        const duplicate =
-          parentClassIdentifiers[propertyName] ||
-          classIdentifiers[propertyName] > 1;
         const propertyType = this.getType($property);
         this.append(
-          `class Class {
-${duplicate ? '// @ts-ignore' : ''}
-${isStatic ? 'static ' : ''}${
+          `class Class {${isStatic ? 'static ' : ''}${
             propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
           }: ${propertyType}}`,
           [path, 'declaration.body.body'],
