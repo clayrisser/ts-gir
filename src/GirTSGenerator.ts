@@ -497,7 +497,19 @@ export default class GirTSGenerator extends BabelParserGenerator {
           }`
         );
       } else {
+        const duplicate =
+          parentClassIdentifiers[methodName] ||
+          classIdentifiers[methodName] > 1;
         const returnType = this.getType($method['return-value']);
+        if (duplicate) {
+          this.append(
+            `class Class {${
+              isStatic ? 'static ' : ''
+            }${methodName}(...args: any[]): any}`,
+            [path, 'declaration.body.body'],
+            'body.body'
+          );
+        }
         const count = this.append(
           `class Class {${
             isStatic ? 'static ' : ''
@@ -605,14 +617,31 @@ export default class GirTSGenerator extends BabelParserGenerator {
       ) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
+        const duplicate =
+          parentClassIdentifiers[propertyName] ||
+          classIdentifiers[propertyName] > 1;
         const propertyType = this.getType($property);
-        this.append(
-          `class Class {${isStatic ? 'static ' : ''}${
-            propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
-          }: ${propertyType}}`,
-          [path, 'declaration.body.body'],
-          'body.body.0'
-        );
+        if (duplicate) {
+          this.append(
+            `class Class {${isStatic ? 'static ' : ''}${
+              propertyName.indexOf('-') > -1
+                ? `'${propertyName}'`
+                : propertyName
+            }: any}`,
+            [path, 'declaration.body.body'],
+            'body.body.0'
+          );
+        } else {
+          this.append(
+            `class Class {${isStatic ? 'static ' : ''}${
+              propertyName.indexOf('-') > -1
+                ? `'${propertyName}'`
+                : propertyName
+            }: ${propertyType}}`,
+            [path, 'declaration.body.body'],
+            'body.body.0'
+          );
+        }
       }
     });
   }
