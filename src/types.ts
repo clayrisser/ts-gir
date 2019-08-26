@@ -6,6 +6,7 @@ export interface UserConfig {
   importMap: ImportMap;
   moduleName?: string;
   output?: string;
+  ignoreDuplicates?: boolean;
 }
 
 export interface ImportMap {

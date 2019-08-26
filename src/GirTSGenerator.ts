@@ -488,8 +488,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
         return true;
       }
       if (
-        parentClassIdentifiers[methodName] ||
-        classIdentifiers[methodName] > 1
+        this.userConfig.ignoreDuplicates &&
+        (parentClassIdentifiers[methodName] || classIdentifiers[methodName] > 1)
       ) {
         this.logger.warn(
           `duplicate method '${methodName}' ignored${
@@ -599,8 +599,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
         );
       }
       if (
-        parentClassIdentifiers[propertyName] ||
-        classIdentifiers[propertyName] > 1
+        this.userConfig.ignoreDuplicates &&
+        (parentClassIdentifiers[propertyName] ||
+          classIdentifiers[propertyName] > 1)
       ) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
