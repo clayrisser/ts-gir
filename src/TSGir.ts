@@ -36,6 +36,7 @@ export default class TSGir extends Command {
     ).config({});
     return {
       importMap: {},
+      ignoreDuplicates: false,
       ...userConfig
     };
   }

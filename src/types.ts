@@ -3,10 +3,10 @@ export interface Type {
 }
 
 export interface UserConfig {
+  ignoreDuplicates: boolean;
   importMap: ImportMap;
   moduleName?: string;
   output?: string;
-  ignoreDuplicates?: boolean;
 }
 
 export interface ImportMap {
