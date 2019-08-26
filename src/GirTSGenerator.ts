@@ -506,10 +506,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
 ${duplicate ? '// @ts-ignore' : ''}
 ${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
           [path, 'declaration.body.body'],
-          'body.body',
-          // @ts-ignore
-          { ...this.options, preserveComments: true },
-          {}
+          'body.body'
         );
         this.buildMethodDeclarationParams(
           oc($method).parameters.parameter([]),
@@ -616,16 +613,13 @@ ${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
           classIdentifiers[propertyName] > 1;
         const propertyType = this.getType($property);
         this.append(
-          `class Class {${isStatic ? 'static ' : ''}
+          `class Class {
 ${duplicate ? '// @ts-ignore' : ''}
-${
-  propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
-}: ${propertyType}}`,
+${isStatic ? 'static ' : ''}${
+            propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
+          }: ${propertyType}}`,
           [path, 'declaration.body.body'],
-          'body.body.0',
-          // @ts-ignore
-          { ...this.options, preserveComments: true },
-          {}
+          'body.body.0'
         );
       }
     });
