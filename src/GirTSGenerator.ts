@@ -497,13 +497,19 @@ export default class GirTSGenerator extends BabelParserGenerator {
           }`
         );
       } else {
+        const duplicate =
+          parentClassIdentifiers[methodName] ||
+          classIdentifiers[methodName] > 1;
         const returnType = this.getType($method['return-value']);
         const count = this.append(
-          `class C {${
-            isStatic ? 'static ' : ''
-          }${methodName}(): ${returnType}}`,
+          `class Class {
+${duplicate ? '// @ts-ignore' : ''}
+${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
           [path, 'declaration.body.body'],
-          'body.body'
+          'body.body',
+          // @ts-ignore
+          { ...this.options, preserveComments: true },
+          {}
         );
         this.buildMethodDeclarationParams(
           oc($method).parameters.parameter([]),
@@ -605,13 +611,21 @@ export default class GirTSGenerator extends BabelParserGenerator {
       ) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
       } else {
+        const duplicate =
+          parentClassIdentifiers[propertyName] ||
+          classIdentifiers[propertyName] > 1;
         const propertyType = this.getType($property);
         this.append(
-          `class C {${isStatic ? 'static ' : ''}${
-            propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
-          }: ${propertyType}}`,
+          `class C {${isStatic ? 'static ' : ''}
+${duplicate ? '// @ts-ignore' : ''}
+${
+  propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName
+}: ${propertyType}}`,
           [path, 'declaration.body.body'],
-          'body.body.0'
+          'body.body.0',
+          // @ts-ignore
+          { ...this.options, preserveComments: true },
+          {}
         );
       }
     });
