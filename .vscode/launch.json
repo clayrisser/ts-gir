@@ -1,7 +1,4 @@
 {
-  // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
-  // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
-  // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
@@ -10,9 +7,8 @@
       "name": "Programm starten",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/lib/index.js",
-      "preLaunchTask": "npm: build:ts",
-      "outFiles": ["${workspaceFolder}/lib/**/*.js"],
-      "args": ["/usr/share/gir-1.0/Gtk-3.0.gir"]
+      "preLaunchTask": "npm: build",
+      "outFiles": ["${workspaceFolder}/lib/**/*.js"]
     }
   ]
 }
