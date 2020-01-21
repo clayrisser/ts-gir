@@ -1241,7 +1241,7 @@ export class BufferedInputStream extends FilterInputStream {
   constructor(base_stream: InputStream);
   'buffer-size': number;
   static parent_instance: any;
-  static priv: any;
+  static priv: BufferedInputStreamPrivate;
   fill(...args: any[]): any;
   fill_async(...args: any[]): any;
   fill_finish(...args: any[]): any;
@@ -1260,7 +1260,7 @@ export class BufferedOutputStream extends FilterOutputStream {
   'auto-grow': boolean;
   'buffer-size': number;
   static parent_instance: any;
-  static priv: any;
+  static priv: BufferedOutputStreamPrivate;
   get_auto_grow(): boolean;
   get_buffer_size(): number;
   set_auto_grow(auto_grow: boolean): void;
@@ -1303,14 +1303,14 @@ export class ConverterInputStream extends FilterInputStream {
   constructor(base_stream: InputStream, converter: any);
   converter: any;
   static parent_instance: any;
-  static priv: any;
+  static priv: ConverterInputStreamPrivate;
   get_converter(): any;
 }
 export class ConverterOutputStream extends FilterOutputStream {
   constructor(base_stream: OutputStream, converter: any);
   converter: any;
   static parent_instance: any;
-  static priv: any;
+  static priv: ConverterOutputStreamPrivate;
   get_converter(): any;
 }
 export class Credentials extends GObject.Object {
@@ -1621,7 +1621,7 @@ export class DataOutputStream extends FilterOutputStream {
   constructor(base_stream: OutputStream);
   'byte-order': DataStreamByteOrder;
   static parent_instance: any;
-  static priv: any;
+  static priv: DataOutputStreamPrivate;
   get_byte_order(): DataStreamByteOrder;
   put_byte(data: number, cancellable: Cancellable | null): boolean;
   put_int16(data: number, cancellable: Cancellable | null): boolean;

@@ -1,6 +1,6 @@
 import Err from 'err';
 import _ from 'lodash';
-import cosmiconfig from 'cosmiconfig';
+import { cosmiconfig } from 'cosmiconfig';
 import util from 'util';
 import fs from 'fs-extra';
 import globCb from 'glob';
@@ -25,8 +25,8 @@ export default class TSGir extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     module: flags.string({ char: 'm' }),
-    output: flags.string({ char: 'o' }),
-    dir: flags.string({ char: 'd' }),
+    output: flags.string({ char: 'o', description: 'Output basename, if not set, the namespace is used' }),
+    dir: flags.string({ char: 'd', description: 'Output dir' }),
     silent: flags.boolean({ char: 's' }),
     verbose: flags.boolean(),
     version: flags.version({ char: 'v' }),
@@ -34,20 +34,16 @@ export default class TSGir extends Command {
       char: 'i',
       multiple: true,
       required: true,
-      default: '/usr/share/gir-1.0/*.gir'
+      default: '/usr/share/gir-1.0/*.gir',
+      description: 'Paths to GIR files to generate type definitions from (with wild card support)'
     })
   };
 
-  // static args = [{ name: 'GIR_FILES', required: true, parse: (input: string) => {
-  //   console.log('input');
-  //   return input;
-  // } }];
-
   warnings: Set<string> = new Set();
 
-  get userConfig(): UserConfig {
+  async getUserConfig(): Promise<UserConfig> {
     const userConfig: Partial<UserConfig> = oc(
-      cosmiconfig('tsgir').searchSync(rootPath)
+      await cosmiconfig('tsgir').search(rootPath)
     ).config({});
     return {
       importMap: {},
@@ -65,14 +61,16 @@ export default class TSGir extends Command {
     if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
     await mapSeries($namespaces, async ($namespace: Namespace) => {
       const namespaceName = $namespace['@_name'];
-      const moduleName = flags.module || this.userConfig.moduleName;
+      const userConfig = await this.getUserConfig();
+      const moduleName = flags.module || userConfig.moduleName;
+      // console.log(`Process namespace "${namespaceName}"`);
       const basename =
-        flags.output || this.userConfig.output || _.kebabCase(namespaceName);
-      const dir = flags.dir || this.userConfig.dir || '';
+        flags.output || userConfig.output || _.kebabCase(namespaceName);
+      const dir = flags.dir || userConfig.dir || '';
       const path = Path.resolve(process.cwd(), dir, basename);
       const girTSGenerator = new GirTSGenerator(
         $namespace,
-        this.userConfig,
+        userConfig,
         {
           info: this.log,
           warn: this.handleWarn.bind(this)

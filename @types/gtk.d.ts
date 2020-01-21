@@ -1524,7 +1524,7 @@ export class AboutDialog extends Dialog {
   website: string;
   'website-label': string;
   'wrap-license': boolean;
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
   add_credit_section(section_name: string, people: string[]): void;
   get_artists(): string[];
@@ -1778,7 +1778,7 @@ export class AppChooserButton extends ComboBox {
   heading: string;
   'show-default-item': boolean;
   'show-dialog-item': boolean;
-  static parent: any;
+  static parent: ComboBox;
   static priv: any;
   append_custom_item(name: string, label: string, icon: Gio.Icon): void;
   append_separator(): void;
@@ -1795,7 +1795,7 @@ export class AppChooserDialog extends Dialog {
   constructor(parent: Window | null, flags: DialogFlags, file: Gio.File);
   gfile: Gio.File;
   heading: string;
-  static parent: any;
+  static parent: Dialog;
   static priv: any;
   get_heading(): string | null;
   get_widget(): Widget;
@@ -1809,7 +1809,7 @@ export class AppChooserWidget extends Box {
   'show-fallback': boolean;
   'show-other': boolean;
   'show-recommended': boolean;
-  static parent: any;
+  static parent: Box;
   static priv: any;
   get_default_text(): string;
   get_show_all(): boolean;
@@ -1862,7 +1862,7 @@ export class Application extends Gio.Application {
 export class ApplicationWindow extends Window {
   constructor(application: Application);
   'show-menubar': boolean;
-  static parent_instance: any;
+  static parent_instance: Window;
   static priv: any;
   get_help_overlay(): ShortcutsWindow | null;
   get_id(): number;
@@ -1895,7 +1895,7 @@ export class AspectFrame extends Frame {
 export class Assistant extends Window {
   constructor();
   'use-header-bar': number;
-  static parent: any;
+  static parent: Window;
   static priv: any;
   add_action_widget(child: Widget): void;
   append_page(page: Widget): number;
@@ -2006,7 +2006,7 @@ export class Button extends Bin {
   get_alignment(xalign: number, yalign: number): void;
   get_always_show_image(): boolean;
   get_event_window(): Gdk.Window;
-  get_focus_on_click(...args: any[]): any;
+  get_focus_on_click(): boolean;
   get_image(): Widget | null;
   get_image_position(): PositionType;
   get_label(): string;
@@ -2018,14 +2018,14 @@ export class Button extends Bin {
   released(...args: any[]): any;
   set_alignment(xalign: number, yalign: number): void;
   set_always_show_image(always_show: boolean): void;
-  set_focus_on_click(...args: any[]): any;
+  set_focus_on_click(focus_on_click: boolean): void;
   set_image(image: Widget | null): void;
   set_image_position(position: PositionType): void;
   set_label(label: string): void;
   set_relief(relief: ReliefStyle): void;
   set_use_stock(use_stock: boolean): void;
   set_use_underline(use_underline: boolean): void;
-  activate(...args: any[]): any;
+  activate(): void;
   clicked(...args: any[]): any;
   enter(...args: any[]): any;
   leave(...args: any[]): any;
@@ -2489,13 +2489,13 @@ export class ColorButton extends Button {
 export class ColorChooserDialog extends Dialog {
   constructor(title: string | null, parent: Window | null);
   'show-editor': boolean;
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
 }
 export class ColorChooserWidget extends Box {
   constructor();
   'show-editor': boolean;
-  static parent_instance: any;
+  static parent_instance: Box;
   static priv: any;
 }
 export class ColorSelection extends Box {
@@ -2505,7 +2505,7 @@ export class ColorSelection extends Box {
   'current-rgba': Gdk.RGBA;
   'has-opacity-control': boolean;
   'has-palette': boolean;
-  static parent_instance: any;
+  static parent_instance: Box;
   static private_data: ColorSelectionPrivate;
   get_current_alpha(): number;
   get_current_color(color: Gdk.Color): void;
@@ -2535,7 +2535,7 @@ export class ColorSelectionDialog extends Dialog {
   'color-selection': Widget;
   'help-button': Widget;
   'ok-button': Widget;
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
   get_color_selection(): Widget;
 }
@@ -2557,7 +2557,7 @@ export class ComboBox extends Bin {
   'row-span-column': number;
   'tearoff-title': string;
   'wrap-width': number;
-  static parent_instance: any;
+  static parent_instance: Bin;
   static priv: any;
   get_active(): number;
   get_active_id(): string | null;
@@ -2566,7 +2566,7 @@ export class ComboBox extends Bin {
   get_button_sensitivity(): SensitivityType;
   get_column_span_column(): number;
   get_entry_text_column(): number;
-  get_focus_on_click(...args: any[]): any;
+  get_focus_on_click(): boolean;
   get_has_entry(): boolean;
   get_id_column(): number;
   get_model(): any;
@@ -2586,7 +2586,7 @@ export class ComboBox extends Bin {
   set_button_sensitivity(sensitivity: SensitivityType): void;
   set_column_span_column(column_span: number): void;
   set_entry_text_column(text_column: number): void;
-  set_focus_on_click(...args: any[]): any;
+  set_focus_on_click(focus_on_click: boolean): void;
   set_id_column(id_column: number): void;
   set_model(model: any | null): void;
   set_popup_fixed_width(fixed: boolean): void;
@@ -2612,7 +2612,7 @@ export class ComboBoxText extends ComboBox {
   insert_text(position: number, text: string): void;
   prepend(id: string | null, text: string): void;
   prepend_text(text: string): void;
-  remove(...args: any[]): any;
+  remove(position: number): void;
   remove_all(): void;
 }
 export class Container extends Widget {
@@ -2693,7 +2693,7 @@ export class CssProvider extends GObject.Object {
 export class Dialog extends Window {
   constructor();
   'use-header-bar': number;
-  static window: any;
+  static window: Window;
   static priv: any;
   add_action_widget(child: Widget, response_id: number): void;
   add_button(button_text: string, response_id: number): Widget;
@@ -2997,7 +2997,7 @@ export class Expander extends Bin {
   set_spacing(spacing: number): void;
   set_use_markup(use_markup: boolean): void;
   set_use_underline(use_underline: boolean): void;
-  activate(...args: any[]): any;
+  activate(): void;
 }
 export class ExpanderAccessible extends ContainerAccessible {
   static parent: any;
@@ -3008,19 +3008,19 @@ export class FileChooserButton extends Box {
   dialog: any;
   title: string;
   'width-chars': number;
-  static parent: any;
+  static parent: Box;
   static priv: any;
-  get_focus_on_click(...args: any[]): any;
+  get_focus_on_click(): boolean;
   get_title(): string;
   get_width_chars(): number;
-  set_focus_on_click(...args: any[]): any;
+  set_focus_on_click(focus_on_click: boolean): void;
   set_title(title: string): void;
   set_width_chars(n_chars: number): void;
   file_set(): void;
 }
 export class FileChooserDialog extends Dialog {
   constructor(title: string | null, parent: Window | null, action: FileChooserAction, first_button_text: string | null, ...args: any[]);
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
 }
 export class FileChooserNative extends NativeDialog {
@@ -3036,7 +3036,7 @@ export class FileChooserWidget extends Box {
   constructor(action: FileChooserAction);
   'search-mode': boolean;
   subtitle: string;
-  static parent_instance: any;
+  static parent_instance: Box;
   static priv: any;
 }
 export class FileFilter extends GObject.InitiallyUnowned {
@@ -3112,11 +3112,11 @@ export class FlowBoxAccessible extends ContainerAccessible {
 }
 export class FlowBoxChild extends Bin {
   constructor();
-  static parent_instance: any;
+  static parent_instance: Bin;
   changed(): void;
   get_index(): number;
   is_selected(): boolean;
-  activate(...args: any[]): any;
+  activate(): void;
 }
 export class FlowBoxChildAccessible extends ContainerAccessible {
   static parent: any;
@@ -3147,20 +3147,20 @@ export class FontButton extends Button {
 }
 export class FontChooserDialog extends Dialog {
   constructor(title: string | null, parent: Window | null);
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
 }
 export class FontChooserWidget extends Box {
   constructor();
   'tweak-action': Gio.Action;
-  static parent_instance: any;
+  static parent_instance: Box;
   static priv: any;
 }
 export class FontSelection extends Box {
   constructor();
   'font-name': string;
   'preview-text': string;
-  static parent_instance: any;
+  static parent_instance: Box;
   static priv: any;
   get_face(): Pango.FontFace;
   get_face_list(): Widget;
@@ -3177,7 +3177,7 @@ export class FontSelection extends Box {
 }
 export class FontSelectionDialog extends Dialog {
   constructor(title: string);
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
   get_cancel_button(): Widget;
   get_font_name(): string;
@@ -3552,7 +3552,7 @@ export class IconView extends Container {
   'item-orientation': Orientation;
   'item-padding': number;
   'item-width': number;
-  margin: any;
+  margin: number;
   'markup-column': number;
   model: any;
   'pixbuf-column': number;
@@ -3562,7 +3562,7 @@ export class IconView extends Container {
   spacing: number;
   'text-column': number;
   'tooltip-column': number;
-  static parent: any;
+  static parent: Container;
   static priv: any;
   convert_widget_to_bin_window_coords(wx: number, wy: number, bx: number, by: number): void;
   create_drag_icon(path: TreePath): cairo.Surface;
@@ -3704,7 +3704,7 @@ export class InfoBar extends Box {
   'message-type': MessageType;
   revealed: boolean;
   'show-close-button': boolean;
-  static parent: any;
+  static parent: Box;
   static priv: any;
   add_action_widget(child: Widget, response_id: number): void;
   add_button(button_text: string, response_id: number): Button;
@@ -3862,7 +3862,7 @@ export class LinkButton extends Button {
   constructor(uri: string);
   uri: string;
   visited: boolean;
-  static parent_instance: any;
+  static parent_instance: Button;
   static priv: any;
   get_uri(): string;
   get_visited(): boolean;
@@ -3878,7 +3878,7 @@ export class ListBox extends Container {
   constructor();
   'activate-on-single-click': boolean;
   'selection-mode': SelectionMode;
-  static parent_instance: any;
+  static parent_instance: Container;
   bind_model(model: Gio.ListModel | null, create_widget_func: ListBoxCreateWidgetFunc | null, user_data: object | null, user_data_free_func: GLib.DestroyNotify): void;
   drag_highlight_row(row: ListBoxRow): void;
   drag_unhighlight_row(): void;
@@ -3923,7 +3923,7 @@ export class ListBoxRow extends Bin {
   constructor();
   activatable: boolean;
   selectable: boolean;
-  static parent_instance: any;
+  static parent_instance: Bin;
   changed(): void;
   get_activatable(): boolean;
   get_header(): Widget | null;
@@ -3933,7 +3933,7 @@ export class ListBoxRow extends Bin {
   set_activatable(activatable: boolean): void;
   set_header(header: Widget | null): void;
   set_selectable(selectable: boolean): void;
-  activate(...args: any[]): any;
+  activate(): void;
 }
 export class ListBoxRowAccessible extends ContainerAccessible {
   static parent: any;
@@ -3970,7 +3970,7 @@ export class LockButton extends Button {
   'tooltip-lock': string;
   'tooltip-not-authorized': string;
   'tooltip-unlock': string;
-  static parent: any;
+  static parent: Button;
   static priv: any;
   get_permission(): Gio.Permission;
   set_permission(permission: Gio.Permission | null): void;
@@ -4016,7 +4016,7 @@ export class Menu extends MenuShell {
   reorder_child(child: Widget, position: number): void;
   reposition(): void;
   set_accel_group(accel_group: AccelGroup | null): void;
-  set_accel_path(...args: any[]): any;
+  set_accel_path(accel_path: string | null): void;
   set_active(index: number): void;
   set_monitor(monitor_num: number): void;
   set_reserve_toggle_size(reserve_toggle_size: boolean): void;
@@ -4048,16 +4048,16 @@ export class MenuButton extends ToggleButton {
   popover: Popover;
   popup: Menu;
   'use-popover': boolean;
-  static parent: any;
+  static parent: ToggleButton;
   static priv: any;
   get_align_widget(): Widget | null;
-  get_direction(...args: any[]): any;
+  get_direction(): ArrowType;
   get_menu_model(): Gio.MenuModel | null;
   get_popover(): Popover | null;
   get_popup(): Menu | null;
   get_use_popover(): boolean;
   set_align_widget(align_widget: Widget | null): void;
-  set_direction(...args: any[]): any;
+  set_direction(direction: ArrowType): void;
   set_menu_model(menu_model: Gio.MenuModel | null): void;
   set_popover(popover: Widget | null): void;
   set_popup(menu: Widget | null): void;
@@ -4085,7 +4085,7 @@ export class MenuItem extends Bin {
   get_submenu(): Widget | null;
   get_use_underline(): boolean;
   select(...args: any[]): any;
-  set_accel_path(...args: any[]): any;
+  set_accel_path(accel_path: string | null): void;
   set_label(...args: any[]): any;
   set_reserve_indicator(reserve: boolean): void;
   set_right_justified(right_justified: boolean): void;
@@ -4159,7 +4159,7 @@ export class MessageDialog extends Dialog {
   'secondary-use-markup': boolean;
   text: string;
   'use-markup': boolean;
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
   format_secondary_markup(message_format: string, ...args: any[]): void;
   format_secondary_text(message_format: string | null, ...args: any[]): void;
@@ -4332,7 +4332,7 @@ export class OffscreenWindow extends Window {
 }
 export class Overlay extends Bin {
   constructor();
-  static parent: any;
+  static parent: Bin;
   static priv: any;
   add_overlay(widget: Widget): void;
   get_overlay_pass_through(widget: Widget): boolean;
@@ -4447,7 +4447,7 @@ export class Plug extends Window {
   constructor(socket_id: xlib.Window);
   embedded: any;
   'socket-window': Gdk.Window;
-  static window: any;
+  static window: Window;
   static priv: any;
   construct(socket_id: xlib.Window): void;
   construct_for_display(display: Gdk.Display, socket_id: xlib.Window): void;
@@ -4464,7 +4464,7 @@ export class Popover extends Bin {
   position: PositionType;
   'relative-to': Widget;
   'transitions-enabled': boolean;
-  static parent_instance: any;
+  static parent_instance: Bin;
   static priv: any;
   bind_model(model: Gio.MenuModel | null, action_namespace: string | null): void;
   get_constrain_to(): PopoverConstraint;
@@ -4690,7 +4690,7 @@ export class RadioButton extends CheckButton {
   constructor(group: GLib.SList | null);
   group: RadioButton;
   static check_button: CheckButton;
-  static priv: any;
+  static priv: RadioButtonPrivate;
   get_group(): GLib.SList;
   join_group(group_source: RadioButton | null): void;
   set_group(group: GLib.SList | null): void;
@@ -4804,20 +4804,20 @@ export class RecentAction extends Action {
 }
 export class RecentChooserDialog extends Dialog {
   constructor(title: string | null, parent: Window | null, first_button_text: string | null, ...args: any[]);
-  static parent_instance: any;
+  static parent_instance: Dialog;
   static priv: any;
 }
 export class RecentChooserMenu extends Menu {
   constructor();
   'show-numbers': boolean;
-  static parent_instance: any;
+  static parent_instance: Menu;
   static priv: any;
   get_show_numbers(): boolean;
   set_show_numbers(show_numbers: boolean): void;
 }
 export class RecentChooserWidget extends Box {
   constructor();
-  static parent_instance: any;
+  static parent_instance: Box;
   static priv: any;
 }
 export class RecentFilter extends GObject.InitiallyUnowned {
@@ -4863,7 +4863,7 @@ export class Revealer extends Bin {
   'reveal-child': boolean;
   'transition-duration': number;
   'transition-type': RevealerTransitionType;
-  static parent_instance: any;
+  static parent_instance: Bin;
   get_child_revealed(): boolean;
   get_reveal_child(): boolean;
   get_transition_duration(): number;
@@ -4906,7 +4906,7 @@ export class ScaleButton extends Button {
   icons: string[];
   size: IconSize;
   value: number;
-  static parent: any;
+  static parent: Button;
   static priv: any;
   get_adjustment(): Adjustment;
   get_minus_button(): Button;
@@ -4988,7 +4988,7 @@ export class SearchBar extends Bin {
   constructor();
   'search-mode-enabled': boolean;
   'show-close-button': boolean;
-  static parent: any;
+  static parent: Bin;
   connect_entry(entry: Entry): void;
   get_search_mode(): boolean;
   get_show_close_button(): boolean;
@@ -4998,7 +4998,7 @@ export class SearchBar extends Bin {
 }
 export class SearchEntry extends Entry {
   constructor();
-  static parent: any;
+  static parent: Entry;
   handle_event(event: Gdk.Event): boolean;
   next_match(): void;
   previous_match(): void;
@@ -5016,7 +5016,7 @@ export class SeparatorMenuItem extends MenuItem {
 }
 export class SeparatorToolItem extends ToolItem {
   constructor();
-  draw: any;
+  draw: boolean;
   static parent: any;
   static priv: any;
   get_draw(): boolean;
@@ -5157,7 +5157,7 @@ export class ShortcutsShortcut extends Box {
 export class ShortcutsWindow extends Window {
   'section-name': string;
   'view-name': string;
-  static window: any;
+  static window: Window;
   close(...args: any[]): any;
   search(): void;
 }
@@ -5252,7 +5252,7 @@ export class Stack extends Container {
   vhomogeneous: boolean;
   'visible-child': Widget;
   'visible-child-name': string;
-  static parent_instance: any;
+  static parent_instance: Container;
   add_named(child: Widget, name: string): void;
   add_titled(child: Widget, name: string, title: string): void;
   get_child_by_name(name: string): Widget | null;
@@ -5281,7 +5281,7 @@ export class StackAccessible extends ContainerAccessible {
 export class StackSidebar extends Bin {
   constructor();
   stack: Stack;
-  static parent: any;
+  static parent: Bin;
   get_stack(): Stack | null;
   set_stack(stack: Stack): void;
 }
@@ -5289,7 +5289,7 @@ export class StackSwitcher extends Box {
   constructor();
   'icon-size': number;
   stack: Stack;
-  static widget: any;
+  static widget: Box;
   get_stack(): Stack | null;
   set_stack(stack: Stack | null): void;
 }
@@ -5356,7 +5356,7 @@ export class Statusbar extends Box {
   get_message_area(): Box;
   pop(context_id: number): void;
   push(context_id: number, text: string): number;
-  remove(...args: any[]): any;
+  remove(context_id: number, message_id: number): void;
   remove_all(context_id: number): void;
   text_popped(context_id: number, text: string): void;
   text_pushed(context_id: number, text: string): void;
@@ -5801,7 +5801,7 @@ export class TextView extends Container {
   tabs: Pango.TabArray;
   'top-margin': number;
   'wrap-mode': WrapMode;
-  static parent_instance: any;
+  static parent_instance: Container;
   static priv: any;
   add_child_at_anchor(child: Widget, anchor: TextChildAnchor): void;
   add_child_in_window(child: Widget, which_window: TextWindowType, xpos: number, ypos: number): void;
@@ -5839,7 +5839,7 @@ export class TextView extends Container {
   get_top_margin(): number;
   get_vadjustment(): Adjustment;
   get_visible_rect(visible_rect: Gdk.Rectangle): void;
-  get_window(...args: any[]): any;
+  get_window(win: TextWindowType): Gdk.Window | null;
   get_window_type(window: Gdk.Window): TextWindowType;
   get_wrap_mode(): WrapMode;
   im_context_filter_keypress(event: Gdk.EventKey): boolean;
@@ -6010,7 +6010,7 @@ export class ToolItem extends Bin {
   'is-important': boolean;
   'visible-horizontal': boolean;
   'visible-vertical': boolean;
-  static parent: any;
+  static parent: Bin;
   static priv: any;
   get_ellipsize_mode(): Pango.EllipsizeMode;
   get_expand(): boolean;
@@ -6033,8 +6033,8 @@ export class ToolItem extends Bin {
   set_homogeneous(homogeneous: boolean): void;
   set_is_important(is_important: boolean): void;
   set_proxy_menu_item(menu_item_id: string, menu_item: Widget | null): void;
-  set_tooltip_markup(...args: any[]): any;
-  set_tooltip_text(...args: any[]): any;
+  set_tooltip_markup(markup: string): void;
+  set_tooltip_text(text: string): void;
   set_use_drag_window(use_drag_window: boolean): void;
   set_visible_horizontal(visible_horizontal: boolean): void;
   set_visible_vertical(visible_vertical: boolean): void;
@@ -6049,7 +6049,7 @@ export class ToolItemGroup extends Container {
   'header-relief': ReliefStyle;
   label: string;
   'label-widget': Widget;
-  static parent_instance: any;
+  static parent_instance: Container;
   static priv: any;
   get_collapsed(): boolean;
   get_drop_item(x: number, y: number): ToolItem;
@@ -6073,7 +6073,7 @@ export class ToolPalette extends Container {
   'icon-size': IconSize;
   'icon-size-set': boolean;
   'toolbar-style': ToolbarStyle;
-  static parent_instance: any;
+  static parent_instance: Container;
   static priv: any;
   add_drag_dest(widget: Widget, flags: DestDefaults, targets: ToolPaletteDragTargets, actions: Gdk.DragAction): void;
   get_drag_item(selection: SelectionData): Widget;
@@ -6084,14 +6084,14 @@ export class ToolPalette extends Container {
   get_group_position(group: ToolItemGroup): number;
   get_hadjustment(): Adjustment;
   get_icon_size(): number;
-  get_style(...args: any[]): any;
+  get_style(): ToolbarStyle;
   get_vadjustment(): Adjustment;
   set_drag_source(targets: ToolPaletteDragTargets): void;
   set_exclusive(group: ToolItemGroup, exclusive: boolean): void;
   set_expand(group: ToolItemGroup, expand: boolean): void;
   set_group_position(group: ToolItemGroup, position: number): void;
   set_icon_size(icon_size: number): void;
-  set_style(...args: any[]): any;
+  set_style(style: ToolbarStyle): void;
   unset_icon_size(): void;
   unset_style(): void;
   static get_drag_target_group(): TargetEntry;
@@ -6112,12 +6112,12 @@ export class Toolbar extends Container {
   get_nth_item(n: number): ToolItem | null;
   get_relief_style(): ReliefStyle;
   get_show_arrow(): boolean;
-  get_style(...args: any[]): any;
+  get_style(): ToolbarStyle;
   insert(item: ToolItem, pos: number): void;
   set_drop_highlight_item(tool_item: ToolItem | null, index_: number): void;
   set_icon_size(icon_size: IconSize): void;
   set_show_arrow(show_arrow: boolean): void;
-  set_style(...args: any[]): any;
+  set_style(style: ToolbarStyle): void;
   unset_icon_size(): void;
   unset_style(): void;
   orientation_changed(orientation: Orientation): void;
@@ -6244,7 +6244,7 @@ export class TreeView extends Container {
   'show-expanders': boolean;
   'tooltip-column': number;
   'ubuntu-almost-fixed-height-mode': boolean;
-  static parent: any;
+  static parent: Container;
   static priv: any;
   append_column(column: TreeViewColumn): number;
   collapse_all(): void;
@@ -6982,12 +6982,12 @@ export class Window extends Bin {
   get_mnemonic_modifier(): Gdk.ModifierType;
   get_mnemonics_visible(): boolean;
   get_modal(): boolean;
-  get_opacity(...args: any[]): any;
+  get_opacity(): number;
   get_position(root_x?: number, root_y?: number): void;
   get_resizable(): boolean;
   get_resize_grip_area(rect: Gdk.Rectangle): boolean;
   get_role(): string | null;
-  get_screen(...args: any[]): any;
+  get_screen(): Gdk.Screen;
   get_size(width: number | null, height: number | null): void;
   get_skip_pager_hint(): boolean;
   get_skip_taskbar_hint(): boolean;
@@ -7003,7 +7003,7 @@ export class Window extends Bin {
   is_active(): boolean;
   is_maximized(): boolean;
   maximize(): void;
-  mnemonic_activate(...args: any[]): any;
+  mnemonic_activate(keyval: number, modifier: Gdk.ModifierType): boolean;
   move(x: number, y: number): void;
   parse_geometry(geometry: string): boolean;
   present(): void;
@@ -7041,7 +7041,7 @@ export class Window extends Bin {
   set_mnemonic_modifier(modifier: Gdk.ModifierType): void;
   set_mnemonics_visible(setting: boolean): void;
   set_modal(modal: boolean): void;
-  set_opacity(...args: any[]): any;
+  set_opacity(opacity: number): void;
   set_position(position: WindowPosition): void;
   set_resizable(resizable: boolean): void;
   set_role(role: string): void;

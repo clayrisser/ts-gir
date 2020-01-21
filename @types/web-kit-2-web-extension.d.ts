@@ -1745,7 +1745,7 @@ export class DOMHTMLSelectElement extends DOMHTMLElement {
   get_will_validate(): boolean;
   item(index: number): DOMNode;
   named_item(name: string): DOMNode;
-  remove(...args: any[]): any;
+  remove(index: number): void;
   set_autofocus(value: boolean): void;
   set_disabled(value: boolean): void;
   set_length(value: number): void;

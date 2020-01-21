@@ -90,51 +90,33 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!Array.isArray($callbacks)) {
       $callbacks = [($callbacks as unknown) as Callback];
     }
-    if ($constants.forEach) {
-      $constants.forEach(($constant: Constant) => {
-        this.moduleTypes.add($constant['@_name']);
-      });
-    }
-    if ($aliases.forEach) {
-      $aliases.forEach(($alias: Alias) => {
-        this.moduleTypes.add($alias['@_name']);
-      });
-    }
-    if ($unions.forEach) {
-      $unions.forEach(($union: Union) => {
-        this.moduleTypes.add($union['@_name']);
-      });
-    }
-    if ($enumerations.forEach) {
-      $enumerations.forEach(($enumeration: Enumeration) => {
-        this.moduleTypes.add($enumeration['@_name']);
-      });
-    }
-    if ($classes.forEach) {
-      $classes.forEach(($class: Class) => {
-        this.moduleTypes.add($class['@_name']);
-      });
-    }
-    if ($bitfields.forEach) {
-      $bitfields.forEach(($bitfield: Bitfield) => {
-        this.moduleTypes.add($bitfield['@_name']);
-      });
-    }
-    if ($records.forEach) {
-      $records.forEach(($record: Record) => {
-        this.moduleTypes.add($record['@_name']);
-      });
-    }
-    if ($functions.forEach) {
-      $functions.forEach(($function: Function) => {
-        this.moduleTypes.add($function['@_name']);
-      });
-    }
-    if ($callbacks.forEach) {
-      $callbacks.forEach(($callback: Callback) => {
-        this.moduleTypes.add($callback['@_name']);
-      });
-    }
+    $constants.forEach(($constant: Constant) => {
+      this.moduleTypes.add($constant['@_name']);
+    });
+    $aliases.forEach(($alias: Alias) => {
+      this.moduleTypes.add($alias['@_name']);
+    });
+    $unions.forEach(($union: Union) => {
+      this.moduleTypes.add($union['@_name']);
+    });
+    $enumerations.forEach(($enumeration: Enumeration) => {
+      this.moduleTypes.add($enumeration['@_name']);
+    });
+    $classes.forEach(($class: Class) => {
+      this.moduleTypes.add($class['@_name']);
+    });
+    $bitfields.forEach(($bitfield: Bitfield) => {
+      this.moduleTypes.add($bitfield['@_name']);
+    });
+    $records.forEach(($record: Record) => {
+      this.moduleTypes.add($record['@_name']);
+    });
+    $functions.forEach(($function: Function) => {
+      this.moduleTypes.add($function['@_name']);
+    });
+    $callbacks.forEach(($callback: Callback) => {
+      this.moduleTypes.add($callback['@_name']);
+    });
   }
 
   buildModules(path: InjectPath = ''): void {
@@ -295,7 +277,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
     path: InjectPath = ''
   ): void {
     if (!Array.isArray($callbacks)) {
-      console.warn('$callbacks is not an array', $callbacks);
+      this.logger.warn(
+        `$callbacks is not an array: ${JSON.stringify($callbacks, null, 2)}`
+      );
       return;
     }
     $callbacks.forEach(($callback: Callback) => {
@@ -372,8 +356,8 @@ export default class GirTSGenerator extends BabelParserGenerator {
       return undefined;
     }
     return $classes.forEach(($class: Class) => {
-      const className = $class['@_name'];
-      const parentClassName = $class['@_parent'];
+      let className = $class['@_name'];
+      let parentClassName = $class['@_parent'];
       if (parentClassName) {
         const parentClassNameSplit = parentClassName.split('.');
         if (
@@ -383,6 +367,21 @@ export default class GirTSGenerator extends BabelParserGenerator {
           this.imports.add(parentClassNameSplit[0]);
         }
       }
+
+      if (this.isReservedKeyword(className)) {
+        this.logger.warn(
+          `parent class '${className}' renamed to 'g_${className}'`
+        );
+        className = `g_${className}`;
+      }
+
+      if (this.isReservedKeyword(parentClassName)) {
+        this.logger.warn(
+          `parent class '${parentClassName}' renamed to 'g_${parentClassName}'`
+        );
+        parentClassName = `g_${parentClassName}`;
+      }
+
       const count = this.append(
         `export class ${className} ${
           parentClassName ? `extends ${parentClassName} ` : ''
@@ -432,7 +431,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!$class) return result;
     const $parentClass = _.find(
       oc(this.$namespace).class([]),
-      $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
+      $namespaceClass =>
+        $namespaceClass['@_name'] === $class['@_parent'] &&
+        typeof $namespaceClass['@_name'] === 'object'
     );
     let $properties = oc($class).property([]);
     if (!Array.isArray($properties)) {
@@ -564,7 +565,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     }
     if (!$constructor['@_name']) return;
     const count = this.append(
-      `class C {constructor()}`,
+      'class C {constructor()}',
       [path, 'declaration.body.body'],
       'body.body.0'
     );
