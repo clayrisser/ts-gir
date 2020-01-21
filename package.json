@@ -37,7 +37,9 @@
     "url": "https://github.com/codejamninja/ts-gir"
   },
   "scripts": {
-    "build": "npm run test && babel src -d lib --extensions \".ts,.tsx\" --source-maps inline && tsc -d --emitDeclarationOnly",
+    "build": "npm run build:js && npm run build:types",
+    "build:types": "tsc -d --emitDeclarationOnly",
+    "build:js": "babel src -d lib --extensions \".ts,.tsx\" --source-maps inline",
     "clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/* && jest --clearCache",
     "clean:purge": "jest --clearCache && git clean -fXd",
     "format": "prettier --write ./**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx} --ignore-path .gitignore",
@@ -60,6 +62,7 @@
     "err": "^2.1.11",
     "fast-xml-parser": "^3.12.20",
     "fs-extra": "^8.1.0",
+    "glob": "^7.1.6",
     "lodash": "^4.17.15",
     "pkg-dir": "^4.2.0",
     "ts-optchain.macro": "^1.1.5"
@@ -73,6 +76,7 @@
     "@types/bluebird": "^3.5.27",
     "@types/cosmiconfig": "^5.0.3",
     "@types/fs-extra": "^8.0.0",
+    "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.137",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
@@ -97,10 +101,7 @@
     "verbose": true
   },
   "tsgir": {
-    "moduleName": "gnome-gobject",
-    "output": "index",
-    "importMap": {
-      "g-lib": "gnome-glib"
-    }
+    "importMap": {},
+    "dir": "@types"
   }
 }

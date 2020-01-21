@@ -7,6 +7,7 @@ export interface UserConfig {
   importMap: ImportMap;
   moduleName?: string;
   output?: string;
+  dir?: string;
 }
 
 export interface ImportMap {
@@ -106,6 +107,10 @@ export interface Constant {
 
 export interface Namespace {
   '@_name': string;
+  '@_version'?: string;
+  '@_shared-library'?: string;
+  '@_c:identifier-prefixes'?: string;
+  '@_c:symbol-prefixes'?: string;
   alias: Alias[];
   bitfield: Bitfield[];
   callback: Callback[];

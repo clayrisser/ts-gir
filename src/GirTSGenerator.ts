@@ -90,33 +90,51 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!Array.isArray($callbacks)) {
       $callbacks = [($callbacks as unknown) as Callback];
     }
-    $constants.forEach(($constant: Constant) => {
-      this.moduleTypes.add($constant['@_name']);
-    });
-    $aliases.forEach(($alias: Alias) => {
-      this.moduleTypes.add($alias['@_name']);
-    });
-    $unions.forEach(($union: Union) => {
-      this.moduleTypes.add($union['@_name']);
-    });
-    $enumerations.forEach(($enumeration: Enumeration) => {
-      this.moduleTypes.add($enumeration['@_name']);
-    });
-    $classes.forEach(($class: Class) => {
-      this.moduleTypes.add($class['@_name']);
-    });
-    $bitfields.forEach(($bitfield: Bitfield) => {
-      this.moduleTypes.add($bitfield['@_name']);
-    });
-    $records.forEach(($record: Record) => {
-      this.moduleTypes.add($record['@_name']);
-    });
-    $functions.forEach(($function: Function) => {
-      this.moduleTypes.add($function['@_name']);
-    });
-    $callbacks.forEach(($callback: Callback) => {
-      this.moduleTypes.add($callback['@_name']);
-    });
+    if ($constants.forEach) {
+      $constants.forEach(($constant: Constant) => {
+        this.moduleTypes.add($constant['@_name']);
+      });
+    }
+    if ($aliases.forEach) {
+      $aliases.forEach(($alias: Alias) => {
+        this.moduleTypes.add($alias['@_name']);
+      });
+    }
+    if ($unions.forEach) {
+      $unions.forEach(($union: Union) => {
+        this.moduleTypes.add($union['@_name']);
+      });
+    }
+    if ($enumerations.forEach) {
+      $enumerations.forEach(($enumeration: Enumeration) => {
+        this.moduleTypes.add($enumeration['@_name']);
+      });
+    }
+    if ($classes.forEach) {
+      $classes.forEach(($class: Class) => {
+        this.moduleTypes.add($class['@_name']);
+      });
+    }
+    if ($bitfields.forEach) {
+      $bitfields.forEach(($bitfield: Bitfield) => {
+        this.moduleTypes.add($bitfield['@_name']);
+      });
+    }
+    if ($records.forEach) {
+      $records.forEach(($record: Record) => {
+        this.moduleTypes.add($record['@_name']);
+      });
+    }
+    if ($functions.forEach) {
+      $functions.forEach(($function: Function) => {
+        this.moduleTypes.add($function['@_name']);
+      });
+    }
+    if ($callbacks.forEach) {
+      $callbacks.forEach(($callback: Callback) => {
+        this.moduleTypes.add($callback['@_name']);
+      });
+    }
   }
 
   buildModules(path: InjectPath = ''): void {
@@ -181,9 +199,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
     $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
       const typeName = $aliasOrUnion['@_name'];
-      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as (
+      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as
         | Field[]
-        | Alias[]);
+        | Alias[];
       if (($aliasOrUnion as Union).field) {
         types = ($aliasOrUnion as Union).field as Field[];
       }
@@ -276,6 +294,10 @@ export default class GirTSGenerator extends BabelParserGenerator {
     $callbacks: Callback[],
     path: InjectPath = ''
   ): void {
+    if (!Array.isArray($callbacks)) {
+      console.warn('$callbacks is not an array', $callbacks);
+      return;
+    }
     $callbacks.forEach(($callback: Callback) => {
       const returnType = this.getType($callback['return-value']);
       const callbackName = $callback['@_name'];
@@ -346,6 +368,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
   }
 
   buildClassDeclarations($classes: Class[], path: InjectPath = ''): void {
+    if (!$classes.forEach) {
+      return undefined;
+    }
     return $classes.forEach(($class: Class) => {
       const className = $class['@_name'];
       const parentClassName = $class['@_parent'];
