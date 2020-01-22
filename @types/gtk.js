@@ -5,7 +5,6 @@ Gtk.NumerableIcon = class NumerableIcon extends GtkNumerableIcon {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GtkTextBuffer = Gtk.TextBuffer;
 Gtk.TextBuffer = class TextBuffer extends GtkTextBuffer {
@@ -13,7 +12,6 @@ Gtk.TextBuffer = class TextBuffer extends GtkTextBuffer {
     super(...props);
     this.g_delete = this.delete;
   }
-
 };
 const GtkBindingSet = Gtk.BindingSet;
 Gtk.BindingSet = class BindingSet extends GtkBindingSet {
@@ -21,7 +19,6 @@ Gtk.BindingSet = class BindingSet extends GtkBindingSet {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 Gtk.g_false = Gtk.false;
 Gtk.g_true = Gtk.true;

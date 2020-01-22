@@ -3,7 +3,7 @@ import * as GObject from './g-object';
 import * as GstPbutils from './gst-pbutils';
 import * as Gst from './gst';
 export enum TranscoderError {
-  GST_TRANSCODER_ERROR_FAILED,
+  GST_TRANSCODER_ERROR_FAILED
 }
 export interface TranscoderSignalDispatcher {}
 export class Transcoder extends Gst.Object {
@@ -39,7 +39,13 @@ export class TranscoderGMainContextSignalDispatcherClass {}
 export class TranscoderPrivate {}
 export class TranscoderSignalDispatcherInterface {
   static parent_iface: GObject.TypeInterface;
-  static dispatch: (self: any, transcoder: Transcoder, emitter: object | null, data: object | null, destroy: GLib.DestroyNotify) => void;
+  static dispatch: (
+    self: any,
+    transcoder: Transcoder,
+    emitter: object | null,
+    data: object | null,
+    destroy: GLib.DestroyNotify
+  ) => void;
 }
 export function transcoder_error_get_name(error: TranscoderError): string;
 export function transcoder_error_quark(): GLib.Quark;

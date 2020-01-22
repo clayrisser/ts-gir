@@ -28,11 +28,33 @@ export class X11Display extends Gdk.Display {
   set_cursor_theme(theme: string | null, size: number): void;
   set_startup_notification_id(startup_id: string): void;
   set_window_scale(scale: number): void;
-  string_to_compound_text(str: string, encoding: Gdk.Atom, format: number, ctext: number[], length: number): number;
-  text_property_to_text_list(encoding: Gdk.Atom, format: number, text: number, length: number, list: string): number;
+  string_to_compound_text(
+    str: string,
+    encoding: Gdk.Atom,
+    format: number,
+    ctext: number[],
+    length: number
+  ): number;
+  text_property_to_text_list(
+    encoding: Gdk.Atom,
+    format: number,
+    text: number,
+    length: number,
+    list: string
+  ): number;
   ungrab(): void;
-  utf8_to_compound_text(str: string, encoding: Gdk.Atom, format: number, ctext: number[], length: number): boolean;
-  static get_glx_version(display: Gdk.Display, major: number, minor: number): boolean;
+  utf8_to_compound_text(
+    str: string,
+    encoding: Gdk.Atom,
+    format: number,
+    ctext: number[],
+    length: number
+  ): boolean;
+  static get_glx_version(
+    display: Gdk.Display,
+    major: number,
+    minor: number
+  ): boolean;
 }
 export class X11DisplayManager extends Gdk.DisplayManager {}
 export class X11DragContext extends Gdk.DragContext {}
@@ -63,13 +85,21 @@ export class X11Window extends Gdk.Window {
   get_xid(): xlib.Window;
   move_to_current_desktop(): void;
   move_to_desktop(desktop: number): void;
-  set_frame_extents(left: number, right: number, top: number, bottom: number): void;
+  set_frame_extents(
+    left: number,
+    right: number,
+    top: number,
+    bottom: number
+  ): void;
   set_frame_sync_enabled(frame_sync_enabled: boolean): void;
   set_hide_titlebar_when_maximized(hide_titlebar_when_maximized: boolean): void;
   set_theme_variant(variant: string): void;
   set_user_time(timestamp: number): void;
   set_utf8_property(name: string, value: string | null): void;
-  static lookup_for_display(display: X11Display, window: xlib.Window): X11Window;
+  static lookup_for_display(
+    display: X11Display,
+    window: xlib.Window
+  ): X11Window;
 }
 export class X11AppLaunchContextClass {}
 export class X11CursorClass {}
@@ -87,9 +117,15 @@ export class X11ScreenClass {}
 export class X11VisualClass {}
 export class X11WindowClass {}
 export function x11_atom_to_xatom(atom: Gdk.Atom): xlib.Atom;
-export function x11_atom_to_xatom_for_display(display: X11Display, atom: Gdk.Atom): xlib.Atom;
+export function x11_atom_to_xatom_for_display(
+  display: X11Display,
+  atom: Gdk.Atom
+): xlib.Atom;
 export function x11_device_get_id(device: X11DeviceCore): number;
-export function x11_device_manager_lookup(device_manager: X11DeviceManagerCore, device_id: number): X11DeviceCore | null;
+export function x11_device_manager_lookup(
+  device_manager: X11DeviceManagerCore,
+  device_id: number
+): X11DeviceCore | null;
 export function x11_free_compound_text(ctext: number): void;
 export function x11_free_text_list(list: string): void;
 export function x11_get_default_root_xwindow(): xlib.Window;
@@ -98,13 +134,26 @@ export function x11_get_default_xdisplay(): xlib.Display;
 export function x11_get_parent_relative_pattern(): cairo.Pattern;
 export function x11_get_server_time(window: X11Window): number;
 export function x11_get_xatom_by_name(atom_name: string): xlib.Atom;
-export function x11_get_xatom_by_name_for_display(display: X11Display, atom_name: string): xlib.Atom;
+export function x11_get_xatom_by_name_for_display(
+  display: X11Display,
+  atom_name: string
+): xlib.Atom;
 export function x11_get_xatom_name(xatom: xlib.Atom): string;
-export function x11_get_xatom_name_for_display(display: X11Display, xatom: xlib.Atom): string;
+export function x11_get_xatom_name_for_display(
+  display: X11Display,
+  xatom: xlib.Atom
+): string;
 export function x11_grab_server(): void;
 export function x11_lookup_xdisplay(xdisplay: xlib.Display): X11Display;
-export function x11_register_standard_event_type(display: X11Display, event_base: number, n_events: number): void;
+export function x11_register_standard_event_type(
+  display: X11Display,
+  event_base: number,
+  n_events: number
+): void;
 export function x11_set_sm_client_id(sm_client_id: string | null): void;
 export function x11_ungrab_server(): void;
 export function x11_xatom_to_atom(xatom: xlib.Atom): Gdk.Atom;
-export function x11_xatom_to_atom_for_display(display: X11Display, xatom: xlib.Atom): Gdk.Atom;
+export function x11_xatom_to_atom_for_display(
+  display: X11Display,
+  xatom: xlib.Atom
+): Gdk.Atom;

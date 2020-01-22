@@ -24,22 +24,87 @@ export class Renderer extends Pango.Renderer {
   static priv: RendererPrivate;
   set_default_color(default_color: Pango.Color): void;
   set_draw(draw: xft.Draw): void;
-  composite_glyphs(xft_font: xft.Font, glyphs: xft.GlyphSpec, n_glyphs: number): void;
-  composite_trapezoids(part: Pango.RenderPart, trapezoids: xlib.XTrapezoid, n_trapezoids: number): void;
+  composite_glyphs(
+    xft_font: xft.Font,
+    glyphs: xft.GlyphSpec,
+    n_glyphs: number
+  ): void;
+  composite_trapezoids(
+    part: Pango.RenderPart,
+    trapezoids: xlib.XTrapezoid,
+    n_trapezoids: number
+  ): void;
 }
 export class RendererClass {
   static parent_class: Pango.RendererClass;
-  static composite_trapezoids: (xftrenderer: Renderer, part: Pango.RenderPart, trapezoids: xlib.XTrapezoid, n_trapezoids: number) => void;
-  static composite_glyphs: (xftrenderer: Renderer, xft_font: xft.Font, glyphs: xft.GlyphSpec, n_glyphs: number) => void;
+  static composite_trapezoids: (
+    xftrenderer: Renderer,
+    part: Pango.RenderPart,
+    trapezoids: xlib.XTrapezoid,
+    n_trapezoids: number
+  ) => void;
+  static composite_glyphs: (
+    xftrenderer: Renderer,
+    xft_font: xft.Font,
+    glyphs: xft.GlyphSpec,
+    n_glyphs: number
+  ) => void;
 }
 export class RendererPrivate {}
-export function get_context(display: xlib.Display, screen: number): Pango.Context;
-export function get_font_map(display: xlib.Display, screen: number): Pango.FontMap;
-export function picture_render(display: xlib.Display, src_picture: xlib.Picture, dest_picture: xlib.Picture, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void;
-export function render(draw: xft.Draw, color: xft.Color, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void;
-export function render_layout(draw: xft.Draw, color: xft.Color, layout: Pango.Layout, x: number, y: number): void;
-export function render_layout_line(draw: xft.Draw, color: xft.Color, line: Pango.LayoutLine, x: number, y: number): void;
-export function render_transformed(draw: xft.Draw, color: xft.Color, matrix: Pango.Matrix | null, font: Pango.Font, glyphs: Pango.GlyphString, x: number, y: number): void;
-export function set_default_substitute(display: xlib.Display, screen: number, func: SubstituteFunc, data: object | null, notify: GLib.DestroyNotify): void;
+export function get_context(
+  display: xlib.Display,
+  screen: number
+): Pango.Context;
+export function get_font_map(
+  display: xlib.Display,
+  screen: number
+): Pango.FontMap;
+export function picture_render(
+  display: xlib.Display,
+  src_picture: xlib.Picture,
+  dest_picture: xlib.Picture,
+  font: Pango.Font,
+  glyphs: Pango.GlyphString,
+  x: number,
+  y: number
+): void;
+export function render(
+  draw: xft.Draw,
+  color: xft.Color,
+  font: Pango.Font,
+  glyphs: Pango.GlyphString,
+  x: number,
+  y: number
+): void;
+export function render_layout(
+  draw: xft.Draw,
+  color: xft.Color,
+  layout: Pango.Layout,
+  x: number,
+  y: number
+): void;
+export function render_layout_line(
+  draw: xft.Draw,
+  color: xft.Color,
+  line: Pango.LayoutLine,
+  x: number,
+  y: number
+): void;
+export function render_transformed(
+  draw: xft.Draw,
+  color: xft.Color,
+  matrix: Pango.Matrix | null,
+  font: Pango.Font,
+  glyphs: Pango.GlyphString,
+  x: number,
+  y: number
+): void;
+export function set_default_substitute(
+  display: xlib.Display,
+  screen: number,
+  func: SubstituteFunc,
+  data: object | null,
+  notify: GLib.DestroyNotify
+): void;
 export function shutdown_display(display: xlib.Display, screen: number): void;
 export function substitute_changed(display: xlib.Display, screen: number): void;

@@ -2297,11 +2297,11 @@ export enum AxisUse {
   GDK_AXIS_DISTANCE,
   GDK_AXIS_ROTATION,
   GDK_AXIS_SLIDER,
-  GDK_AXIS_LAST,
+  GDK_AXIS_LAST
 }
 export enum ByteOrder {
   GDK_LSB_FIRST,
-  GDK_MSB_FIRST,
+  GDK_MSB_FIRST
 }
 export enum CrossingMode {
   GDK_CROSSING_NORMAL,
@@ -2312,7 +2312,7 @@ export enum CrossingMode {
   GDK_CROSSING_STATE_CHANGED,
   GDK_CROSSING_TOUCH_BEGIN,
   GDK_CROSSING_TOUCH_END,
-  GDK_CROSSING_DEVICE_SWITCH,
+  GDK_CROSSING_DEVICE_SWITCH
 }
 export enum CursorType {
   GDK_X_CURSOR,
@@ -2394,12 +2394,12 @@ export enum CursorType {
   GDK_XTERM,
   GDK_LAST_CURSOR,
   GDK_BLANK_CURSOR,
-  GDK_CURSOR_IS_PIXMAP,
+  GDK_CURSOR_IS_PIXMAP
 }
 export enum DevicePadFeature {
   GDK_DEVICE_PAD_FEATURE_BUTTON,
   GDK_DEVICE_PAD_FEATURE_RING,
-  GDK_DEVICE_PAD_FEATURE_STRIP,
+  GDK_DEVICE_PAD_FEATURE_STRIP
 }
 export enum DeviceToolType {
   GDK_DEVICE_TOOL_TYPE_UNKNOWN,
@@ -2409,17 +2409,17 @@ export enum DeviceToolType {
   GDK_DEVICE_TOOL_TYPE_PENCIL,
   GDK_DEVICE_TOOL_TYPE_AIRBRUSH,
   GDK_DEVICE_TOOL_TYPE_MOUSE,
-  GDK_DEVICE_TOOL_TYPE_LENS,
+  GDK_DEVICE_TOOL_TYPE_LENS
 }
 export enum DeviceType {
   GDK_DEVICE_TYPE_MASTER,
   GDK_DEVICE_TYPE_SLAVE,
-  GDK_DEVICE_TYPE_FLOATING,
+  GDK_DEVICE_TYPE_FLOATING
 }
 export enum DragCancelReason {
   GDK_DRAG_CANCEL_NO_TARGET,
   GDK_DRAG_CANCEL_USER_CANCELLED,
-  GDK_DRAG_CANCEL_ERROR,
+  GDK_DRAG_CANCEL_ERROR
 }
 export enum DragProtocol {
   GDK_DRAG_PROTO_NONE,
@@ -2429,7 +2429,7 @@ export enum DragProtocol {
   GDK_DRAG_PROTO_WIN32_DROPFILES,
   GDK_DRAG_PROTO_OLE2,
   GDK_DRAG_PROTO_LOCAL,
-  GDK_DRAG_PROTO_WAYLAND,
+  GDK_DRAG_PROTO_WAYLAND
 }
 export enum EventType {
   GDK_NOTHING,
@@ -2482,26 +2482,26 @@ export enum EventType {
   GDK_PAD_RING,
   GDK_PAD_STRIP,
   GDK_PAD_GROUP_MODE,
-  GDK_EVENT_LAST,
+  GDK_EVENT_LAST
 }
 export enum FilterReturn {
   GDK_FILTER_CONTINUE,
   GDK_FILTER_TRANSLATE,
-  GDK_FILTER_REMOVE,
+  GDK_FILTER_REMOVE
 }
 export enum FullscreenMode {
   GDK_FULLSCREEN_ON_CURRENT_MONITOR,
-  GDK_FULLSCREEN_ON_ALL_MONITORS,
+  GDK_FULLSCREEN_ON_ALL_MONITORS
 }
 export enum GLError {
   GDK_GL_ERROR_NOT_AVAILABLE,
   GDK_GL_ERROR_UNSUPPORTED_FORMAT,
-  GDK_GL_ERROR_UNSUPPORTED_PROFILE,
+  GDK_GL_ERROR_UNSUPPORTED_PROFILE
 }
 export enum GrabOwnership {
   GDK_OWNERSHIP_NONE,
   GDK_OWNERSHIP_WINDOW,
-  GDK_OWNERSHIP_APPLICATION,
+  GDK_OWNERSHIP_APPLICATION
 }
 export enum GrabStatus {
   GDK_GRAB_SUCCESS,
@@ -2509,7 +2509,7 @@ export enum GrabStatus {
   GDK_GRAB_INVALID_TIME,
   GDK_GRAB_NOT_VIEWABLE,
   GDK_GRAB_FROZEN,
-  GDK_GRAB_FAILED,
+  GDK_GRAB_FAILED
 }
 export enum Gravity {
   GDK_GRAVITY_NORTH_WEST,
@@ -2521,12 +2521,12 @@ export enum Gravity {
   GDK_GRAVITY_SOUTH_WEST,
   GDK_GRAVITY_SOUTH,
   GDK_GRAVITY_SOUTH_EAST,
-  GDK_GRAVITY_STATIC,
+  GDK_GRAVITY_STATIC
 }
 export enum InputMode {
   GDK_MODE_DISABLED,
   GDK_MODE_SCREEN,
-  GDK_MODE_WINDOW,
+  GDK_MODE_WINDOW
 }
 export enum InputSource {
   GDK_SOURCE_MOUSE,
@@ -2537,7 +2537,7 @@ export enum InputSource {
   GDK_SOURCE_TOUCHSCREEN,
   GDK_SOURCE_TOUCHPAD,
   GDK_SOURCE_TRACKPOINT,
-  GDK_SOURCE_TABLET_PAD,
+  GDK_SOURCE_TABLET_PAD
 }
 export enum ModifierIntent {
   GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR,
@@ -2546,7 +2546,7 @@ export enum ModifierIntent {
   GDK_MODIFIER_INTENT_MODIFY_SELECTION,
   GDK_MODIFIER_INTENT_NO_TEXT_INPUT,
   GDK_MODIFIER_INTENT_SHIFT_GROUP,
-  GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK,
+  GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK
 }
 export enum NotifyType {
   GDK_NOTIFY_ANCESTOR,
@@ -2554,40 +2554,40 @@ export enum NotifyType {
   GDK_NOTIFY_INFERIOR,
   GDK_NOTIFY_NONLINEAR,
   GDK_NOTIFY_NONLINEAR_VIRTUAL,
-  GDK_NOTIFY_UNKNOWN,
+  GDK_NOTIFY_UNKNOWN
 }
 export enum OwnerChange {
   GDK_OWNER_CHANGE_NEW_OWNER,
   GDK_OWNER_CHANGE_DESTROY,
-  GDK_OWNER_CHANGE_CLOSE,
+  GDK_OWNER_CHANGE_CLOSE
 }
 export enum PropMode {
   GDK_PROP_MODE_REPLACE,
   GDK_PROP_MODE_PREPEND,
-  GDK_PROP_MODE_APPEND,
+  GDK_PROP_MODE_APPEND
 }
 export enum PropertyState {
   GDK_PROPERTY_NEW_VALUE,
-  GDK_PROPERTY_DELETE,
+  GDK_PROPERTY_DELETE
 }
 export enum ScrollDirection {
   GDK_SCROLL_UP,
   GDK_SCROLL_DOWN,
   GDK_SCROLL_LEFT,
   GDK_SCROLL_RIGHT,
-  GDK_SCROLL_SMOOTH,
+  GDK_SCROLL_SMOOTH
 }
 export enum SettingAction {
   GDK_SETTING_ACTION_NEW,
   GDK_SETTING_ACTION_CHANGED,
-  GDK_SETTING_ACTION_DELETED,
+  GDK_SETTING_ACTION_DELETED
 }
 export enum Status {
   GDK_OK,
   GDK_ERROR,
   GDK_ERROR_PARAM,
   GDK_ERROR_FILE,
-  GDK_ERROR_MEM,
+  GDK_ERROR_MEM
 }
 export enum SubpixelLayout {
   GDK_SUBPIXEL_LAYOUT_UNKNOWN,
@@ -2595,18 +2595,18 @@ export enum SubpixelLayout {
   GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB,
   GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR,
   GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB,
-  GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR,
+  GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR
 }
 export enum TouchpadGesturePhase {
   GDK_TOUCHPAD_GESTURE_PHASE_BEGIN,
   GDK_TOUCHPAD_GESTURE_PHASE_UPDATE,
   GDK_TOUCHPAD_GESTURE_PHASE_END,
-  GDK_TOUCHPAD_GESTURE_PHASE_CANCEL,
+  GDK_TOUCHPAD_GESTURE_PHASE_CANCEL
 }
 export enum VisibilityState {
   GDK_VISIBILITY_UNOBSCURED,
   GDK_VISIBILITY_PARTIAL,
-  GDK_VISIBILITY_FULLY_OBSCURED,
+  GDK_VISIBILITY_FULLY_OBSCURED
 }
 export enum VisualType {
   GDK_VISUAL_STATIC_GRAY,
@@ -2614,7 +2614,7 @@ export enum VisualType {
   GDK_VISUAL_STATIC_COLOR,
   GDK_VISUAL_PSEUDO_COLOR,
   GDK_VISUAL_TRUE_COLOR,
-  GDK_VISUAL_DIRECT_COLOR,
+  GDK_VISUAL_DIRECT_COLOR
 }
 export enum WindowEdge {
   GDK_WINDOW_EDGE_NORTH_WEST,
@@ -2624,7 +2624,7 @@ export enum WindowEdge {
   GDK_WINDOW_EDGE_EAST,
   GDK_WINDOW_EDGE_SOUTH_WEST,
   GDK_WINDOW_EDGE_SOUTH,
-  GDK_WINDOW_EDGE_SOUTH_EAST,
+  GDK_WINDOW_EDGE_SOUTH_EAST
 }
 export enum WindowType {
   GDK_WINDOW_ROOT,
@@ -2633,7 +2633,7 @@ export enum WindowType {
   GDK_WINDOW_TEMP,
   GDK_WINDOW_FOREIGN,
   GDK_WINDOW_OFFSCREEN,
-  GDK_WINDOW_SUBSURFACE,
+  GDK_WINDOW_SUBSURFACE
 }
 export enum WindowTypeHint {
   GDK_WINDOW_TYPE_HINT_NORMAL,
@@ -2649,11 +2649,11 @@ export enum WindowTypeHint {
   GDK_WINDOW_TYPE_HINT_TOOLTIP,
   GDK_WINDOW_TYPE_HINT_NOTIFICATION,
   GDK_WINDOW_TYPE_HINT_COMBO,
-  GDK_WINDOW_TYPE_HINT_DND,
+  GDK_WINDOW_TYPE_HINT_DND
 }
 export enum WindowWindowClass {
   GDK_INPUT_OUTPUT,
-  GDK_INPUT_ONLY,
+  GDK_INPUT_ONLY
 }
 export enum AnchorHints {
   GDK_ANCHOR_FLIP_X,
@@ -2664,7 +2664,7 @@ export enum AnchorHints {
   GDK_ANCHOR_RESIZE_Y,
   GDK_ANCHOR_FLIP,
   GDK_ANCHOR_SLIDE,
-  GDK_ANCHOR_RESIZE,
+  GDK_ANCHOR_RESIZE
 }
 export enum AxisFlags {
   GDK_AXIS_FLAG_X,
@@ -2675,7 +2675,7 @@ export enum AxisFlags {
   GDK_AXIS_FLAG_WHEEL,
   GDK_AXIS_FLAG_DISTANCE,
   GDK_AXIS_FLAG_ROTATION,
-  GDK_AXIS_FLAG_SLIDER,
+  GDK_AXIS_FLAG_SLIDER
 }
 export enum DragAction {
   GDK_ACTION_DEFAULT,
@@ -2683,7 +2683,7 @@ export enum DragAction {
   GDK_ACTION_MOVE,
   GDK_ACTION_LINK,
   GDK_ACTION_PRIVATE,
-  GDK_ACTION_ASK,
+  GDK_ACTION_ASK
 }
 export enum EventMask {
   GDK_EXPOSURE_MASK,
@@ -2711,7 +2711,7 @@ export enum EventMask {
   GDK_SMOOTH_SCROLL_MASK,
   GDK_TOUCHPAD_GESTURE_MASK,
   GDK_TABLET_PAD_MASK,
-  GDK_ALL_EVENTS_MASK,
+  GDK_ALL_EVENTS_MASK
 }
 export enum FrameClockPhase {
   GDK_FRAME_CLOCK_PHASE_NONE,
@@ -2721,7 +2721,7 @@ export enum FrameClockPhase {
   GDK_FRAME_CLOCK_PHASE_LAYOUT,
   GDK_FRAME_CLOCK_PHASE_PAINT,
   GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS,
-  GDK_FRAME_CLOCK_PHASE_AFTER_PAINT,
+  GDK_FRAME_CLOCK_PHASE_AFTER_PAINT
 }
 export enum ModifierType {
   GDK_SHIFT_MASK,
@@ -2755,7 +2755,7 @@ export enum ModifierType {
   GDK_META_MASK,
   GDK_MODIFIER_RESERVED_29_MASK,
   GDK_RELEASE_MASK,
-  GDK_MODIFIER_MASK,
+  GDK_MODIFIER_MASK
 }
 export enum SeatCapabilities {
   GDK_SEAT_CAPABILITY_NONE,
@@ -2764,7 +2764,7 @@ export enum SeatCapabilities {
   GDK_SEAT_CAPABILITY_TABLET_STYLUS,
   GDK_SEAT_CAPABILITY_KEYBOARD,
   GDK_SEAT_CAPABILITY_ALL_POINTING,
-  GDK_SEAT_CAPABILITY_ALL,
+  GDK_SEAT_CAPABILITY_ALL
 }
 export enum WMDecoration {
   GDK_DECOR_ALL,
@@ -2773,7 +2773,7 @@ export enum WMDecoration {
   GDK_DECOR_TITLE,
   GDK_DECOR_MENU,
   GDK_DECOR_MINIMIZE,
-  GDK_DECOR_MAXIMIZE,
+  GDK_DECOR_MAXIMIZE
 }
 export enum WMFunction {
   GDK_FUNC_ALL,
@@ -2781,7 +2781,7 @@ export enum WMFunction {
   GDK_FUNC_MOVE,
   GDK_FUNC_MINIMIZE,
   GDK_FUNC_MAXIMIZE,
-  GDK_FUNC_CLOSE,
+  GDK_FUNC_CLOSE
 }
 export enum WindowAttributesType {
   GDK_WA_TITLE,
@@ -2791,7 +2791,7 @@ export enum WindowAttributesType {
   GDK_WA_VISUAL,
   GDK_WA_WMCLASS,
   GDK_WA_NOREDIR,
-  GDK_WA_TYPE_HINT,
+  GDK_WA_TYPE_HINT
 }
 export enum WindowHints {
   GDK_HINT_POS,
@@ -2802,7 +2802,7 @@ export enum WindowHints {
   GDK_HINT_RESIZE_INC,
   GDK_HINT_WIN_GRAVITY,
   GDK_HINT_USER_POS,
-  GDK_HINT_USER_SIZE,
+  GDK_HINT_USER_SIZE
 }
 export enum WindowState {
   GDK_WINDOW_STATE_WITHDRAWN,
@@ -2821,10 +2821,35 @@ export enum WindowState {
   GDK_WINDOW_STATE_BOTTOM_TILED,
   GDK_WINDOW_STATE_BOTTOM_RESIZABLE,
   GDK_WINDOW_STATE_LEFT_TILED,
-  GDK_WINDOW_STATE_LEFT_RESIZABLE,
+  GDK_WINDOW_STATE_LEFT_RESIZABLE
 }
 export type XEvent = void;
-export type Event = EventType | EventAny | EventExpose | EventVisibility | EventMotion | EventButton | EventTouch | EventScroll | EventKey | EventCrossing | EventFocus | EventConfigure | EventProperty | EventSelection | EventOwnerChange | EventProximity | EventDND | EventWindowState | EventSetting | EventGrabBroken | EventTouchpadSwipe | EventTouchpadPinch | EventPadButton | EventPadAxis | EventPadGroupMode;
+export type Event =
+  | EventType
+  | EventAny
+  | EventExpose
+  | EventVisibility
+  | EventMotion
+  | EventButton
+  | EventTouch
+  | EventScroll
+  | EventKey
+  | EventCrossing
+  | EventFocus
+  | EventConfigure
+  | EventProperty
+  | EventSelection
+  | EventOwnerChange
+  | EventProximity
+  | EventDND
+  | EventWindowState
+  | EventSetting
+  | EventGrabBroken
+  | EventTouchpadSwipe
+  | EventTouchpadPinch
+  | EventPadButton
+  | EventPadAxis
+  | EventPadGroupMode;
 export interface DevicePad {
   get_feature_group(feature: DevicePadFeature, feature_idx: number): number;
   get_group_n_modes(group_idx: number): number;
@@ -2876,7 +2901,13 @@ export class Device extends GObject.Object {
   get_device_type(): DeviceType;
   get_display(): Display;
   get_has_cursor(): boolean;
-  get_history(window: Window, start: number, stop: number, events?: TimeCoord[], n_events?: number): boolean;
+  get_history(
+    window: Window,
+    start: number,
+    stop: number,
+    events?: TimeCoord[],
+    n_events?: number
+  ): boolean;
   get_key(index_: number, keyval: number, modifiers: ModifierType): boolean;
   get_last_event_window(): Window | null;
   get_mode(): InputMode;
@@ -2892,7 +2923,14 @@ export class Device extends GObject.Object {
   get_vendor_id(): string | null;
   get_window_at_position(win_x?: number, win_y?: number): Window | null;
   get_window_at_position_double(win_x?: number, win_y?: number): Window | null;
-  grab(window: Window, grab_ownership: GrabOwnership, owner_events: boolean, event_mask: EventMask, cursor: Cursor | null, time_: number): GrabStatus;
+  grab(
+    window: Window,
+    grab_ownership: GrabOwnership,
+    owner_events: boolean,
+    event_mask: EventMask,
+    cursor: Cursor | null,
+    time_: number
+  ): GrabStatus;
   list_axes(): GLib.List;
   list_slave_devices(): GLib.List | null;
   set_axis_use(index_: number, use: AxisUse): void;
@@ -2901,7 +2939,12 @@ export class Device extends GObject.Object {
   ungrab(time_: number): void;
   warp(screen: Screen, x: number, y: number): void;
   static free_history(events: TimeCoord[], n_events: number): void;
-  static grab_info_libgtk_only(display: Display, device: Device, grab_window: Window, owner_events: boolean): boolean;
+  static grab_info_libgtk_only(
+    display: Display,
+    device: Device,
+    grab_window: Window,
+    owner_events: boolean
+  ): boolean;
 }
 export class DeviceManager extends GObject.Object {
   display: Display;
@@ -2937,7 +2980,12 @@ export class Display extends GObject.Object {
   get_n_monitors(): number;
   get_n_screens(): number;
   get_name(): string;
-  get_pointer(screen?: Screen, x?: number, y?: number, mask?: ModifierType): void;
+  get_pointer(
+    screen?: Screen,
+    x?: number,
+    y?: number,
+    mask?: ModifierType
+  ): void;
   get_primary_monitor(): Monitor | null;
   get_screen(screen_num: number): Screen;
   get_window_at_pointer(win_x?: number, win_y?: number): Window | null;
@@ -2954,7 +3002,12 @@ export class Display extends GObject.Object {
   request_selection_notification(selection: Atom): boolean;
   set_double_click_distance(distance: number): void;
   set_double_click_time(msec: number): void;
-  store_clipboard(clipboard_window: Window, time_: number, targets: Atom[] | null, n_targets: number): void;
+  store_clipboard(
+    clipboard_window: Window,
+    time_: number,
+    targets: Atom[] | null,
+    n_targets: number
+  ): void;
   supports_clipboard_persistence(): boolean;
   supports_composite(): boolean;
   supports_cursor_alpha(): boolean;
@@ -3005,7 +3058,11 @@ export class FrameClock extends GObject.Object {
   get_frame_counter(): number;
   get_frame_time(): number;
   get_history_start(): number;
-  get_refresh_info(base_time: number, refresh_interval_return?: number, presentation_time_return?: number): void;
+  get_refresh_info(
+    base_time: number,
+    refresh_interval_return?: number,
+    presentation_time_return?: number
+  ): void;
   get_timings(frame_counter: number): FrameTimings | null;
   request_phase(phase: FrameClockPhase): void;
 }
@@ -3035,8 +3092,17 @@ export class Keymap extends GObject.Object {
   add_virtual_modifiers(state: ModifierType): void;
   get_caps_lock_state(): boolean;
   get_direction(): Pango.Direction;
-  get_entries_for_keycode(hardware_keycode: number, keys?: KeymapKey[], keyvals?: number[], n_entries?: number): boolean;
-  get_entries_for_keyval(keyval: number, keys: KeymapKey[], n_keys: number): boolean;
+  get_entries_for_keycode(
+    hardware_keycode: number,
+    keys?: KeymapKey[],
+    keyvals?: number[],
+    n_entries?: number
+  ): boolean;
+  get_entries_for_keyval(
+    keyval: number,
+    keys: KeymapKey[],
+    n_keys: number
+  ): boolean;
   get_modifier_mask(intent: ModifierIntent): ModifierType;
   get_modifier_state(): number;
   get_num_lock_state(): boolean;
@@ -3044,7 +3110,15 @@ export class Keymap extends GObject.Object {
   have_bidi_layouts(): boolean;
   lookup_key(key: KeymapKey): number;
   map_virtual_modifiers(state: ModifierType): boolean;
-  translate_keyboard_state(hardware_keycode: number, state: ModifierType, group: number, keyval?: number, effective_group?: number, level?: number, consumed_modifiers?: ModifierType): boolean;
+  translate_keyboard_state(
+    hardware_keycode: number,
+    state: ModifierType,
+    group: number,
+    keyval?: number,
+    effective_group?: number,
+    level?: number,
+    consumed_modifiers?: ModifierType
+  ): boolean;
   static get_default(): Keymap;
   static get_for_display(display: Display): Keymap;
 }
@@ -3118,45 +3192,115 @@ export class Seat extends GObject.Object {
   get_keyboard(): Device | null;
   get_pointer(): Device | null;
   get_slaves(capabilities: SeatCapabilities): GLib.List;
-  grab(window: Window, capabilities: SeatCapabilities, owner_events: boolean, cursor: Cursor | null, event: Event | null, prepare_func: SeatGrabPrepareFunc | null, prepare_func_data: object | null): GrabStatus;
+  grab(
+    window: Window,
+    capabilities: SeatCapabilities,
+    owner_events: boolean,
+    cursor: Cursor | null,
+    event: Event | null,
+    prepare_func: SeatGrabPrepareFunc | null,
+    prepare_func_data: object | null
+  ): GrabStatus;
   ungrab(): void;
 }
 export class Visual extends GObject.Object {
   get_bits_per_rgb(): number;
-  get_blue_pixel_details(mask?: number, shift?: number, precision?: number): void;
+  get_blue_pixel_details(
+    mask?: number,
+    shift?: number,
+    precision?: number
+  ): void;
   get_byte_order(): ByteOrder;
   get_colormap_size(): number;
   get_depth(): number;
-  get_green_pixel_details(mask?: number, shift?: number, precision?: number): void;
-  get_red_pixel_details(mask?: number, shift?: number, precision?: number): void;
+  get_green_pixel_details(
+    mask?: number,
+    shift?: number,
+    precision?: number
+  ): void;
+  get_red_pixel_details(
+    mask?: number,
+    shift?: number,
+    precision?: number
+  ): void;
   get_screen(): Screen;
   get_visual_type(): VisualType;
   static get_best(): Visual;
   static get_best_depth(): number;
   static get_best_type(): VisualType;
-  static get_best_with_both(depth: number, visual_type: VisualType): Visual | null;
+  static get_best_with_both(
+    depth: number,
+    visual_type: VisualType
+  ): Visual | null;
   static get_best_with_depth(depth: number): Visual;
   static get_best_with_type(visual_type: VisualType): Visual;
   static get_system(): Visual;
 }
 export class Window extends GObject.Object {
-  constructor(parent: Window | null, attributes: WindowAttr, attributes_mask: WindowAttributesType);
+  constructor(
+    parent: Window | null,
+    attributes: WindowAttr,
+    attributes_mask: WindowAttributesType
+  );
   cursor: Cursor;
   add_filter(_function: FilterFunc, data: object | null): void;
   beep(): void;
   begin_draw_frame(region: cairo.Region): DrawingContext;
-  begin_move_drag(button: number, root_x: number, root_y: number, timestamp: number): void;
-  begin_move_drag_for_device(device: Device, button: number, root_x: number, root_y: number, timestamp: number): void;
+  begin_move_drag(
+    button: number,
+    root_x: number,
+    root_y: number,
+    timestamp: number
+  ): void;
+  begin_move_drag_for_device(
+    device: Device,
+    button: number,
+    root_x: number,
+    root_y: number,
+    timestamp: number
+  ): void;
   begin_paint_rect(rectangle: Rectangle): void;
   begin_paint_region(region: cairo.Region): void;
-  begin_resize_drag(edge: WindowEdge, button: number, root_x: number, root_y: number, timestamp: number): void;
-  begin_resize_drag_for_device(edge: WindowEdge, device: Device, button: number, root_x: number, root_y: number, timestamp: number): void;
+  begin_resize_drag(
+    edge: WindowEdge,
+    button: number,
+    root_x: number,
+    root_y: number,
+    timestamp: number
+  ): void;
+  begin_resize_drag_for_device(
+    edge: WindowEdge,
+    device: Device,
+    button: number,
+    root_x: number,
+    root_y: number,
+    timestamp: number
+  ): void;
   configure_finished(): void;
-  coords_from_parent(parent_x: number, parent_y: number, x?: number, y?: number): void;
-  coords_to_parent(x: number, y: number, parent_x?: number, parent_y?: number): void;
+  coords_from_parent(
+    parent_x: number,
+    parent_y: number,
+    x?: number,
+    y?: number
+  ): void;
+  coords_to_parent(
+    x: number,
+    y: number,
+    parent_x?: number,
+    parent_y?: number
+  ): void;
   create_gl_context(): GLContext;
-  create_similar_image_surface(format: number, width: number, height: number, scale: number): cairo.Surface;
-  create_similar_surface(content: cairo.Content, width: number, height: number): cairo.Surface;
+  create_similar_image_surface(
+    format: number,
+    width: number,
+    height: number,
+    scale: number
+  ): cairo.Surface;
+  create_similar_surface(
+    content: cairo.Content,
+    width: number,
+    height: number
+  ): cairo.Surface;
   deiconify(): void;
   destroy(): void;
   destroy_notify(): void;
@@ -3181,8 +3325,18 @@ export class Window extends GObject.Object {
   get_decorations(decorations: WMDecoration): boolean;
   get_device_cursor(device: Device): Cursor | null;
   get_device_events(device: Device): EventMask;
-  get_device_position(device: Device, x?: number, y?: number, mask?: ModifierType): Window | null;
-  get_device_position_double(device: Device, x?: number, y?: number, mask?: ModifierType): Window | null;
+  get_device_position(
+    device: Device,
+    x?: number,
+    y?: number,
+    mask?: ModifierType
+  ): Window | null;
+  get_device_position_double(
+    device: Device,
+    x?: number,
+    y?: number,
+    mask?: ModifierType
+  ): Window | null;
   get_display(): Display;
   get_drag_protocol(target?: Window): DragProtocol;
   get_effective_parent(): Window;
@@ -3220,8 +3374,16 @@ export class Window extends GObject.Object {
   has_native(): boolean;
   hide(): void;
   iconify(): void;
-  input_shape_combine_region(shape_region: cairo.Region, offset_x: number, offset_y: number): void;
-  invalidate_maybe_recurse(region: cairo.Region, child_func: WindowChildFunc | null, user_data: object | null): void;
+  input_shape_combine_region(
+    shape_region: cairo.Region,
+    offset_x: number,
+    offset_y: number
+  ): void;
+  invalidate_maybe_recurse(
+    region: cairo.Region,
+    child_func: WindowChildFunc | null,
+    user_data: object | null
+  ): void;
   invalidate_rect(rect: Rectangle | null, invalidate_children: boolean): void;
   invalidate_region(region: cairo.Region, invalidate_children: boolean): void;
   is_destroyed(): boolean;
@@ -3237,7 +3399,14 @@ export class Window extends GObject.Object {
   move(x: number, y: number): void;
   move_region(region: cairo.Region, dx: number, dy: number): void;
   move_resize(x: number, y: number, width: number, height: number): void;
-  move_to_rect(rect: Rectangle, rect_anchor: Gravity, window_anchor: Gravity, anchor_hints: AnchorHints, rect_anchor_dx: number, rect_anchor_dy: number): void;
+  move_to_rect(
+    rect: Rectangle,
+    rect_anchor: Gravity,
+    window_anchor: Gravity,
+    anchor_hints: AnchorHints,
+    rect_anchor_dx: number,
+    rect_anchor_dy: number
+  ): void;
   peek_children(): GLib.List;
   process_updates(update_children: boolean): void;
   raise(): void;
@@ -3276,7 +3445,12 @@ export class Window extends GObject.Object {
   set_override_redirect(override_redirect: boolean): void;
   set_pass_through(pass_through: boolean): void;
   set_role(role: string): void;
-  set_shadow_width(left: number, right: number, top: number, bottom: number): void;
+  set_shadow_width(
+    left: number,
+    right: number,
+    top: number,
+    bottom: number
+  ): void;
   set_skip_pager_hint(skips_pager: boolean): void;
   set_skip_taskbar_hint(skips_taskbar: boolean): void;
   set_source_events(source: InputSource, event_mask: EventMask): void;
@@ -3288,7 +3462,11 @@ export class Window extends GObject.Object {
   set_type_hint(hint: WindowTypeHint): void;
   set_urgency_hint(urgent: boolean): void;
   set_user_data(user_data: GObject.Object | null): void;
-  shape_combine_region(shape_region: cairo.Region | null, offset_x: number, offset_y: number): void;
+  shape_combine_region(
+    shape_region: cairo.Region | null,
+    offset_x: number,
+    offset_y: number
+  ): void;
   show(): void;
   show_unraised(): void;
   show_window_menu(event: Event): boolean;
@@ -3300,11 +3478,28 @@ export class Window extends GObject.Object {
   unstick(): void;
   withdraw(): void;
   create_surface(width: number, height: number): cairo.Surface;
-  from_embedder(embedder_x: number, embedder_y: number, offscreen_x: number, offscreen_y: number): void;
+  from_embedder(
+    embedder_x: number,
+    embedder_y: number,
+    offscreen_x: number,
+    offscreen_y: number
+  ): void;
   pick_embedded_child(x: number, y: number): Window;
-  to_embedder(offscreen_x: number, offscreen_y: number, embedder_x: number, embedder_y: number): void;
+  to_embedder(
+    offscreen_x: number,
+    offscreen_y: number,
+    embedder_x: number,
+    embedder_y: number
+  ): void;
   static at_pointer(win_x?: number, win_y?: number): Window;
-  static constrain_size(geometry: Geometry, flags: WindowHints, width: number, height: number, new_width: number, new_height: number): void;
+  static constrain_size(
+    geometry: Geometry,
+    flags: WindowHints,
+    width: number,
+    height: number,
+    new_width: number,
+    new_height: number
+  ): void;
   static process_all_updates(): void;
   static set_debug_updates(setting: boolean): void;
 }
@@ -3653,9 +3848,25 @@ export class WindowAttr {
 export class WindowClass {
   static parent_class: GObject.ObjectClass;
   static pick_embedded_child: (window: Window, x: number, y: number) => Window;
-  static to_embedder: (window: Window, offscreen_x: number, offscreen_y: number, embedder_x: number, embedder_y: number) => void;
-  static from_embedder: (window: Window, embedder_x: number, embedder_y: number, offscreen_x: number, offscreen_y: number) => void;
-  static create_surface: (window: Window, width: number, height: number) => cairo.Surface;
+  static to_embedder: (
+    window: Window,
+    offscreen_x: number,
+    offscreen_y: number,
+    embedder_x: number,
+    embedder_y: number
+  ) => void;
+  static from_embedder: (
+    window: Window,
+    embedder_x: number,
+    embedder_y: number,
+    offscreen_x: number,
+    offscreen_y: number
+  ) => void;
+  static create_surface: (
+    window: Window,
+    width: number,
+    height: number
+  ) => cairo.Surface;
   static _gdk_reserved1: () => void;
   static _gdk_reserved2: () => void;
   static _gdk_reserved3: () => void;
@@ -3671,42 +3882,129 @@ export function atom_intern(atom_name: string, only_if_exists: boolean): Atom;
 export function atom_intern_static_string(atom_name: string): Atom;
 export function beep(): void;
 export function cairo_create(window: Window): cairo.Context;
-export function cairo_draw_from_gl(cr: cairo.Context, window: Window, source: number, source_type: number, buffer_scale: number, x: number, y: number, width: number, height: number): void;
-export function cairo_get_clip_rectangle(cr: cairo.Context, rect: Rectangle): boolean;
-export function cairo_get_drawing_context(cr: cairo.Context): DrawingContext | null;
+export function cairo_draw_from_gl(
+  cr: cairo.Context,
+  window: Window,
+  source: number,
+  source_type: number,
+  buffer_scale: number,
+  x: number,
+  y: number,
+  width: number,
+  height: number
+): void;
+export function cairo_get_clip_rectangle(
+  cr: cairo.Context,
+  rect: Rectangle
+): boolean;
+export function cairo_get_drawing_context(
+  cr: cairo.Context
+): DrawingContext | null;
 export function cairo_rectangle(cr: cairo.Context, rectangle: Rectangle): void;
 export function cairo_region(cr: cairo.Context, region: cairo.Region): void;
-export function cairo_region_create_from_surface(surface: cairo.Surface): cairo.Region;
+export function cairo_region_create_from_surface(
+  surface: cairo.Surface
+): cairo.Region;
 export function cairo_set_source_color(cr: cairo.Context, color: Color): void;
-export function cairo_set_source_pixbuf(cr: cairo.Context, pixbuf: GdkPixbuf.Pixbuf, pixbuf_x: number, pixbuf_y: number): void;
+export function cairo_set_source_pixbuf(
+  cr: cairo.Context,
+  pixbuf: GdkPixbuf.Pixbuf,
+  pixbuf_x: number,
+  pixbuf_y: number
+): void;
 export function cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void;
-export function cairo_set_source_window(cr: cairo.Context, window: Window, x: number, y: number): void;
-export function cairo_surface_create_from_pixbuf(pixbuf: GdkPixbuf.Pixbuf, scale: number, for_window: Window | null): cairo.Surface;
+export function cairo_set_source_window(
+  cr: cairo.Context,
+  window: Window,
+  x: number,
+  y: number
+): void;
+export function cairo_surface_create_from_pixbuf(
+  pixbuf: GdkPixbuf.Pixbuf,
+  scale: number,
+  for_window: Window | null
+): cairo.Surface;
 export function color_parse(spec: string, color: Color): boolean;
 export function disable_multidevice(): void;
 export function drag_abort(context: DragContext, time_: number): void;
 export function drag_begin(window: Window, targets: GLib.List): DragContext;
-export function drag_begin_for_device(window: Window, device: Device, targets: GLib.List): DragContext;
-export function drag_begin_from_point(window: Window, device: Device, targets: GLib.List, x_root: number, y_root: number): DragContext;
+export function drag_begin_for_device(
+  window: Window,
+  device: Device,
+  targets: GLib.List
+): DragContext;
+export function drag_begin_from_point(
+  window: Window,
+  device: Device,
+  targets: GLib.List,
+  x_root: number,
+  y_root: number
+): DragContext;
 export function drag_drop(context: DragContext, time_: number): void;
 export function drag_drop_done(context: DragContext, success: boolean): void;
 export function drag_drop_succeeded(context: DragContext): boolean;
-export function drag_find_window_for_screen(context: DragContext, drag_window: Window, screen: Screen, x_root: number, y_root: number, dest_window: Window, protocol: DragProtocol): void;
+export function drag_find_window_for_screen(
+  context: DragContext,
+  drag_window: Window,
+  screen: Screen,
+  x_root: number,
+  y_root: number,
+  dest_window: Window,
+  protocol: DragProtocol
+): void;
 export function drag_get_selection(context: DragContext): Atom;
-export function drag_motion(context: DragContext, dest_window: Window, protocol: DragProtocol, x_root: number, y_root: number, suggested_action: DragAction, possible_actions: DragAction, time_: number): boolean;
-export function drag_status(context: DragContext, action: DragAction, time_: number): void;
-export function drop_finish(context: DragContext, success: boolean, time_: number): void;
-export function drop_reply(context: DragContext, accepted: boolean, time_: number): void;
+export function drag_motion(
+  context: DragContext,
+  dest_window: Window,
+  protocol: DragProtocol,
+  x_root: number,
+  y_root: number,
+  suggested_action: DragAction,
+  possible_actions: DragAction,
+  time_: number
+): boolean;
+export function drag_status(
+  context: DragContext,
+  action: DragAction,
+  time_: number
+): void;
+export function drop_finish(
+  context: DragContext,
+  success: boolean,
+  time_: number
+): void;
+export function drop_reply(
+  context: DragContext,
+  accepted: boolean,
+  time_: number
+): void;
 export function error_trap_pop(): number;
 export function error_trap_pop_ignored(): void;
 export function error_trap_push(): void;
 export function event_get(): Event | null;
-export function event_handler_set(func: EventFunc, data: object | null, notify: GLib.DestroyNotify): void;
+export function event_handler_set(
+  func: EventFunc,
+  data: object | null,
+  notify: GLib.DestroyNotify
+): void;
 export function event_peek(): Event | null;
 export function event_request_motions(event: EventMotion): void;
-export function events_get_angle(event1: Event, event2: Event, angle: number): boolean;
-export function events_get_center(event1: Event, event2: Event, x: number, y: number): boolean;
-export function events_get_distance(event1: Event, event2: Event, distance: number): boolean;
+export function events_get_angle(
+  event1: Event,
+  event2: Event,
+  angle: number
+): boolean;
+export function events_get_center(
+  event1: Event,
+  event2: Event,
+  x: number,
+  y: number
+): boolean;
+export function events_get_distance(
+  event1: Event,
+  event2: Event,
+  distance: number
+): boolean;
 export function events_pending(): boolean;
 export function flush(): void;
 export function get_default_root_window(): Window;
@@ -3717,9 +4015,17 @@ export function get_show_events(): boolean;
 export function gl_error_quark(): GLib.Quark;
 export function init(argc: number, argv: string[]): void;
 export function init_check(argc: number, argv: string[]): boolean;
-export function keyboard_grab(window: Window, owner_events: boolean, time_: number): GrabStatus;
+export function keyboard_grab(
+  window: Window,
+  owner_events: boolean,
+  time_: number
+): GrabStatus;
 export function keyboard_ungrab(time_: number): void;
-export function keyval_convert_case(symbol: number, lower: number, upper: number): void;
+export function keyval_convert_case(
+  symbol: number,
+  lower: number,
+  upper: number
+): void;
 export function keyval_from_name(keyval_name: string): number;
 export function keyval_is_lower(keyval: number): boolean;
 export function keyval_is_upper(keyval: number): boolean;
@@ -3731,57 +4037,222 @@ export function list_visuals(): GLib.List;
 export function notify_startup_complete(): void;
 export function notify_startup_complete_with_id(startup_id: string): void;
 export function offscreen_window_get_embedder(window: Window): Window | null;
-export function offscreen_window_get_surface(window: Window): cairo.Surface | null;
-export function offscreen_window_set_embedder(window: Window, embedder: Window): void;
+export function offscreen_window_get_surface(
+  window: Window
+): cairo.Surface | null;
+export function offscreen_window_set_embedder(
+  window: Window,
+  embedder: Window
+): void;
 export function pango_context_get(): Pango.Context;
 export function pango_context_get_for_display(display: Display): Pango.Context;
 export function pango_context_get_for_screen(screen: Screen): Pango.Context;
-export function pango_layout_get_clip_region(layout: Pango.Layout, x_origin: number, y_origin: number, index_ranges: number, n_ranges: number): cairo.Region;
-export function pango_layout_line_get_clip_region(line: Pango.LayoutLine, x_origin: number, y_origin: number, index_ranges: number[], n_ranges: number): cairo.Region;
+export function pango_layout_get_clip_region(
+  layout: Pango.Layout,
+  x_origin: number,
+  y_origin: number,
+  index_ranges: number,
+  n_ranges: number
+): cairo.Region;
+export function pango_layout_line_get_clip_region(
+  line: Pango.LayoutLine,
+  x_origin: number,
+  y_origin: number,
+  index_ranges: number[],
+  n_ranges: number
+): cairo.Region;
 export function parse_args(argc: number, argv: string[]): void;
-export function pixbuf_get_from_surface(surface: cairo.Surface, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null;
-export function pixbuf_get_from_window(window: Window, src_x: number, src_y: number, width: number, height: number): GdkPixbuf.Pixbuf | null;
-export function pointer_grab(window: Window, owner_events: boolean, event_mask: EventMask, confine_to: Window | null, cursor: Cursor | null, time_: number): GrabStatus;
+export function pixbuf_get_from_surface(
+  surface: cairo.Surface,
+  src_x: number,
+  src_y: number,
+  width: number,
+  height: number
+): GdkPixbuf.Pixbuf | null;
+export function pixbuf_get_from_window(
+  window: Window,
+  src_x: number,
+  src_y: number,
+  width: number,
+  height: number
+): GdkPixbuf.Pixbuf | null;
+export function pointer_grab(
+  window: Window,
+  owner_events: boolean,
+  event_mask: EventMask,
+  confine_to: Window | null,
+  cursor: Cursor | null,
+  time_: number
+): GrabStatus;
 export function pointer_is_grabbed(): boolean;
 export function pointer_ungrab(time_: number): void;
 export function pre_parse_libgtk_only(): void;
-export function property_change(window: Window, property: Atom, type: Atom, format: number, mode: PropMode, data: number, nelements: number): void;
+export function property_change(
+  window: Window,
+  property: Atom,
+  type: Atom,
+  format: number,
+  mode: PropMode,
+  data: number,
+  nelements: number
+): void;
 export function property_delete(window: Window, property: Atom): void;
-export function property_get(window: Window, property: Atom, type: Atom, offset: number, length: number, pdelete: number, actual_property_type: Atom, actual_format: number, actual_length: number, data: number[]): boolean;
+export function property_get(
+  window: Window,
+  property: Atom,
+  type: Atom,
+  offset: number,
+  length: number,
+  pdelete: number,
+  actual_property_type: Atom,
+  actual_format: number,
+  actual_length: number,
+  data: number[]
+): boolean;
 export function query_depths(depths: number[], count: number): void;
-export function query_visual_types(visual_types: VisualType[], count: number): void;
-export function selection_convert(requestor: Window, selection: Atom, target: Atom, time_: number): void;
+export function query_visual_types(
+  visual_types: VisualType[],
+  count: number
+): void;
+export function selection_convert(
+  requestor: Window,
+  selection: Atom,
+  target: Atom,
+  time_: number
+): void;
 export function selection_owner_get(selection: Atom): Window | null;
-export function selection_owner_get_for_display(display: Display, selection: Atom): Window | null;
-export function selection_owner_set(owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean;
-export function selection_owner_set_for_display(display: Display, owner: Window | null, selection: Atom, time_: number, send_event: boolean): boolean;
-export function selection_property_get(requestor: Window, data: number, prop_type: Atom, prop_format: number): number;
-export function selection_send_notify(requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void;
-export function selection_send_notify_for_display(display: Display, requestor: Window, selection: Atom, target: Atom, property: Atom, time_: number): void;
+export function selection_owner_get_for_display(
+  display: Display,
+  selection: Atom
+): Window | null;
+export function selection_owner_set(
+  owner: Window | null,
+  selection: Atom,
+  time_: number,
+  send_event: boolean
+): boolean;
+export function selection_owner_set_for_display(
+  display: Display,
+  owner: Window | null,
+  selection: Atom,
+  time_: number,
+  send_event: boolean
+): boolean;
+export function selection_property_get(
+  requestor: Window,
+  data: number,
+  prop_type: Atom,
+  prop_format: number
+): number;
+export function selection_send_notify(
+  requestor: Window,
+  selection: Atom,
+  target: Atom,
+  property: Atom,
+  time_: number
+): void;
+export function selection_send_notify_for_display(
+  display: Display,
+  requestor: Window,
+  selection: Atom,
+  target: Atom,
+  property: Atom,
+  time_: number
+): void;
 export function set_allowed_backends(backends: string): void;
 export function set_double_click_time(msec: number): void;
 export function set_program_class(program_class: string): void;
 export function set_show_events(show_events: boolean): void;
 export function setting_get(name: string, value: GObject.Value): boolean;
-export function synthesize_window_state(window: Window, unset_flags: WindowState, set_flags: WindowState): void;
+export function synthesize_window_state(
+  window: Window,
+  unset_flags: WindowState,
+  set_flags: WindowState
+): void;
 export function test_render_sync(window: Window): void;
-export function test_simulate_button(window: Window, x: number, y: number, button: number, modifiers: ModifierType, button_pressrelease: EventType): boolean;
-export function test_simulate_key(window: Window, x: number, y: number, keyval: number, modifiers: ModifierType, key_pressrelease: EventType): boolean;
-export function text_property_to_utf8_list_for_display(display: Display, encoding: Atom, format: number, text: number[], length: number, list: string[]): number;
-export function threads_add_idle(_function: GLib.SourceFunc, data: object | null): number;
-export function threads_add_idle_full(priority: number, _function: GLib.SourceFunc, data: object | null, notify: GLib.DestroyNotify | null): number;
-export function threads_add_timeout(interval: number, _function: GLib.SourceFunc, data: object | null): number;
-export function threads_add_timeout_full(priority: number, interval: number, _function: GLib.SourceFunc, data: object | null, notify: GLib.DestroyNotify | null): number;
-export function threads_add_timeout_seconds(interval: number, _function: GLib.SourceFunc, data: object | null): number;
-export function threads_add_timeout_seconds_full(priority: number, interval: number, _function: GLib.SourceFunc, data: object | null, notify: GLib.DestroyNotify | null): number;
+export function test_simulate_button(
+  window: Window,
+  x: number,
+  y: number,
+  button: number,
+  modifiers: ModifierType,
+  button_pressrelease: EventType
+): boolean;
+export function test_simulate_key(
+  window: Window,
+  x: number,
+  y: number,
+  keyval: number,
+  modifiers: ModifierType,
+  key_pressrelease: EventType
+): boolean;
+export function text_property_to_utf8_list_for_display(
+  display: Display,
+  encoding: Atom,
+  format: number,
+  text: number[],
+  length: number,
+  list: string[]
+): number;
+export function threads_add_idle(
+  _function: GLib.SourceFunc,
+  data: object | null
+): number;
+export function threads_add_idle_full(
+  priority: number,
+  _function: GLib.SourceFunc,
+  data: object | null,
+  notify: GLib.DestroyNotify | null
+): number;
+export function threads_add_timeout(
+  interval: number,
+  _function: GLib.SourceFunc,
+  data: object | null
+): number;
+export function threads_add_timeout_full(
+  priority: number,
+  interval: number,
+  _function: GLib.SourceFunc,
+  data: object | null,
+  notify: GLib.DestroyNotify | null
+): number;
+export function threads_add_timeout_seconds(
+  interval: number,
+  _function: GLib.SourceFunc,
+  data: object | null
+): number;
+export function threads_add_timeout_seconds_full(
+  priority: number,
+  interval: number,
+  _function: GLib.SourceFunc,
+  data: object | null,
+  notify: GLib.DestroyNotify | null
+): number;
 export function threads_enter(): void;
 export function threads_init(): void;
 export function threads_leave(): void;
-export function threads_set_lock_functions(enter_fn: GObject.Callback, leave_fn: GObject.Callback): void;
+export function threads_set_lock_functions(
+  enter_fn: GObject.Callback,
+  leave_fn: GObject.Callback
+): void;
 export function unicode_to_keyval(wc: number): number;
 export function utf8_to_string_target(str: string): string | null;
 export type EventFunc = (event: Event, data: object | null) => void;
-export type FilterFunc = (xevent: XEvent, event: Event, data: object | null) => FilterReturn;
-export type SeatGrabPrepareFunc = (seat: Seat, window: Window, user_data: object | null) => void;
-export type WindowChildFunc = (window: Window, user_data: object | null) => boolean;
-export type WindowInvalidateHandlerFunc = (window: Window, region: cairo.Region) => void;
+export type FilterFunc = (
+  xevent: XEvent,
+  event: Event,
+  data: object | null
+) => FilterReturn;
+export type SeatGrabPrepareFunc = (
+  seat: Seat,
+  window: Window,
+  user_data: object | null
+) => void;
+export type WindowChildFunc = (
+  window: Window,
+  user_data: object | null
+) => boolean;
+export type WindowInvalidateHandlerFunc = (
+  window: Window,
+  region: cairo.Region
+) => void;

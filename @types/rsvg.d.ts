@@ -5,12 +5,12 @@ export const MICRO_VERSION: number;
 export const MINOR_VERSION: number;
 export const VERSION: string;
 export enum Error {
-  RSVG_ERROR_FAILED,
+  RSVG_ERROR_FAILED
 }
 export enum HandleFlags {
   RSVG_HANDLE_FLAGS_NONE,
   RSVG_HANDLE_FLAG_UNLIMITED,
-  RSVG_HANDLE_FLAG_KEEP_IMAGE_DATA,
+  RSVG_HANDLE_FLAG_KEEP_IMAGE_DATA
 }
 export class DimensionData {
   static width: number;

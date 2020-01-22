@@ -5,7 +5,6 @@ GObject.CClosure = class CClosure extends GObjectCClosure {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GObjectInitiallyUnownedClass = GObject.InitiallyUnownedClass;
 GObject.InitiallyUnownedClass = class InitiallyUnownedClass extends GObjectInitiallyUnownedClass {
@@ -13,7 +12,6 @@ GObject.InitiallyUnownedClass = class InitiallyUnownedClass extends GObjectIniti
     super(...props);
     this.g_constructor = this.constructor;
   }
-
 };
 const GObjectObjectClass = GObject.ObjectClass;
 GObject.ObjectClass = class ObjectClass extends GObjectObjectClass {
@@ -21,7 +19,6 @@ GObject.ObjectClass = class ObjectClass extends GObjectObjectClass {
     super(...props);
     this.g_constructor = this.constructor;
   }
-
 };
 const GObjectParamSpecPool = GObject.ParamSpecPool;
 GObject.ParamSpecPool = class ParamSpecPool extends GObjectParamSpecPool {
@@ -29,6 +26,5 @@ GObject.ParamSpecPool = class ParamSpecPool extends GObjectParamSpecPool {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 export default GObject;

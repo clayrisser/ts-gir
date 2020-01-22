@@ -5,7 +5,6 @@ GLib.Array = class Array extends GLibArray {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibAsyncQueue = GLib.AsyncQueue;
 GLib.AsyncQueue = class AsyncQueue extends GLibAsyncQueue {
@@ -13,7 +12,6 @@ GLib.AsyncQueue = class AsyncQueue extends GLibAsyncQueue {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibBookmarkFile = GLib.BookmarkFile;
 GLib.BookmarkFile = class BookmarkFile extends GLibBookmarkFile {
@@ -21,7 +19,6 @@ GLib.BookmarkFile = class BookmarkFile extends GLibBookmarkFile {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibByteArray = GLib.ByteArray;
 GLib.ByteArray = class ByteArray extends GLibByteArray {
@@ -29,7 +26,6 @@ GLib.ByteArray = class ByteArray extends GLibByteArray {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibHashTable = GLib.HashTable;
 GLib.HashTable = class HashTable extends GLibHashTable {
@@ -37,7 +33,6 @@ GLib.HashTable = class HashTable extends GLibHashTable {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibHmac = GLib.Hmac;
 GLib.Hmac = class Hmac extends GLibHmac {
@@ -45,7 +40,6 @@ GLib.Hmac = class Hmac extends GLibHmac {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibMainContext = GLib.MainContext;
 GLib.MainContext = class MainContext extends GLibMainContext {
@@ -53,7 +47,6 @@ GLib.MainContext = class MainContext extends GLibMainContext {
     super(...props);
     this.g_default = this.default;
   }
-
 };
 const GLibNode = GLib.Node;
 GLib.Node = class Node extends GLibNode {
@@ -61,7 +54,6 @@ GLib.Node = class Node extends GLibNode {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibOptionContext = GLib.OptionContext;
 GLib.OptionContext = class OptionContext extends GLibOptionContext {
@@ -69,7 +61,6 @@ GLib.OptionContext = class OptionContext extends GLibOptionContext {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibPatternSpec = GLib.PatternSpec;
 GLib.PatternSpec = class PatternSpec extends GLibPatternSpec {
@@ -77,7 +68,6 @@ GLib.PatternSpec = class PatternSpec extends GLibPatternSpec {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibPtrArray = GLib.PtrArray;
 GLib.PtrArray = class PtrArray extends GLibPtrArray {
@@ -85,7 +75,6 @@ GLib.PtrArray = class PtrArray extends GLibPtrArray {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibQueue = GLib.Queue;
 GLib.Queue = class Queue extends GLibQueue {
@@ -93,7 +82,6 @@ GLib.Queue = class Queue extends GLibQueue {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibRand = GLib.Rand;
 GLib.Rand = class Rand extends GLibRand {
@@ -101,7 +89,6 @@ GLib.Rand = class Rand extends GLibRand {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibScanner = GLib.Scanner;
 GLib.Scanner = class Scanner extends GLibScanner {
@@ -109,7 +96,6 @@ GLib.Scanner = class Scanner extends GLibScanner {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibSequence = GLib.Sequence;
 GLib.Sequence = class Sequence extends GLibSequence {
@@ -117,7 +103,6 @@ GLib.Sequence = class Sequence extends GLibSequence {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibStringChunk = GLib.StringChunk;
 GLib.StringChunk = class StringChunk extends GLibStringChunk {
@@ -125,7 +110,6 @@ GLib.StringChunk = class StringChunk extends GLibStringChunk {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibTestLogBuffer = GLib.TestLogBuffer;
 GLib.TestLogBuffer = class TestLogBuffer extends GLibTestLogBuffer {
@@ -133,7 +117,6 @@ GLib.TestLogBuffer = class TestLogBuffer extends GLibTestLogBuffer {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibThread = GLib.Thread;
 GLib.Thread = class Thread extends GLibThread {
@@ -141,7 +124,6 @@ GLib.Thread = class Thread extends GLibThread {
     super(...props);
     this.g_yield = this.yield;
   }
-
 };
 const GLibThreadPool = GLib.ThreadPool;
 GLib.ThreadPool = class ThreadPool extends GLibThreadPool {
@@ -149,7 +131,6 @@ GLib.ThreadPool = class ThreadPool extends GLibThreadPool {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const GLibTimer = GLib.Timer;
 GLib.Timer = class Timer extends GLibTimer {
@@ -158,7 +139,6 @@ GLib.Timer = class Timer extends GLibTimer {
     this.g_continue = this.continue;
     this.g_new = this.new;
   }
-
 };
 const GLibTree = GLib.Tree;
 GLib.Tree = class Tree extends GLibTree {
@@ -166,6 +146,5 @@ GLib.Tree = class Tree extends GLibTree {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 export default GLib;

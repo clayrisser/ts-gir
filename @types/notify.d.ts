@@ -8,7 +8,7 @@ export const VERSION_MINOR: number;
 export enum Urgency {
   NOTIFY_URGENCY_LOW,
   NOTIFY_URGENCY_NORMAL,
-  NOTIFY_URGENCY_CRITICAL,
+  NOTIFY_URGENCY_CRITICAL
 }
 export class NotificationClass {
   static parent_class: GObject.ObjectClass;
@@ -17,7 +17,12 @@ export class NotificationClass {
 export class NotificationPrivate {}
 export function get_app_name(): string;
 export function get_server_caps(): GLib.List;
-export function get_server_info(ret_name: string, ret_vendor: string, ret_version: string, ret_spec_version: string): boolean;
+export function get_server_info(
+  ret_name: string,
+  ret_vendor: string,
+  ret_version: string,
+  ret_spec_version: string
+): boolean;
 export function init(app_name: string): boolean;
 export function is_initted(): boolean;
 export function set_app_name(app_name: string): void;

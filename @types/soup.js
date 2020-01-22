@@ -5,6 +5,5 @@ Soup.Server = class Server extends SoupServer {
     super(...props);
     this.g_interface = this.interface;
   }
-
 };
 export default Soup;

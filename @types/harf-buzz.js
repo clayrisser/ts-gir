@@ -5,7 +5,6 @@ HarfBuzz.glyph_position_t = class glyph_position_t extends HarfBuzzglyph_positio
     super(...props);
     this.g_var = this.var;
   }
-
 };
 const HarfBuzzot_name_entry_t = HarfBuzz.ot_name_entry_t;
 HarfBuzz.ot_name_entry_t = class ot_name_entry_t extends HarfBuzzot_name_entry_t {
@@ -13,6 +12,5 @@ HarfBuzz.ot_name_entry_t = class ot_name_entry_t extends HarfBuzzot_name_entry_t
     super(...props);
     this.g_var = this.var;
   }
-
 };
 export default HarfBuzz;

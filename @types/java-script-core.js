@@ -5,6 +5,5 @@ JavaScriptCore.Context = class Context extends JavaScriptCoreContext {
     super(...props);
     this.g_throw = this.throw;
   }
-
 };
 export default JavaScriptCore;

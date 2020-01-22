@@ -9,7 +9,7 @@ export enum PixdataDumpType {
   GDK_PIXDATA_DUMP_CTYPES,
   GDK_PIXDATA_DUMP_STATIC,
   GDK_PIXDATA_DUMP_CONST,
-  GDK_PIXDATA_DUMP_RLE_DECODER,
+  GDK_PIXDATA_DUMP_RLE_DECODER
 }
 export enum PixdataType {
   GDK_PIXDATA_COLOR_TYPE_RGB,
@@ -19,6 +19,9 @@ export enum PixdataType {
   GDK_PIXDATA_SAMPLE_WIDTH_MASK,
   GDK_PIXDATA_ENCODING_RAW,
   GDK_PIXDATA_ENCODING_RLE,
-  GDK_PIXDATA_ENCODING_MASK,
+  GDK_PIXDATA_ENCODING_MASK
 }
-export function pixbuf_from_pixdata(pixdata: Pixdata, copy_pixels: boolean): GdkPixbuf.Pixbuf;
+export function pixbuf_from_pixdata(
+  pixdata: Pixdata,
+  copy_pixels: boolean
+): GdkPixbuf.Pixbuf;

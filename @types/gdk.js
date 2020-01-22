@@ -5,6 +5,5 @@ Gdk.EventFocus = class EventFocus extends GdkEventFocus {
     super(...props);
     this.g_in = this.in;
   }
-
 };
 export default Gdk;

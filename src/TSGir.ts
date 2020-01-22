@@ -25,7 +25,10 @@ export default class TSGir extends Command {
   static flags = {
     help: flags.help({ char: 'h' }),
     module: flags.string({ char: 'm' }),
-    output: flags.string({ char: 'o', description: 'Output basename, if not set, the namespace is used' }),
+    output: flags.string({
+      char: 'o',
+      description: 'Output basename, if not set, the namespace is used'
+    }),
     dir: flags.string({ char: 'd', description: 'Output dir' }),
     silent: flags.boolean({ char: 's' }),
     verbose: flags.boolean(),
@@ -35,7 +38,8 @@ export default class TSGir extends Command {
       multiple: true,
       required: true,
       default: '/usr/share/gir-1.0/*.gir',
-      description: 'Paths to GIR files to generate type definitions from (with wild card support)'
+      description:
+        'Paths to GIR files to generate type definitions from (with wild card support)'
     })
   };
 

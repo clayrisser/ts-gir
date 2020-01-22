@@ -5,7 +5,6 @@ Pango.AttrFontDesc = class AttrFontDesc extends PangoAttrFontDesc {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoAttrFontFeatures = Pango.AttrFontFeatures;
 Pango.AttrFontFeatures = class AttrFontFeatures extends PangoAttrFontFeatures {
@@ -13,7 +12,6 @@ Pango.AttrFontFeatures = class AttrFontFeatures extends PangoAttrFontFeatures {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoAttrLanguage = Pango.AttrLanguage;
 Pango.AttrLanguage = class AttrLanguage extends PangoAttrLanguage {
@@ -21,7 +19,6 @@ Pango.AttrLanguage = class AttrLanguage extends PangoAttrLanguage {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoAttrShape = Pango.AttrShape;
 Pango.AttrShape = class AttrShape extends PangoAttrShape {
@@ -29,7 +26,6 @@ Pango.AttrShape = class AttrShape extends PangoAttrShape {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoAttrSize = Pango.AttrSize;
 Pango.AttrSize = class AttrSize extends PangoAttrSize {
@@ -37,7 +33,6 @@ Pango.AttrSize = class AttrSize extends PangoAttrSize {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoCoverage = Pango.Coverage;
 Pango.Coverage = class Coverage extends PangoCoverage {
@@ -45,7 +40,6 @@ Pango.Coverage = class Coverage extends PangoCoverage {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 const PangoScriptIter = Pango.ScriptIter;
 Pango.ScriptIter = class ScriptIter extends PangoScriptIter {
@@ -53,7 +47,6 @@ Pango.ScriptIter = class ScriptIter extends PangoScriptIter {
     super(...props);
     this.g_new = this.new;
   }
-
 };
 Pango.g_break = Pango.break;
 export default Pango;

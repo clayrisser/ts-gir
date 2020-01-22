@@ -26,12 +26,12 @@ export enum AuthenticationScheme {
   WEBKIT_AUTHENTICATION_SCHEME_NEGOTIATE,
   WEBKIT_AUTHENTICATION_SCHEME_CLIENT_CERTIFICATE_REQUESTED,
   WEBKIT_AUTHENTICATION_SCHEME_SERVER_TRUST_EVALUATION_REQUESTED,
-  WEBKIT_AUTHENTICATION_SCHEME_UNKNOWN,
+  WEBKIT_AUTHENTICATION_SCHEME_UNKNOWN
 }
 export enum CacheModel {
   WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER,
   WEBKIT_CACHE_MODEL_WEB_BROWSER,
-  WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER,
+  WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER
 }
 export enum ContextMenuAction {
   WEBKIT_CONTEXT_MENU_ACTION_NO_ACTION,
@@ -79,49 +79,49 @@ export enum ContextMenuAction {
   WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_VIDEO_TO_DISK,
   WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_AUDIO_TO_DISK,
   WEBKIT_CONTEXT_MENU_ACTION_INSERT_EMOJI,
-  WEBKIT_CONTEXT_MENU_ACTION_CUSTOM,
+  WEBKIT_CONTEXT_MENU_ACTION_CUSTOM
 }
 export enum CookieAcceptPolicy {
   WEBKIT_COOKIE_POLICY_ACCEPT_ALWAYS,
   WEBKIT_COOKIE_POLICY_ACCEPT_NEVER,
-  WEBKIT_COOKIE_POLICY_ACCEPT_NO_THIRD_PARTY,
+  WEBKIT_COOKIE_POLICY_ACCEPT_NO_THIRD_PARTY
 }
 export enum CookiePersistentStorage {
   WEBKIT_COOKIE_PERSISTENT_STORAGE_TEXT,
-  WEBKIT_COOKIE_PERSISTENT_STORAGE_SQLITE,
+  WEBKIT_COOKIE_PERSISTENT_STORAGE_SQLITE
 }
 export enum CredentialPersistence {
   WEBKIT_CREDENTIAL_PERSISTENCE_NONE,
   WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION,
-  WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT,
+  WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT
 }
 export enum DownloadError {
   WEBKIT_DOWNLOAD_ERROR_NETWORK,
   WEBKIT_DOWNLOAD_ERROR_CANCELLED_BY_USER,
-  WEBKIT_DOWNLOAD_ERROR_DESTINATION,
+  WEBKIT_DOWNLOAD_ERROR_DESTINATION
 }
 export enum FaviconDatabaseError {
   WEBKIT_FAVICON_DATABASE_ERROR_NOT_INITIALIZED,
   WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_NOT_FOUND,
-  WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_UNKNOWN,
+  WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_UNKNOWN
 }
 export enum HardwareAccelerationPolicy {
   WEBKIT_HARDWARE_ACCELERATION_POLICY_ON_DEMAND,
   WEBKIT_HARDWARE_ACCELERATION_POLICY_ALWAYS,
-  WEBKIT_HARDWARE_ACCELERATION_POLICY_NEVER,
+  WEBKIT_HARDWARE_ACCELERATION_POLICY_NEVER
 }
 export enum InsecureContentEvent {
   WEBKIT_INSECURE_CONTENT_RUN,
-  WEBKIT_INSECURE_CONTENT_DISPLAYED,
+  WEBKIT_INSECURE_CONTENT_DISPLAYED
 }
 export enum JavascriptError {
-  WEBKIT_JAVASCRIPT_ERROR_SCRIPT_FAILED,
+  WEBKIT_JAVASCRIPT_ERROR_SCRIPT_FAILED
 }
 export enum LoadEvent {
   WEBKIT_LOAD_STARTED,
   WEBKIT_LOAD_REDIRECTED,
   WEBKIT_LOAD_COMMITTED,
-  WEBKIT_LOAD_FINISHED,
+  WEBKIT_LOAD_FINISHED
 }
 export enum NavigationType {
   WEBKIT_NAVIGATION_TYPE_LINK_CLICKED,
@@ -129,19 +129,19 @@ export enum NavigationType {
   WEBKIT_NAVIGATION_TYPE_BACK_FORWARD,
   WEBKIT_NAVIGATION_TYPE_RELOAD,
   WEBKIT_NAVIGATION_TYPE_FORM_RESUBMITTED,
-  WEBKIT_NAVIGATION_TYPE_OTHER,
+  WEBKIT_NAVIGATION_TYPE_OTHER
 }
 export enum NetworkError {
   WEBKIT_NETWORK_ERROR_FAILED,
   WEBKIT_NETWORK_ERROR_TRANSPORT,
   WEBKIT_NETWORK_ERROR_UNKNOWN_PROTOCOL,
   WEBKIT_NETWORK_ERROR_CANCELLED,
-  WEBKIT_NETWORK_ERROR_FILE_DOES_NOT_EXIST,
+  WEBKIT_NETWORK_ERROR_FILE_DOES_NOT_EXIST
 }
 export enum NetworkProxyMode {
   WEBKIT_NETWORK_PROXY_MODE_DEFAULT,
   WEBKIT_NETWORK_PROXY_MODE_NO_PROXY,
-  WEBKIT_NETWORK_PROXY_MODE_CUSTOM,
+  WEBKIT_NETWORK_PROXY_MODE_CUSTOM
 }
 export enum PluginError {
   WEBKIT_PLUGIN_ERROR_FAILED,
@@ -149,79 +149,79 @@ export enum PluginError {
   WEBKIT_PLUGIN_ERROR_CANNOT_LOAD_PLUGIN,
   WEBKIT_PLUGIN_ERROR_JAVA_UNAVAILABLE,
   WEBKIT_PLUGIN_ERROR_CONNECTION_CANCELLED,
-  WEBKIT_PLUGIN_ERROR_WILL_HANDLE_LOAD,
+  WEBKIT_PLUGIN_ERROR_WILL_HANDLE_LOAD
 }
 export enum PolicyDecisionType {
   WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION,
   WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION,
-  WEBKIT_POLICY_DECISION_TYPE_RESPONSE,
+  WEBKIT_POLICY_DECISION_TYPE_RESPONSE
 }
 export enum PolicyError {
   WEBKIT_POLICY_ERROR_FAILED,
   WEBKIT_POLICY_ERROR_CANNOT_SHOW_MIME_TYPE,
   WEBKIT_POLICY_ERROR_CANNOT_SHOW_URI,
   WEBKIT_POLICY_ERROR_FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE,
-  WEBKIT_POLICY_ERROR_CANNOT_USE_RESTRICTED_PORT,
+  WEBKIT_POLICY_ERROR_CANNOT_USE_RESTRICTED_PORT
 }
 export enum PrintError {
   WEBKIT_PRINT_ERROR_GENERAL,
   WEBKIT_PRINT_ERROR_PRINTER_NOT_FOUND,
-  WEBKIT_PRINT_ERROR_INVALID_PAGE_RANGE,
+  WEBKIT_PRINT_ERROR_INVALID_PAGE_RANGE
 }
 export enum PrintOperationResponse {
   WEBKIT_PRINT_OPERATION_RESPONSE_PRINT,
-  WEBKIT_PRINT_OPERATION_RESPONSE_CANCEL,
+  WEBKIT_PRINT_OPERATION_RESPONSE_CANCEL
 }
 export enum ProcessModel {
   WEBKIT_PROCESS_MODEL_SHARED_SECONDARY_PROCESS,
-  WEBKIT_PROCESS_MODEL_MULTIPLE_SECONDARY_PROCESSES,
+  WEBKIT_PROCESS_MODEL_MULTIPLE_SECONDARY_PROCESSES
 }
 export enum SaveMode {
-  WEBKIT_SAVE_MODE_MHTML,
+  WEBKIT_SAVE_MODE_MHTML
 }
 export enum ScriptDialogType {
   WEBKIT_SCRIPT_DIALOG_ALERT,
   WEBKIT_SCRIPT_DIALOG_CONFIRM,
   WEBKIT_SCRIPT_DIALOG_PROMPT,
-  WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM,
+  WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM
 }
 export enum SnapshotError {
-  WEBKIT_SNAPSHOT_ERROR_FAILED_TO_CREATE,
+  WEBKIT_SNAPSHOT_ERROR_FAILED_TO_CREATE
 }
 export enum SnapshotRegion {
   WEBKIT_SNAPSHOT_REGION_VISIBLE,
-  WEBKIT_SNAPSHOT_REGION_FULL_DOCUMENT,
+  WEBKIT_SNAPSHOT_REGION_FULL_DOCUMENT
 }
 export enum TLSErrorsPolicy {
   WEBKIT_TLS_ERRORS_POLICY_IGNORE,
-  WEBKIT_TLS_ERRORS_POLICY_FAIL,
+  WEBKIT_TLS_ERRORS_POLICY_FAIL
 }
 export enum UserContentFilterError {
   WEBKIT_USER_CONTENT_FILTER_ERROR_INVALID_SOURCE,
-  WEBKIT_USER_CONTENT_FILTER_ERROR_NOT_FOUND,
+  WEBKIT_USER_CONTENT_FILTER_ERROR_NOT_FOUND
 }
 export enum UserContentInjectedFrames {
   WEBKIT_USER_CONTENT_INJECT_ALL_FRAMES,
-  WEBKIT_USER_CONTENT_INJECT_TOP_FRAME,
+  WEBKIT_USER_CONTENT_INJECT_TOP_FRAME
 }
 export enum UserScriptInjectionTime {
   WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_START,
-  WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END,
+  WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END
 }
 export enum UserStyleLevel {
   WEBKIT_USER_STYLE_LEVEL_USER,
-  WEBKIT_USER_STYLE_LEVEL_AUTHOR,
+  WEBKIT_USER_STYLE_LEVEL_AUTHOR
 }
 export enum WebProcessTerminationReason {
   WEBKIT_WEB_PROCESS_CRASHED,
-  WEBKIT_WEB_PROCESS_EXCEEDED_MEMORY_LIMIT,
+  WEBKIT_WEB_PROCESS_EXCEEDED_MEMORY_LIMIT
 }
 export enum EditorTypingAttributes {
   WEBKIT_EDITOR_TYPING_ATTRIBUTE_NONE,
   WEBKIT_EDITOR_TYPING_ATTRIBUTE_BOLD,
   WEBKIT_EDITOR_TYPING_ATTRIBUTE_ITALIC,
   WEBKIT_EDITOR_TYPING_ATTRIBUTE_UNDERLINE,
-  WEBKIT_EDITOR_TYPING_ATTRIBUTE_STRIKETHROUGH,
+  WEBKIT_EDITOR_TYPING_ATTRIBUTE_STRIKETHROUGH
 }
 export enum FindOptions {
   WEBKIT_FIND_OPTIONS_NONE,
@@ -229,7 +229,7 @@ export enum FindOptions {
   WEBKIT_FIND_OPTIONS_AT_WORD_STARTS,
   WEBKIT_FIND_OPTIONS_TREAT_MEDIAL_CAPITAL_AS_WORD_START,
   WEBKIT_FIND_OPTIONS_BACKWARDS,
-  WEBKIT_FIND_OPTIONS_WRAP_AROUND,
+  WEBKIT_FIND_OPTIONS_WRAP_AROUND
 }
 export enum HitTestResultContext {
   WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT,
@@ -238,12 +238,12 @@ export enum HitTestResultContext {
   WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA,
   WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE,
   WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR,
-  WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION,
+  WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION
 }
 export enum SnapshotOptions {
   WEBKIT_SNAPSHOT_OPTIONS_NONE,
   WEBKIT_SNAPSHOT_OPTIONS_INCLUDE_SELECTION_HIGHLIGHTING,
-  WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND,
+  WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND
 }
 export enum WebsiteDataTypes {
   WEBKIT_WEBSITE_DATA_MEMORY_CACHE,
@@ -257,7 +257,7 @@ export enum WebsiteDataTypes {
   WEBKIT_WEBSITE_DATA_COOKIES,
   WEBKIT_WEBSITE_DATA_DEVICE_ID_HASH_SALT,
   WEBKIT_WEBSITE_DATA_HSTS_CACHE,
-  WEBKIT_WEBSITE_DATA_ALL,
+  WEBKIT_WEBSITE_DATA_ALL
 }
 export interface PermissionRequest {
   allow(...args: any[]): any;
@@ -347,20 +347,46 @@ export class ContextMenuItem extends GObject.InitiallyUnowned {
 export class CookieManager extends GObject.Object {
   static parent: GObject.Object;
   static priv: CookieManagerPrivate;
-  add_cookie(cookie: Soup.Cookie, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  add_cookie(
+    cookie: Soup.Cookie,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   add_cookie_finish(result: Gio.AsyncResult): boolean;
   delete_all_cookies(): void;
-  delete_cookie(cookie: Soup.Cookie, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  delete_cookie(
+    cookie: Soup.Cookie,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   delete_cookie_finish(result: Gio.AsyncResult): boolean;
   delete_cookies_for_domain(domain: string): void;
-  get_accept_policy(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_accept_policy(
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_accept_policy_finish(result: Gio.AsyncResult): CookieAcceptPolicy;
-  get_cookies(uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_cookies(
+    uri: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_cookies_finish(result: Gio.AsyncResult): GLib.List;
-  get_domains_with_cookies(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_domains_with_cookies(
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_domains_with_cookies_finish(result: Gio.AsyncResult): string[];
   set_accept_policy(policy: CookieAcceptPolicy): void;
-  set_persistent_storage(filename: string, storage: CookiePersistentStorage): void;
+  set_persistent_storage(
+    filename: string,
+    storage: CookiePersistentStorage
+  ): void;
 }
 export class DeviceInfoPermissionRequest extends GObject.Object {
   static parent: GObject.Object;
@@ -401,7 +427,12 @@ export class FaviconDatabase extends GObject.Object {
   static parent: GObject.Object;
   static priv: FaviconDatabasePrivate;
   clear(): void;
-  get_favicon(page_uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_favicon(
+    page_uri: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_favicon_finish(result: Gio.AsyncResult): cairo.Surface;
   get_favicon_uri(page_uri: string): string;
 }
@@ -426,12 +457,20 @@ export class FindController extends GObject.Object {
   'web-view': WebView;
   static parent: GObject.Object;
   static priv: FindControllerPrivate;
-  count_matches(search_text: string, find_options: number, max_match_count: number): void;
+  count_matches(
+    search_text: string,
+    find_options: number,
+    max_match_count: number
+  ): void;
   get_max_match_count(): number;
   get_options(): number;
   get_search_text(): string;
   get_web_view(): WebView;
-  search(search_text: string, find_options: number, max_match_count: number): void;
+  search(
+    search_text: string,
+    find_options: number,
+    max_match_count: number
+  ): void;
   search_finish(): void;
   search_next(): void;
   search_previous(): void;
@@ -549,7 +588,11 @@ export class PrintCustomWidget extends GObject.Object {
   get_title(): string;
   get_widget(): Gtk.Widget;
   apply(widget: Gtk.Widget): void;
-  update(widget: Gtk.Widget, page_setup: Gtk.PageSetup, print_settings: Gtk.PrintSettings): void;
+  update(
+    widget: Gtk.Widget,
+    page_setup: Gtk.PageSetup,
+    print_settings: Gtk.PrintSettings
+  ): void;
 }
 export class PrintOperation extends GObject.Object {
   constructor(web_view: WebView);
@@ -764,7 +807,10 @@ export class Settings extends GObject.Object {
   set_sans_serif_font_family(sans_serif_font_family: string): void;
   set_serif_font_family(serif_font_family: string): void;
   set_user_agent(user_agent: string | null): void;
-  set_user_agent_with_application_details(application_name: string | null, application_version: string | null): void;
+  set_user_agent_with_application_details(
+    application_name: string | null,
+    application_version: string | null
+  ): void;
   set_zoom_text_only(zoom_text_only: boolean): void;
   static font_size_to_pixels(points: number): number;
   static font_size_to_points(pixels: number): number;
@@ -798,7 +844,11 @@ export class URIResponse extends GObject.Object {
 export class URISchemeRequest extends GObject.Object {
   static parent: GObject.Object;
   static priv: URISchemeRequestPrivate;
-  finish(stream: Gio.InputStream, stream_length: number, mime_type: string | null): void;
+  finish(
+    stream: Gio.InputStream,
+    stream_length: number,
+    mime_type: string | null
+  ): void;
   finish_error(error: GLib.Error): void;
   get_path(): string;
   get_scheme(): string;
@@ -810,16 +860,42 @@ export class UserContentFilterStore extends GObject.Object {
   path: string;
   static parent: GObject.Object;
   static priv: UserContentFilterStorePrivate;
-  fetch_identifiers(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  fetch_identifiers(
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   fetch_identifiers_finish(result: Gio.AsyncResult): string[];
   get_path(): string;
-  load(identifier: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  load(
+    identifier: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   load_finish(result: Gio.AsyncResult): UserContentFilter;
-  remove(identifier: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  remove(
+    identifier: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   remove_finish(result: Gio.AsyncResult): boolean;
-  save(identifier: string, source: GLib.Bytes, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  save(
+    identifier: string,
+    source: GLib.Bytes,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   save_finish(result: Gio.AsyncResult): UserContentFilter;
-  save_from_file(identifier: string, file: Gio.File, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  save_from_file(
+    identifier: string,
+    file: Gio.File,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   save_from_file_finish(result: Gio.AsyncResult): UserContentFilter;
 }
 export class UserContentManager extends GObject.Object {
@@ -830,14 +906,20 @@ export class UserContentManager extends GObject.Object {
   add_script(script: UserScript): void;
   add_style_sheet(stylesheet: UserStyleSheet): void;
   register_script_message_handler(name: string): boolean;
-  register_script_message_handler_in_world(name: string, world_name: string): boolean;
+  register_script_message_handler_in_world(
+    name: string,
+    world_name: string
+  ): boolean;
   remove_all_filters(): void;
   remove_all_scripts(): void;
   remove_all_style_sheets(): void;
   remove_filter(filter: UserContentFilter): void;
   remove_filter_by_id(filter_id: string): void;
   unregister_script_message_handler(name: string): void;
-  unregister_script_message_handler_in_world(name: string, world_name: string): void;
+  unregister_script_message_handler_in_world(
+    name: string,
+    world_name: string
+  ): void;
 }
 export class UserMediaPermissionRequest extends GObject.Object {
   'is-for-audio-device': boolean;
@@ -852,7 +934,10 @@ export class WebContext extends GObject.Object {
   static parent: GObject.Object;
   static priv: WebContextPrivate;
   add_path_to_sandbox(path: any, read_only: boolean): void;
-  allow_tls_certificate_for_host(certificate: Gio.TlsCertificate, host: string): void;
+  allow_tls_certificate_for_host(
+    certificate: Gio.TlsCertificate,
+    host: string
+  ): void;
   clear_cache(): void;
   download_uri(uri: string): Download;
   get_cache_model(): CacheModel;
@@ -860,7 +945,11 @@ export class WebContext extends GObject.Object {
   get_favicon_database(): FaviconDatabase;
   get_favicon_database_directory(): string;
   get_geolocation_manager(): GeolocationManager;
-  get_plugins(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_plugins(
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_plugins_finish(result: Gio.AsyncResult): GLib.List;
   get_process_model(): ProcessModel;
   get_sandbox_enabled(): boolean;
@@ -874,13 +963,21 @@ export class WebContext extends GObject.Object {
   is_automation_allowed(): boolean;
   is_ephemeral(): boolean;
   prefetch_dns(hostname: string): void;
-  register_uri_scheme(scheme: string, callback: URISchemeRequestCallback, user_data: object | null, user_data_destroy_func: GLib.DestroyNotify): void;
+  register_uri_scheme(
+    scheme: string,
+    callback: URISchemeRequestCallback,
+    user_data: object | null,
+    user_data_destroy_func: GLib.DestroyNotify
+  ): void;
   set_additional_plugins_directory(directory: string): void;
   set_automation_allowed(allowed: boolean): void;
   set_cache_model(cache_model: CacheModel): void;
   set_disk_cache_directory(directory: string): void;
   set_favicon_database_directory(path: string | null): void;
-  set_network_proxy_settings(proxy_mode: NetworkProxyMode, proxy_settings: NetworkProxySettings | null): void;
+  set_network_proxy_settings(
+    proxy_mode: NetworkProxyMode,
+    proxy_settings: NetworkProxySettings | null
+  ): void;
   set_preferred_languages(languages: string[] | null): void;
   set_process_model(process_model: ProcessModel): void;
   set_sandbox_enabled(enabled: boolean): void;
@@ -917,7 +1014,11 @@ export class WebResource extends GObject.Object {
   uri: string;
   static parent: GObject.Object;
   static priv: WebResourcePrivate;
-  get_data(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_data(
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_data_finish(result: Gio.AsyncResult, length?: number): number[];
   get_response(): URIResponse;
   get_uri(): string;
@@ -940,14 +1041,22 @@ export class WebView extends WebViewBase {
   'zoom-level': number;
   static parent: WebViewBase;
   static priv: any;
-  can_execute_editing_command(command: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  can_execute_editing_command(
+    command: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   can_execute_editing_command_finish(result: Gio.AsyncResult): boolean;
   can_go_back(): boolean;
   can_go_forward(): boolean;
   can_show_mime_type(mime_type: string): boolean;
   download_uri(uri: string): Download;
   execute_editing_command(command: string): void;
-  execute_editing_command_with_argument(command: string, argument: string): void;
+  execute_editing_command_with_argument(
+    command: string,
+    argument: string
+  ): void;
   get_back_forward_list(): BackForwardList;
   get_background_color(rgba: Gdk.RGBA): void;
   get_context(): WebContext;
@@ -962,10 +1071,19 @@ export class WebView extends WebViewBase {
   get_page_id(): number;
   get_session_state(): WebViewSessionState;
   get_settings(): Settings;
-  get_snapshot(region: SnapshotRegion, options: SnapshotOptions, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  get_snapshot(
+    region: SnapshotRegion,
+    options: SnapshotOptions,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   get_snapshot_finish(result: Gio.AsyncResult): cairo.Surface;
   get_title(): string;
-  get_tls_info(certificate: Gio.TlsCertificate, errors: Gio.TlsCertificateFlags): boolean;
+  get_tls_info(
+    certificate: Gio.TlsCertificate,
+    errors: Gio.TlsCertificateFlags
+  ): boolean;
   get_uri(): string;
   get_user_content_manager(): UserContentManager;
   get_website_data_manager(): WebsiteDataManager;
@@ -979,8 +1097,17 @@ export class WebView extends WebViewBase {
   is_ephemeral(): boolean;
   is_loading(): boolean;
   is_playing_audio(): boolean;
-  load_alternate_html(content: string, content_uri: string, base_uri: string | null): void;
-  load_bytes(bytes: GLib.Bytes, mime_type: string | null, encoding: string | null, base_uri: string | null): void;
+  load_alternate_html(
+    content: string,
+    content_uri: string,
+    base_uri: string | null
+  ): void;
+  load_bytes(
+    bytes: GLib.Bytes,
+    mime_type: string | null,
+    encoding: string | null,
+    base_uri: string | null
+  ): void;
   load_html(content: string, base_uri: string | null): void;
   load_plain_text(plain_text: string): void;
   load_request(request: URIRequest): void;
@@ -988,15 +1115,44 @@ export class WebView extends WebViewBase {
   reload(): void;
   reload_bypass_cache(): void;
   restore_session_state(state: WebViewSessionState): void;
-  run_javascript(script: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  run_javascript(
+    script: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   run_javascript_finish(result: Gio.AsyncResult): JavascriptResult;
-  run_javascript_from_gresource(resource: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
-  run_javascript_from_gresource_finish(result: Gio.AsyncResult): JavascriptResult;
-  run_javascript_in_world(script: string, world_name: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  run_javascript_from_gresource(
+    resource: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
+  run_javascript_from_gresource_finish(
+    result: Gio.AsyncResult
+  ): JavascriptResult;
+  run_javascript_in_world(
+    script: string,
+    world_name: string,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   run_javascript_in_world_finish(result: Gio.AsyncResult): JavascriptResult;
-  save(save_mode: SaveMode, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  save(
+    save_mode: SaveMode,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   save_finish(result: Gio.AsyncResult): Gio.InputStream;
-  save_to_file(file: Gio.File, save_mode: SaveMode, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  save_to_file(
+    file: Gio.File,
+    save_mode: SaveMode,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   save_to_file_finish(result: Gio.AsyncResult): boolean;
   set_background_color(rgba: Gdk.RGBA): void;
   set_custom_charset(charset: string | null): void;
@@ -1007,7 +1163,11 @@ export class WebView extends WebViewBase {
   try_close(): void;
   authenticate(request: AuthenticationRequest): boolean;
   close(): void;
-  context_menu(context_menu: ContextMenu, event: Gdk.Event, hit_test_result: HitTestResult): boolean;
+  context_menu(
+    context_menu: ContextMenu,
+    event: Gdk.Event,
+    hit_test_result: HitTestResult
+  ): boolean;
   context_menu_dismissed(): void;
   create(navigation_action: NavigationAction): Gtk.Widget;
   decide_policy(decision: PolicyDecision, type: PolicyDecisionType): boolean;
@@ -1015,8 +1175,16 @@ export class WebView extends WebViewBase {
   insecure_content_detected(event: InsecureContentEvent): void;
   leave_fullscreen(): boolean;
   load_changed(load_event: LoadEvent): void;
-  load_failed(load_event: LoadEvent, failing_uri: string, error: GLib.Error): boolean;
-  load_failed_with_tls_errors(failing_uri: string, certificate: Gio.TlsCertificate, errors: Gio.TlsCertificateFlags): boolean;
+  load_failed(
+    load_event: LoadEvent,
+    failing_uri: string,
+    error: GLib.Error
+  ): boolean;
+  load_failed_with_tls_errors(
+    failing_uri: string,
+    certificate: Gio.TlsCertificate,
+    errors: Gio.TlsCertificateFlags
+  ): boolean;
   mouse_target_changed(hit_test_result: HitTestResult, modifiers: number): void;
   permission_request(permission_request: any): boolean;
   print(print_operation: PrintOperation): boolean;
@@ -1049,9 +1217,20 @@ export class WebsiteDataManager extends GObject.Object {
   'websql-directory': string;
   static parent: GObject.Object;
   static priv: WebsiteDataManagerPrivate;
-  clear(types: WebsiteDataTypes, timespan: GLib.TimeSpan, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  clear(
+    types: WebsiteDataTypes,
+    timespan: GLib.TimeSpan,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   clear_finish(result: Gio.AsyncResult): boolean;
-  fetch(types: WebsiteDataTypes, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  fetch(
+    types: WebsiteDataTypes,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   fetch_finish(result: Gio.AsyncResult): GLib.List;
   get_base_cache_directory(): string | null;
   get_base_data_directory(): string | null;
@@ -1063,7 +1242,13 @@ export class WebsiteDataManager extends GObject.Object {
   get_offline_application_cache_directory(): string | null;
   get_websql_directory(): string | null;
   is_ephemeral(): boolean;
-  remove(types: WebsiteDataTypes, website_data: GLib.List, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  remove(
+    types: WebsiteDataTypes,
+    website_data: GLib.List,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   remove_finish(result: Gio.AsyncResult): boolean;
 }
 export class WindowProperties extends GObject.Object {
@@ -1156,7 +1341,11 @@ export class CookieManagerClass {
 }
 export class CookieManagerPrivate {}
 export class Credential {
-  constructor(username: string, password: string, persistence: CredentialPersistence);
+  constructor(
+    username: string,
+    password: string,
+    persistence: CredentialPersistence
+  );
   copy(): Credential;
   free(): void;
   get_password(): string;
@@ -1174,7 +1363,10 @@ export class DeviceInfoPermissionRequestClass {
 export class DeviceInfoPermissionRequestPrivate {}
 export class DownloadClass {
   static parent_class: GObject.ObjectClass;
-  static decide_destination: (download: Download, suggested_filename: string) => boolean;
+  static decide_destination: (
+    download: Download,
+    suggested_filename: string
+  ) => boolean;
   static _webkit_reserved0: () => void;
   static _webkit_reserved1: () => void;
   static _webkit_reserved2: () => void;
@@ -1356,8 +1548,16 @@ export class PolicyDecisionClass {
 export class PolicyDecisionPrivate {}
 export class PrintCustomWidgetClass {
   static parent_class: GObject.ObjectClass;
-  static apply: (print_custom_widget: PrintCustomWidget, widget: Gtk.Widget) => void;
-  static update: (print_custom_widget: PrintCustomWidget, widget: Gtk.Widget, page_setup: Gtk.PageSetup, print_settings: Gtk.PrintSettings) => void;
+  static apply: (
+    print_custom_widget: PrintCustomWidget,
+    widget: Gtk.Widget
+  ) => void;
+  static update: (
+    print_custom_widget: PrintCustomWidget,
+    widget: Gtk.Widget,
+    page_setup: Gtk.PageSetup,
+    print_settings: Gtk.PrintSettings
+  ) => void;
   static _webkit_reserved0: () => void;
   static _webkit_reserved1: () => void;
   static _webkit_reserved2: () => void;
@@ -1470,12 +1670,24 @@ export class UserMediaPermissionRequestClass {
 }
 export class UserMediaPermissionRequestPrivate {}
 export class UserScript {
-  constructor(source: string, injected_frames: UserContentInjectedFrames, injection_time: UserScriptInjectionTime, whitelist: string[] | null, blacklist: string[] | null);
+  constructor(
+    source: string,
+    injected_frames: UserContentInjectedFrames,
+    injection_time: UserScriptInjectionTime,
+    whitelist: string[] | null,
+    blacklist: string[] | null
+  );
   ref(): UserScript;
   unref(): void;
 }
 export class UserStyleSheet {
-  constructor(source: string, injected_frames: UserContentInjectedFrames, level: UserStyleLevel, whitelist: string[] | null, blacklist: string[] | null);
+  constructor(
+    source: string,
+    injected_frames: UserContentInjectedFrames,
+    level: UserStyleLevel,
+    whitelist: string[] | null,
+    blacklist: string[] | null
+  );
   ref(): UserStyleSheet;
   unref(): void;
 }
@@ -1484,7 +1696,10 @@ export class WebContextClass {
   static download_started: (context: WebContext, download: Download) => void;
   static initialize_web_extensions: (context: WebContext) => void;
   static initialize_notification_permissions: (context: WebContext) => void;
-  static automation_started: (context: WebContext, session: AutomationSession) => void;
+  static automation_started: (
+    context: WebContext,
+    session: AutomationSession
+  ) => void;
   static _webkit_reserved0: () => void;
   static _webkit_reserved1: () => void;
   static _webkit_reserved2: () => void;
@@ -1518,31 +1733,89 @@ export class WebViewBasePrivate {}
 export class WebViewClass {
   static parent: WebViewBaseClass;
   static load_changed: (web_view: WebView, load_event: LoadEvent) => void;
-  static load_failed: (web_view: WebView, load_event: LoadEvent, failing_uri: string, error: GLib.Error) => boolean;
-  static create: (web_view: WebView, navigation_action: NavigationAction) => Gtk.Widget;
+  static load_failed: (
+    web_view: WebView,
+    load_event: LoadEvent,
+    failing_uri: string,
+    error: GLib.Error
+  ) => boolean;
+  static create: (
+    web_view: WebView,
+    navigation_action: NavigationAction
+  ) => Gtk.Widget;
   static ready_to_show: (web_view: WebView) => void;
   static run_as_modal: (web_view: WebView) => void;
   static close: (web_view: WebView) => void;
   static script_dialog: (web_view: WebView, dialog: ScriptDialog) => boolean;
-  static decide_policy: (web_view: WebView, decision: PolicyDecision, type: PolicyDecisionType) => boolean;
-  static permission_request: (web_view: WebView, permission_request: any) => boolean;
-  static mouse_target_changed: (web_view: WebView, hit_test_result: HitTestResult, modifiers: number) => void;
+  static decide_policy: (
+    web_view: WebView,
+    decision: PolicyDecision,
+    type: PolicyDecisionType
+  ) => boolean;
+  static permission_request: (
+    web_view: WebView,
+    permission_request: any
+  ) => boolean;
+  static mouse_target_changed: (
+    web_view: WebView,
+    hit_test_result: HitTestResult,
+    modifiers: number
+  ) => void;
   static print: (web_view: WebView, print_operation: PrintOperation) => boolean;
-  static resource_load_started: (web_view: WebView, resource: WebResource, request: URIRequest) => void;
+  static resource_load_started: (
+    web_view: WebView,
+    resource: WebResource,
+    request: URIRequest
+  ) => void;
   static enter_fullscreen: (web_view: WebView) => boolean;
   static leave_fullscreen: (web_view: WebView) => boolean;
-  static run_file_chooser: (web_view: WebView, request: FileChooserRequest) => boolean;
-  static context_menu: (web_view: WebView, context_menu: ContextMenu, event: Gdk.Event, hit_test_result: HitTestResult) => boolean;
+  static run_file_chooser: (
+    web_view: WebView,
+    request: FileChooserRequest
+  ) => boolean;
+  static context_menu: (
+    web_view: WebView,
+    context_menu: ContextMenu,
+    event: Gdk.Event,
+    hit_test_result: HitTestResult
+  ) => boolean;
   static context_menu_dismissed: (web_view: WebView) => void;
-  static submit_form: (web_view: WebView, request: FormSubmissionRequest) => void;
-  static insecure_content_detected: (web_view: WebView, event: InsecureContentEvent) => void;
+  static submit_form: (
+    web_view: WebView,
+    request: FormSubmissionRequest
+  ) => void;
+  static insecure_content_detected: (
+    web_view: WebView,
+    event: InsecureContentEvent
+  ) => void;
   static web_process_crashed: (web_view: WebView) => boolean;
-  static authenticate: (web_view: WebView, request: AuthenticationRequest) => boolean;
-  static load_failed_with_tls_errors: (web_view: WebView, failing_uri: string, certificate: Gio.TlsCertificate, errors: Gio.TlsCertificateFlags) => boolean;
-  static show_notification: (web_view: WebView, notification: Notification) => boolean;
-  static run_color_chooser: (web_view: WebView, request: ColorChooserRequest) => boolean;
-  static show_option_menu: (web_view: WebView, rectangle: Gdk.Rectangle, menu: OptionMenu) => boolean;
-  static web_process_terminated: (web_view: WebView, reason: WebProcessTerminationReason) => void;
+  static authenticate: (
+    web_view: WebView,
+    request: AuthenticationRequest
+  ) => boolean;
+  static load_failed_with_tls_errors: (
+    web_view: WebView,
+    failing_uri: string,
+    certificate: Gio.TlsCertificate,
+    errors: Gio.TlsCertificateFlags
+  ) => boolean;
+  static show_notification: (
+    web_view: WebView,
+    notification: Notification
+  ) => boolean;
+  static run_color_chooser: (
+    web_view: WebView,
+    request: ColorChooserRequest
+  ) => boolean;
+  static show_option_menu: (
+    web_view: WebView,
+    rectangle: Gdk.Rectangle,
+    menu: OptionMenu
+  ) => boolean;
+  static web_process_terminated: (
+    web_view: WebView,
+    reason: WebProcessTerminationReason
+  ) => void;
   static _webkit_reserved0: () => void;
   static _webkit_reserved1: () => void;
 }
@@ -1589,5 +1862,9 @@ export function print_error_quark(): GLib.Quark;
 export function snapshot_error_quark(): GLib.Quark;
 export function uri_for_display(uri: string): string | null;
 export function user_content_filter_error_quark(): GLib.Quark;
-export function user_media_permission_is_for_audio_device(request: UserMediaPermissionRequest): boolean;
-export function user_media_permission_is_for_video_device(request: UserMediaPermissionRequest): boolean;
+export function user_media_permission_is_for_audio_device(
+  request: UserMediaPermissionRequest
+): boolean;
+export function user_media_permission_is_for_video_device(
+  request: UserMediaPermissionRequest
+): boolean;

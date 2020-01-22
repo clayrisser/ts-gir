@@ -7,61 +7,61 @@ import * as GdkPixbuf from './gdk-pixbuf';
 import * as Gio from './gio';
 export enum BackgroundPatternType {
   GTK_SOURCE_BACKGROUND_PATTERN_TYPE_NONE,
-  GTK_SOURCE_BACKGROUND_PATTERN_TYPE_GRID,
+  GTK_SOURCE_BACKGROUND_PATTERN_TYPE_GRID
 }
 export enum BracketMatchType {
   GTK_SOURCE_BRACKET_MATCH_NONE,
   GTK_SOURCE_BRACKET_MATCH_OUT_OF_RANGE,
   GTK_SOURCE_BRACKET_MATCH_NOT_FOUND,
-  GTK_SOURCE_BRACKET_MATCH_FOUND,
+  GTK_SOURCE_BRACKET_MATCH_FOUND
 }
 export enum ChangeCaseType {
   GTK_SOURCE_CHANGE_CASE_LOWER,
   GTK_SOURCE_CHANGE_CASE_UPPER,
   GTK_SOURCE_CHANGE_CASE_TOGGLE,
-  GTK_SOURCE_CHANGE_CASE_TITLE,
+  GTK_SOURCE_CHANGE_CASE_TITLE
 }
 export enum CompletionError {
   GTK_SOURCE_COMPLETION_ERROR_ALREADY_BOUND,
-  GTK_SOURCE_COMPLETION_ERROR_NOT_BOUND,
+  GTK_SOURCE_COMPLETION_ERROR_NOT_BOUND
 }
 export enum CompressionType {
   GTK_SOURCE_COMPRESSION_TYPE_NONE,
-  GTK_SOURCE_COMPRESSION_TYPE_GZIP,
+  GTK_SOURCE_COMPRESSION_TYPE_GZIP
 }
 export enum FileLoaderError {
   GTK_SOURCE_FILE_LOADER_ERROR_TOO_BIG,
   GTK_SOURCE_FILE_LOADER_ERROR_ENCODING_AUTO_DETECTION_FAILED,
-  GTK_SOURCE_FILE_LOADER_ERROR_CONVERSION_FALLBACK,
+  GTK_SOURCE_FILE_LOADER_ERROR_CONVERSION_FALLBACK
 }
 export enum FileSaverError {
   GTK_SOURCE_FILE_SAVER_ERROR_INVALID_CHARS,
-  GTK_SOURCE_FILE_SAVER_ERROR_EXTERNALLY_MODIFIED,
+  GTK_SOURCE_FILE_SAVER_ERROR_EXTERNALLY_MODIFIED
 }
 export enum GutterRendererAlignmentMode {
   GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_CELL,
   GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_FIRST,
-  GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_LAST,
+  GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_LAST
 }
 export enum NewlineType {
   GTK_SOURCE_NEWLINE_TYPE_LF,
   GTK_SOURCE_NEWLINE_TYPE_CR,
-  GTK_SOURCE_NEWLINE_TYPE_CR_LF,
+  GTK_SOURCE_NEWLINE_TYPE_CR_LF
 }
 export enum SmartHomeEndType {
   GTK_SOURCE_SMART_HOME_END_DISABLED,
   GTK_SOURCE_SMART_HOME_END_BEFORE,
   GTK_SOURCE_SMART_HOME_END_AFTER,
-  GTK_SOURCE_SMART_HOME_END_ALWAYS,
+  GTK_SOURCE_SMART_HOME_END_ALWAYS
 }
 export enum ViewGutterPosition {
   GTK_SOURCE_VIEW_GUTTER_POSITION_LINES,
-  GTK_SOURCE_VIEW_GUTTER_POSITION_MARKS,
+  GTK_SOURCE_VIEW_GUTTER_POSITION_MARKS
 }
 export enum CompletionActivation {
   GTK_SOURCE_COMPLETION_ACTIVATION_NONE,
   GTK_SOURCE_COMPLETION_ACTIVATION_INTERACTIVE,
-  GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED,
+  GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED
 }
 export enum DrawSpacesFlags {
   GTK_SOURCE_DRAW_SPACES_SPACE,
@@ -71,32 +71,32 @@ export enum DrawSpacesFlags {
   GTK_SOURCE_DRAW_SPACES_LEADING,
   GTK_SOURCE_DRAW_SPACES_TEXT,
   GTK_SOURCE_DRAW_SPACES_TRAILING,
-  GTK_SOURCE_DRAW_SPACES_ALL,
+  GTK_SOURCE_DRAW_SPACES_ALL
 }
 export enum FileSaverFlags {
   GTK_SOURCE_FILE_SAVER_FLAGS_NONE,
   GTK_SOURCE_FILE_SAVER_FLAGS_IGNORE_INVALID_CHARS,
   GTK_SOURCE_FILE_SAVER_FLAGS_IGNORE_MODIFICATION_TIME,
-  GTK_SOURCE_FILE_SAVER_FLAGS_CREATE_BACKUP,
+  GTK_SOURCE_FILE_SAVER_FLAGS_CREATE_BACKUP
 }
 export enum GutterRendererState {
   GTK_SOURCE_GUTTER_RENDERER_STATE_NORMAL,
   GTK_SOURCE_GUTTER_RENDERER_STATE_CURSOR,
   GTK_SOURCE_GUTTER_RENDERER_STATE_PRELIT,
-  GTK_SOURCE_GUTTER_RENDERER_STATE_SELECTED,
+  GTK_SOURCE_GUTTER_RENDERER_STATE_SELECTED
 }
 export enum SortFlags {
   GTK_SOURCE_SORT_FLAGS_NONE,
   GTK_SOURCE_SORT_FLAGS_CASE_SENSITIVE,
   GTK_SOURCE_SORT_FLAGS_REVERSE_ORDER,
-  GTK_SOURCE_SORT_FLAGS_REMOVE_DUPLICATES,
+  GTK_SOURCE_SORT_FLAGS_REMOVE_DUPLICATES
 }
 export enum SpaceLocationFlags {
   GTK_SOURCE_SPACE_LOCATION_NONE,
   GTK_SOURCE_SPACE_LOCATION_LEADING,
   GTK_SOURCE_SPACE_LOCATION_INSIDE_TEXT,
   GTK_SOURCE_SPACE_LOCATION_TRAILING,
-  GTK_SOURCE_SPACE_LOCATION_ALL,
+  GTK_SOURCE_SPACE_LOCATION_ALL
 }
 export enum SpaceTypeFlags {
   GTK_SOURCE_SPACE_TYPE_NONE,
@@ -104,7 +104,7 @@ export enum SpaceTypeFlags {
   GTK_SOURCE_SPACE_TYPE_TAB,
   GTK_SOURCE_SPACE_TYPE_NEWLINE,
   GTK_SOURCE_SPACE_TYPE_NBSP,
-  GTK_SOURCE_SPACE_TYPE_ALL,
+  GTK_SOURCE_SPACE_TYPE_ALL
 }
 export interface CompletionProposal {
   changed(...args: any[]): any;
@@ -161,32 +161,63 @@ export class Buffer extends Gtk.TextBuffer {
   'undo-manager': any;
   static parent_instance: Gtk.TextBuffer;
   static priv: BufferPrivate;
-  backward_iter_to_source_mark(iter: Gtk.TextIter, category: string | null): boolean;
+  backward_iter_to_source_mark(
+    iter: Gtk.TextIter,
+    category: string | null
+  ): boolean;
   begin_not_undoable_action(): void;
   can_redo(): boolean;
   can_undo(): boolean;
-  change_case(case_type: ChangeCaseType, start: Gtk.TextIter, end: Gtk.TextIter): void;
-  create_source_mark(name: string | null, category: string, where: Gtk.TextIter): Mark;
-  create_source_tag(tag_name: string | null, first_property_name: string | null, ...args: any[]): Gtk.TextTag;
+  change_case(
+    case_type: ChangeCaseType,
+    start: Gtk.TextIter,
+    end: Gtk.TextIter
+  ): void;
+  create_source_mark(
+    name: string | null,
+    category: string,
+    where: Gtk.TextIter
+  ): Mark;
+  create_source_tag(
+    tag_name: string | null,
+    first_property_name: string | null,
+    ...args: any[]
+  ): Gtk.TextTag;
   end_not_undoable_action(): void;
   ensure_highlight(start: Gtk.TextIter, end: Gtk.TextIter): void;
-  forward_iter_to_source_mark(iter: Gtk.TextIter, category: string | null): boolean;
+  forward_iter_to_source_mark(
+    iter: Gtk.TextIter,
+    category: string | null
+  ): boolean;
   get_context_classes_at_iter(iter: Gtk.TextIter): string[];
   get_highlight_matching_brackets(): boolean;
   get_highlight_syntax(): boolean;
   get_implicit_trailing_newline(): boolean;
   get_language(): Language | null;
   get_max_undo_levels(): number;
-  get_source_marks_at_iter(iter: Gtk.TextIter, category: string | null): GLib.SList;
+  get_source_marks_at_iter(
+    iter: Gtk.TextIter,
+    category: string | null
+  ): GLib.SList;
   get_source_marks_at_line(line: number, category: string | null): GLib.SList;
   get_style_scheme(): StyleScheme | null;
   get_undo_manager(): any | null;
-  iter_backward_to_context_class_toggle(iter: Gtk.TextIter, context_class: string): boolean;
-  iter_forward_to_context_class_toggle(iter: Gtk.TextIter, context_class: string): boolean;
+  iter_backward_to_context_class_toggle(
+    iter: Gtk.TextIter,
+    context_class: string
+  ): boolean;
+  iter_forward_to_context_class_toggle(
+    iter: Gtk.TextIter,
+    context_class: string
+  ): boolean;
   iter_has_context_class(iter: Gtk.TextIter, context_class: string): boolean;
   join_lines(start: Gtk.TextIter, end: Gtk.TextIter): void;
   redo(...args: any[]): any;
-  remove_source_marks(start: Gtk.TextIter, end: Gtk.TextIter, category: string | null): void;
+  remove_source_marks(
+    start: Gtk.TextIter,
+    end: Gtk.TextIter,
+    category: string | null
+  ): void;
   set_highlight_matching_brackets(highlight: boolean): void;
   set_highlight_syntax(highlight: boolean): void;
   set_implicit_trailing_newline(implicit_trailing_newline: boolean): void;
@@ -194,7 +225,12 @@ export class Buffer extends Gtk.TextBuffer {
   set_max_undo_levels(max_undo_levels: number): void;
   set_style_scheme(scheme: StyleScheme | null): void;
   set_undo_manager(manager: any | null): void;
-  sort_lines(start: Gtk.TextIter, end: Gtk.TextIter, flags: SortFlags, column: number): void;
+  sort_lines(
+    start: Gtk.TextIter,
+    end: Gtk.TextIter,
+    flags: SortFlags,
+    column: number
+  ): void;
   undo(...args: any[]): any;
   bracket_matched(iter: Gtk.TextIter, state: BracketMatchType): void;
   redo(...args: any[]): any;
@@ -237,7 +273,11 @@ export class CompletionContext extends GObject.InitiallyUnowned {
   iter: Gtk.TextIter;
   static parent: GObject.InitiallyUnowned;
   static priv: CompletionContextPrivate;
-  add_proposals(provider: any, proposals: GLib.List | null, finished: boolean): void;
+  add_proposals(
+    provider: any,
+    proposals: GLib.List | null,
+    finished: boolean
+  ): void;
   get_activation(): CompletionActivation;
   get_iter(iter: Gtk.TextIter): boolean;
   cancelled(): void;
@@ -252,7 +292,12 @@ export class CompletionInfo extends Gtk.Window {
   before_show(): void;
 }
 export class CompletionItem extends GObject.Object {
-  constructor(label: string, text: string, icon: GdkPixbuf.Pixbuf | null, info: string | null);
+  constructor(
+    label: string,
+    text: string,
+    icon: GdkPixbuf.Pixbuf | null,
+    info: string | null
+  );
   gicon: Gio.Icon;
   icon: GdkPixbuf.Pixbuf;
   'icon-name': string;
@@ -305,7 +350,11 @@ export class File extends GObject.Object {
   is_local(): boolean;
   is_readonly(): boolean;
   set_location(location: Gio.File | null): void;
-  set_mount_operation_factory(callback: MountOperationFactory, user_data: object | null, notify: GLib.DestroyNotify | null): void;
+  set_mount_operation_factory(
+    callback: MountOperationFactory,
+    user_data: object | null,
+    notify: GLib.DestroyNotify | null
+  ): void;
 }
 export class FileLoader extends GObject.Object {
   constructor(buffer: Buffer, file: File);
@@ -322,7 +371,15 @@ export class FileLoader extends GObject.Object {
   get_input_stream(): Gio.InputStream | null;
   get_location(): Gio.File | null;
   get_newline_type(): NewlineType;
-  load_async(io_priority: number, cancellable: Gio.Cancellable | null, progress_callback: Gio.FileProgressCallback | null, progress_callback_data: object | null, progress_callback_notify: GLib.DestroyNotify | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  load_async(
+    io_priority: number,
+    cancellable: Gio.Cancellable | null,
+    progress_callback: Gio.FileProgressCallback | null,
+    progress_callback_data: object | null,
+    progress_callback_notify: GLib.DestroyNotify | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   load_finish(result: Gio.AsyncResult): boolean;
   set_candidate_encodings(candidate_encodings: GLib.SList): void;
 }
@@ -344,7 +401,15 @@ export class FileSaver extends GObject.Object {
   get_flags(): FileSaverFlags;
   get_location(): Gio.File;
   get_newline_type(): NewlineType;
-  save_async(io_priority: number, cancellable: Gio.Cancellable | null, progress_callback: Gio.FileProgressCallback | null, progress_callback_data: object | null, progress_callback_notify: GLib.DestroyNotify | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  save_async(
+    io_priority: number,
+    cancellable: Gio.Cancellable | null,
+    progress_callback: Gio.FileProgressCallback | null,
+    progress_callback_data: object | null,
+    progress_callback_notify: GLib.DestroyNotify | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   save_finish(result: Gio.AsyncResult): boolean;
   set_compression_type(compression_type: CompressionType): void;
   set_encoding(encoding: Encoding | null): void;
@@ -471,7 +536,10 @@ export class LanguageManager extends GObject.Object {
   get_language(id: string): Language | null;
   get_language_ids(): string[] | null;
   get_search_path(): string[];
-  guess_language(filename: string | null, content_type: string | null): Language | null;
+  guess_language(
+    filename: string | null,
+    content_type: string | null
+  ): Language | null;
   set_search_path(dirs: string[] | null): void;
   static get_default(): LanguageManager;
 }
@@ -553,9 +621,19 @@ export class PrintCompositor extends GObject.Object {
   set_body_font_name(font_name: string): void;
   set_bottom_margin(margin: number, unit: Gtk.Unit): void;
   set_footer_font_name(font_name: string | null): void;
-  set_footer_format(separator: boolean, left: string | null, center: string | null, right: string | null): void;
+  set_footer_format(
+    separator: boolean,
+    left: string | null,
+    center: string | null,
+    right: string | null
+  ): void;
   set_header_font_name(font_name: string | null): void;
-  set_header_format(separator: boolean, left: string | null, center: string | null, right: string | null): void;
+  set_header_format(
+    separator: boolean,
+    left: string | null,
+    center: string | null,
+    right: string | null
+  ): void;
   set_highlight_syntax(highlight: boolean): void;
   set_left_margin(margin: number, unit: Gtk.Unit): void;
   set_line_numbers_font_name(font_name: string | null): void;
@@ -593,25 +671,84 @@ export class SearchContext extends GObject.Object {
   settings: SearchSettings;
   static parent: GObject.Object;
   static priv: SearchContextPrivate;
-  backward(iter: Gtk.TextIter, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter): boolean;
-  backward2(iter: Gtk.TextIter, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter, has_wrapped_around?: boolean): boolean;
-  backward_async(iter: Gtk.TextIter, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
-  backward_finish(result: Gio.AsyncResult, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter): boolean;
-  backward_finish2(result: Gio.AsyncResult, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter, has_wrapped_around?: boolean): boolean;
-  forward(iter: Gtk.TextIter, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter): boolean;
-  forward2(iter: Gtk.TextIter, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter, has_wrapped_around?: boolean): boolean;
-  forward_async(iter: Gtk.TextIter, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
-  forward_finish(result: Gio.AsyncResult, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter): boolean;
-  forward_finish2(result: Gio.AsyncResult, match_start?: Gtk.TextIter, match_end?: Gtk.TextIter, has_wrapped_around?: boolean): boolean;
+  backward(
+    iter: Gtk.TextIter,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter
+  ): boolean;
+  backward2(
+    iter: Gtk.TextIter,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter,
+    has_wrapped_around?: boolean
+  ): boolean;
+  backward_async(
+    iter: Gtk.TextIter,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
+  backward_finish(
+    result: Gio.AsyncResult,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter
+  ): boolean;
+  backward_finish2(
+    result: Gio.AsyncResult,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter,
+    has_wrapped_around?: boolean
+  ): boolean;
+  forward(
+    iter: Gtk.TextIter,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter
+  ): boolean;
+  forward2(
+    iter: Gtk.TextIter,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter,
+    has_wrapped_around?: boolean
+  ): boolean;
+  forward_async(
+    iter: Gtk.TextIter,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
+  forward_finish(
+    result: Gio.AsyncResult,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter
+  ): boolean;
+  forward_finish2(
+    result: Gio.AsyncResult,
+    match_start?: Gtk.TextIter,
+    match_end?: Gtk.TextIter,
+    has_wrapped_around?: boolean
+  ): boolean;
   get_buffer(): Buffer;
   get_highlight(): boolean;
   get_match_style(): Style;
-  get_occurrence_position(match_start: Gtk.TextIter, match_end: Gtk.TextIter): number;
+  get_occurrence_position(
+    match_start: Gtk.TextIter,
+    match_end: Gtk.TextIter
+  ): number;
   get_occurrences_count(): number;
   get_regex_error(): GLib.Error | null;
   get_settings(): SearchSettings;
-  replace(match_start: Gtk.TextIter, match_end: Gtk.TextIter, replace: string, replace_length: number): boolean;
-  replace2(match_start: Gtk.TextIter, match_end: Gtk.TextIter, replace: string, replace_length: number): boolean;
+  replace(
+    match_start: Gtk.TextIter,
+    match_end: Gtk.TextIter,
+    replace: string,
+    replace_length: number
+  ): boolean;
+  replace2(
+    match_start: Gtk.TextIter,
+    match_end: Gtk.TextIter,
+    replace: string,
+    replace_length: number
+  ): boolean;
   replace_all(replace: string, replace_length: number): number;
   set_highlight(highlight: boolean): void;
   set_match_style(match_style: Style | null): void;
@@ -643,13 +780,20 @@ export class SpaceDrawer extends GObject.Object {
   matrix: GLib.Variant;
   static parent: GObject.Object;
   static priv: SpaceDrawerPrivate;
-  bind_matrix_setting(settings: Gio.Settings, key: string, flags: Gio.SettingsBindFlags): void;
+  bind_matrix_setting(
+    settings: Gio.Settings,
+    key: string,
+    flags: Gio.SettingsBindFlags
+  ): void;
   get_enable_matrix(): boolean;
   get_matrix(): GLib.Variant;
   get_types_for_locations(locations: SpaceLocationFlags): SpaceTypeFlags;
   set_enable_matrix(enable_matrix: boolean): void;
   set_matrix(matrix: GLib.Variant | null): void;
-  set_types_for_locations(locations: SpaceLocationFlags, types: SpaceTypeFlags): void;
+  set_types_for_locations(
+    locations: SpaceLocationFlags,
+    types: SpaceTypeFlags
+  ): void;
 }
 export class Style extends GObject.Object {
   background: string;
@@ -764,7 +908,11 @@ export class View extends Gtk.TextView {
   set_indent_on_tab(enable: boolean): void;
   set_indent_width(width: number): void;
   set_insert_spaces_instead_of_tabs(enable: boolean): void;
-  set_mark_attributes(category: string, attributes: MarkAttributes, priority: number): void;
+  set_mark_attributes(
+    category: string,
+    attributes: MarkAttributes,
+    priority: number
+  ): void;
   set_right_margin_position(pos: number): void;
   set_show_line_marks(show: boolean): void;
   set_show_line_numbers(show: boolean): void;
@@ -784,7 +932,11 @@ export class BufferClass {
   static parent_class: Gtk.TextBufferClass;
   static undo: (buffer: Buffer) => void;
   static redo: (buffer: Buffer) => void;
-  static bracket_matched: (buffer: Buffer, iter: Gtk.TextIter, state: BracketMatchType) => void;
+  static bracket_matched: (
+    buffer: Buffer,
+    iter: Gtk.TextIter,
+    state: BracketMatchType
+  ) => void;
   static _gtk_source_reserved1: () => void;
   static _gtk_source_reserved2: () => void;
   static _gtk_source_reserved3: () => void;
@@ -792,12 +944,27 @@ export class BufferClass {
 export class BufferPrivate {}
 export class CompletionClass {
   static parent_class: GObject.ObjectClass;
-  static proposal_activated: (completion: Completion, provider: any, proposal: any) => boolean;
+  static proposal_activated: (
+    completion: Completion,
+    provider: any,
+    proposal: any
+  ) => boolean;
   static show: (completion: Completion) => void;
   static hide: (completion: Completion) => void;
-  static populate_context: (completion: Completion, context: CompletionContext) => void;
-  static move_cursor: (completion: Completion, step: Gtk.ScrollStep, num: number) => void;
-  static move_page: (completion: Completion, step: Gtk.ScrollStep, num: number) => void;
+  static populate_context: (
+    completion: Completion,
+    context: CompletionContext
+  ) => void;
+  static move_cursor: (
+    completion: Completion,
+    step: Gtk.ScrollStep,
+    num: number
+  ) => void;
+  static move_page: (
+    completion: Completion,
+    step: Gtk.ScrollStep,
+    num: number
+  ) => void;
   static activate_proposal: (completion: Completion) => void;
 }
 export class CompletionContextClass {
@@ -841,9 +1008,22 @@ export class CompletionProviderIface {
   static match: (provider: any, context: CompletionContext) => boolean;
   static get_activation: (provider: any) => CompletionActivation;
   static get_info_widget: (provider: any, proposal: any) => Gtk.Widget | null;
-  static update_info: (provider: any, proposal: any, info: CompletionInfo) => void;
-  static get_start_iter: (provider: any, context: CompletionContext, proposal: any, iter: Gtk.TextIter) => boolean;
-  static activate_proposal: (provider: any, proposal: any, iter: Gtk.TextIter) => boolean;
+  static update_info: (
+    provider: any,
+    proposal: any,
+    info: CompletionInfo
+  ) => void;
+  static get_start_iter: (
+    provider: any,
+    context: CompletionContext,
+    proposal: any,
+    iter: Gtk.TextIter
+  ) => boolean;
+  static activate_proposal: (
+    provider: any,
+    proposal: any,
+    iter: Gtk.TextIter
+  ) => boolean;
   static get_interactive_delay: (provider: any) => number;
   static get_priority: (provider: any) => number;
 }
@@ -884,16 +1064,59 @@ export class GutterClass {
 export class GutterPrivate {}
 export class GutterRendererClass {
   static parent_class: GObject.InitiallyUnownedClass;
-  static begin: (renderer: GutterRenderer, cr: cairo.Context, background_area: Gdk.Rectangle, cell_area: Gdk.Rectangle, start: Gtk.TextIter, end: Gtk.TextIter) => void;
-  static draw: (renderer: GutterRenderer, cr: cairo.Context, background_area: Gdk.Rectangle, cell_area: Gdk.Rectangle, start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState) => void;
+  static begin: (
+    renderer: GutterRenderer,
+    cr: cairo.Context,
+    background_area: Gdk.Rectangle,
+    cell_area: Gdk.Rectangle,
+    start: Gtk.TextIter,
+    end: Gtk.TextIter
+  ) => void;
+  static draw: (
+    renderer: GutterRenderer,
+    cr: cairo.Context,
+    background_area: Gdk.Rectangle,
+    cell_area: Gdk.Rectangle,
+    start: Gtk.TextIter,
+    end: Gtk.TextIter,
+    state: GutterRendererState
+  ) => void;
   static end: (renderer: GutterRenderer) => void;
-  static change_view: (renderer: GutterRenderer, old_view: Gtk.TextView | null) => void;
-  static change_buffer: (renderer: GutterRenderer, old_buffer: Gtk.TextBuffer | null) => void;
-  static query_activatable: (renderer: GutterRenderer, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => boolean;
-  static activate: (renderer: GutterRenderer, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => void;
+  static change_view: (
+    renderer: GutterRenderer,
+    old_view: Gtk.TextView | null
+  ) => void;
+  static change_buffer: (
+    renderer: GutterRenderer,
+    old_buffer: Gtk.TextBuffer | null
+  ) => void;
+  static query_activatable: (
+    renderer: GutterRenderer,
+    iter: Gtk.TextIter,
+    area: Gdk.Rectangle,
+    event: Gdk.Event
+  ) => boolean;
+  static activate: (
+    renderer: GutterRenderer,
+    iter: Gtk.TextIter,
+    area: Gdk.Rectangle,
+    event: Gdk.Event
+  ) => void;
   static queue_draw: (renderer: GutterRenderer) => void;
-  static query_tooltip: (renderer: GutterRenderer, iter: Gtk.TextIter, area: Gdk.Rectangle, x: number, y: number, tooltip: Gtk.Tooltip) => boolean;
-  static query_data: (renderer: GutterRenderer, start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState) => void;
+  static query_tooltip: (
+    renderer: GutterRenderer,
+    iter: Gtk.TextIter,
+    area: Gdk.Rectangle,
+    x: number,
+    y: number,
+    tooltip: Gtk.Tooltip
+  ) => boolean;
+  static query_data: (
+    renderer: GutterRenderer,
+    start: Gtk.TextIter,
+    end: Gtk.TextIter,
+    state: GutterRendererState
+  ) => void;
 }
 export class GutterRendererPixbufClass {
   static parent_class: GutterRendererClass;
@@ -1011,7 +1234,11 @@ export class ViewClass {
   static parent_class: Gtk.TextViewClass;
   static undo: (view: View) => void;
   static redo: (view: View) => void;
-  static line_mark_activated: (view: View, iter: Gtk.TextIter, event: Gdk.Event) => void;
+  static line_mark_activated: (
+    view: View,
+    iter: Gtk.TextIter,
+    event: Gdk.Event
+  ) => void;
   static show_completion: (view: View) => void;
   static move_lines: (view: View, copy: boolean, step: number) => void;
   static move_words: (view: View, step: number) => void;

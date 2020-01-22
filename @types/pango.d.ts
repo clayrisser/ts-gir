@@ -16,7 +16,7 @@ export const VERSION_MIN_REQUIRED: number;
 export enum Alignment {
   PANGO_ALIGN_LEFT,
   PANGO_ALIGN_CENTER,
-  PANGO_ALIGN_RIGHT,
+  PANGO_ALIGN_RIGHT
 }
 export enum AttrType {
   PANGO_ATTR_INVALID,
@@ -44,7 +44,7 @@ export enum AttrType {
   PANGO_ATTR_GRAVITY_HINT,
   PANGO_ATTR_FONT_FEATURES,
   PANGO_ATTR_FOREGROUND_ALPHA,
-  PANGO_ATTR_BACKGROUND_ALPHA,
+  PANGO_ATTR_BACKGROUND_ALPHA
 }
 export enum BidiType {
   PANGO_BIDI_TYPE_L,
@@ -65,13 +65,13 @@ export enum BidiType {
   PANGO_BIDI_TYPE_B,
   PANGO_BIDI_TYPE_S,
   PANGO_BIDI_TYPE_WS,
-  PANGO_BIDI_TYPE_ON,
+  PANGO_BIDI_TYPE_ON
 }
 export enum CoverageLevel {
   PANGO_COVERAGE_NONE,
   PANGO_COVERAGE_FALLBACK,
   PANGO_COVERAGE_APPROXIMATE,
-  PANGO_COVERAGE_EXACT,
+  PANGO_COVERAGE_EXACT
 }
 export enum Direction {
   PANGO_DIRECTION_LTR,
@@ -80,31 +80,31 @@ export enum Direction {
   PANGO_DIRECTION_TTB_RTL,
   PANGO_DIRECTION_WEAK_LTR,
   PANGO_DIRECTION_WEAK_RTL,
-  PANGO_DIRECTION_NEUTRAL,
+  PANGO_DIRECTION_NEUTRAL
 }
 export enum EllipsizeMode {
   PANGO_ELLIPSIZE_NONE,
   PANGO_ELLIPSIZE_START,
   PANGO_ELLIPSIZE_MIDDLE,
-  PANGO_ELLIPSIZE_END,
+  PANGO_ELLIPSIZE_END
 }
 export enum Gravity {
   PANGO_GRAVITY_SOUTH,
   PANGO_GRAVITY_EAST,
   PANGO_GRAVITY_NORTH,
   PANGO_GRAVITY_WEST,
-  PANGO_GRAVITY_AUTO,
+  PANGO_GRAVITY_AUTO
 }
 export enum GravityHint {
   PANGO_GRAVITY_HINT_NATURAL,
   PANGO_GRAVITY_HINT_STRONG,
-  PANGO_GRAVITY_HINT_LINE,
+  PANGO_GRAVITY_HINT_LINE
 }
 export enum RenderPart {
   PANGO_RENDER_PART_FOREGROUND,
   PANGO_RENDER_PART_BACKGROUND,
   PANGO_RENDER_PART_UNDERLINE,
-  PANGO_RENDER_PART_STRIKETHROUGH,
+  PANGO_RENDER_PART_STRIKETHROUGH
 }
 export enum Script {
   PANGO_SCRIPT_INVALID_CODE,
@@ -224,7 +224,7 @@ export enum Script {
   PANGO_SCRIPT_HATRAN,
   PANGO_SCRIPT_MULTANI,
   PANGO_SCRIPT_OLD_HUNGARIAN,
-  PANGO_SCRIPT_SIGNWRITING,
+  PANGO_SCRIPT_SIGNWRITING
 }
 export enum Stretch {
   PANGO_STRETCH_ULTRA_CONDENSED,
@@ -235,26 +235,26 @@ export enum Stretch {
   PANGO_STRETCH_SEMI_EXPANDED,
   PANGO_STRETCH_EXPANDED,
   PANGO_STRETCH_EXTRA_EXPANDED,
-  PANGO_STRETCH_ULTRA_EXPANDED,
+  PANGO_STRETCH_ULTRA_EXPANDED
 }
 export enum Style {
   PANGO_STYLE_NORMAL,
   PANGO_STYLE_OBLIQUE,
-  PANGO_STYLE_ITALIC,
+  PANGO_STYLE_ITALIC
 }
 export enum TabAlign {
-  PANGO_TAB_LEFT,
+  PANGO_TAB_LEFT
 }
 export enum Underline {
   PANGO_UNDERLINE_NONE,
   PANGO_UNDERLINE_SINGLE,
   PANGO_UNDERLINE_DOUBLE,
   PANGO_UNDERLINE_LOW,
-  PANGO_UNDERLINE_ERROR,
+  PANGO_UNDERLINE_ERROR
 }
 export enum Variant {
   PANGO_VARIANT_NORMAL,
-  PANGO_VARIANT_SMALL_CAPS,
+  PANGO_VARIANT_SMALL_CAPS
 }
 export enum Weight {
   PANGO_WEIGHT_THIN,
@@ -268,12 +268,12 @@ export enum Weight {
   PANGO_WEIGHT_BOLD,
   PANGO_WEIGHT_ULTRABOLD,
   PANGO_WEIGHT_HEAVY,
-  PANGO_WEIGHT_ULTRAHEAVY,
+  PANGO_WEIGHT_ULTRAHEAVY
 }
 export enum WrapMode {
   PANGO_WRAP_WORD,
   PANGO_WRAP_CHAR,
-  PANGO_WRAP_WORD_CHAR,
+  PANGO_WRAP_WORD_CHAR
 }
 export enum FontMask {
   PANGO_FONT_MASK_FAMILY,
@@ -283,7 +283,7 @@ export enum FontMask {
   PANGO_FONT_MASK_STRETCH,
   PANGO_FONT_MASK_SIZE,
   PANGO_FONT_MASK_GRAVITY,
-  PANGO_FONT_MASK_VARIATIONS,
+  PANGO_FONT_MASK_VARIATIONS
 }
 export type Glyph = number;
 export type GlyphUnit = number;
@@ -299,7 +299,10 @@ export class Context extends GObject.Object {
   get_gravity_hint(): GravityHint;
   get_language(): Language;
   get_matrix(): Matrix | null;
-  get_metrics(desc: FontDescription | null, language: Language | null): FontMetrics;
+  get_metrics(
+    desc: FontDescription | null,
+    language: Language | null
+  ): FontMetrics;
   get_serial(): number;
   list_families(families: FontFamily[], n_families: number): void;
   load_font(desc: FontDescription): Font | null;
@@ -317,12 +320,26 @@ export class Engine extends GObject.Object {
 }
 export class EngineLang extends Engine {
   static parent_instance: any;
-  script_break(text: string, len: number, analysis: Analysis, attrs: LogAttr, attrs_len: number): void;
+  script_break(
+    text: string,
+    len: number,
+    analysis: Analysis,
+    attrs: LogAttr,
+    attrs_len: number
+  ): void;
 }
 export class EngineShape extends Engine {
   static parent_instance: any;
   covers(font: Font, language: Language, wc: number): CoverageLevel;
-  script_shape(font: Font, item_text: string, item_length: number, analysis: Analysis, glyphs: GlyphString, paragraph_text: string, paragraph_length: number): void;
+  script_shape(
+    font: Font,
+    item_text: string,
+    item_length: number,
+    analysis: Analysis,
+    glyphs: GlyphString,
+    paragraph_text: string,
+    paragraph_length: number
+  ): void;
 }
 export class Font extends GObject.Object {
   static parent_instance: GObject.Object;
@@ -340,7 +357,10 @@ export class Font extends GObject.Object {
   get_font_map(...args: any[]): any;
   get_glyph_extents(...args: any[]): any;
   get_metrics(...args: any[]): any;
-  static descriptions_free(descs: FontDescription[] | null, n_descs: number): void;
+  static descriptions_free(
+    descs: FontDescription[] | null,
+    n_descs: number
+  ): void;
 }
 export class FontFace extends GObject.Object {
   static parent_instance: GObject.Object;
@@ -402,7 +422,11 @@ export class Layout extends GObject.Object {
   get_baseline(): number;
   get_character_count(): number;
   get_context(): Context;
-  get_cursor_pos(index_: number, strong_pos?: Rectangle, weak_pos?: Rectangle): void;
+  get_cursor_pos(
+    index_: number,
+    strong_pos?: Rectangle,
+    weak_pos?: Rectangle
+  ): void;
   get_ellipsize(): EllipsizeMode;
   get_extents(ink_rect?: Rectangle, logical_rect?: Rectangle): void;
   get_font_description(): FontDescription | null;
@@ -428,11 +452,23 @@ export class Layout extends GObject.Object {
   get_unknown_glyphs_count(): number;
   get_width(): number;
   get_wrap(): WrapMode;
-  index_to_line_x(index_: number, trailing: boolean, line?: number, x_pos?: number): void;
+  index_to_line_x(
+    index_: number,
+    trailing: boolean,
+    line?: number,
+    x_pos?: number
+  ): void;
   index_to_pos(index_: number, pos: Rectangle): void;
   is_ellipsized(): boolean;
   is_wrapped(): boolean;
-  move_cursor_visually(strong: boolean, old_index: number, old_trailing: number, direction: number, new_index: number, new_trailing: number): void;
+  move_cursor_visually(
+    strong: boolean,
+    old_index: number,
+    old_trailing: number,
+    direction: number,
+    new_index: number,
+    new_trailing: number
+  ): void;
   set_alignment(alignment: Alignment): void;
   set_attributes(attrs: AttrList | null): void;
   set_auto_dir(auto_dir: boolean): void;
@@ -442,7 +478,12 @@ export class Layout extends GObject.Object {
   set_indent(indent: number): void;
   set_justify(justify: boolean): void;
   set_markup(markup: string, length: number): void;
-  set_markup_with_accel(markup: string, length: number, accel_marker: number, accel_char?: number): void;
+  set_markup_with_accel(
+    markup: string,
+    length: number,
+    accel_marker: number,
+    accel_char?: number
+  ): void;
   set_single_paragraph_mode(setting: boolean): void;
   set_spacing(spacing: number): void;
   set_tabs(tabs: TabArray | null): void;
@@ -533,7 +574,11 @@ export class AttrIterator {
   destroy(): void;
   get(type: AttrType): Attribute | null;
   get_attrs(): GLib.SList;
-  get_font(desc: FontDescription, language: Language | null, extra_attrs: GLib.SList | null): void;
+  get_font(
+    desc: FontDescription,
+    language: Language | null,
+    extra_attrs: GLib.SList | null
+  ): void;
   next(): boolean;
   range(start: number, end: number): void;
 }
@@ -562,7 +607,13 @@ export class AttrShape {
   static copy_func: AttrDataCopyFunc;
   static destroy_func: GLib.DestroyNotify;
   static g_new(ink_rect: Rectangle, logical_rect: Rectangle): Attribute;
-  static new_with_data(ink_rect: Rectangle, logical_rect: Rectangle, data: object | null, copy_func: AttrDataCopyFunc | null, destroy_func: GLib.DestroyNotify | null): Attribute;
+  static new_with_data(
+    ink_rect: Rectangle,
+    logical_rect: Rectangle,
+    data: object | null,
+    copy_func: AttrDataCopyFunc | null,
+    destroy_func: GLib.DestroyNotify | null
+  ): Attribute;
 }
 export class AttrSize {
   static attr: Attribute;
@@ -617,7 +668,14 @@ export class EngineInfo {
 }
 export class EngineLangClass {
   static parent_class: EngineClass;
-  static script_break: (engine: EngineLang, text: string, len: number, analysis: Analysis, attrs: LogAttr, attrs_len: number) => void;
+  static script_break: (
+    engine: EngineLang,
+    text: string,
+    len: number,
+    analysis: Analysis,
+    attrs: LogAttr,
+    attrs_len: number
+  ) => void;
 }
 export class EngineScriptInfo {
   static script: Script;
@@ -625,16 +683,42 @@ export class EngineScriptInfo {
 }
 export class EngineShapeClass {
   static parent_class: EngineClass;
-  static script_shape: (engine: EngineShape, font: Font, item_text: string, item_length: number, analysis: Analysis, glyphs: GlyphString, paragraph_text: string, paragraph_length: number) => void;
-  static covers: (engine: EngineShape, font: Font, language: Language, wc: number) => CoverageLevel;
+  static script_shape: (
+    engine: EngineShape,
+    font: Font,
+    item_text: string,
+    item_length: number,
+    analysis: Analysis,
+    glyphs: GlyphString,
+    paragraph_text: string,
+    paragraph_length: number
+  ) => void;
+  static covers: (
+    engine: EngineShape,
+    font: Font,
+    language: Language,
+    wc: number
+  ) => CoverageLevel;
 }
 export class FontClass {
   static parent_class: GObject.ObjectClass;
   static describe: (font: Font) => FontDescription;
   static get_coverage: (font: Font, language: Language) => Coverage;
-  static find_shaper: (font: Font, language: Language, ch: number) => EngineShape;
-  static get_glyph_extents: (font: Font | null, glyph: Glyph, ink_rect: Rectangle, logical_rect: Rectangle) => void;
-  static get_metrics: (font: Font | null, language: Language | null) => FontMetrics;
+  static find_shaper: (
+    font: Font,
+    language: Language,
+    ch: number
+  ) => EngineShape;
+  static get_glyph_extents: (
+    font: Font | null,
+    glyph: Glyph,
+    ink_rect: Rectangle,
+    logical_rect: Rectangle
+  ) => void;
+  static get_metrics: (
+    font: Font | null,
+    language: Language | null
+  ) => FontMetrics;
   static get_font_map: (font: Font | null) => FontMap | null;
   static describe_absolute: (font: Font) => FontDescription;
   static _pango_reserved1: () => void;
@@ -642,7 +726,10 @@ export class FontClass {
 }
 export class FontDescription {
   constructor();
-  better_match(old_match: FontDescription | null, new_match: FontDescription): boolean;
+  better_match(
+    old_match: FontDescription | null,
+    new_match: FontDescription
+  ): boolean;
   copy(): FontDescription | null;
   copy_static(): FontDescription | null;
   equal(desc2: FontDescription): boolean;
@@ -687,7 +774,11 @@ export class FontFaceClass {
 }
 export class FontFamilyClass {
   static parent_class: GObject.ObjectClass;
-  static list_faces: (family: FontFamily, faces: FontFace[], n_faces: number) => void;
+  static list_faces: (
+    family: FontFamily,
+    faces: FontFace[],
+    n_faces: number
+  ) => void;
   static get_name: (family: FontFamily) => string;
   static is_monospace: (family: FontFamily) => boolean;
   static _pango_reserved2: () => void;
@@ -696,9 +787,22 @@ export class FontFamilyClass {
 }
 export class FontMapClass {
   static parent_class: GObject.ObjectClass;
-  static load_font: (fontmap: FontMap, context: Context, desc: FontDescription) => Font | null;
-  static list_families: (fontmap: FontMap, families: FontFamily[], n_families: number) => void;
-  static load_fontset: (fontmap: FontMap, context: Context, desc: FontDescription, language: Language) => Fontset | null;
+  static load_font: (
+    fontmap: FontMap,
+    context: Context,
+    desc: FontDescription
+  ) => Font | null;
+  static list_families: (
+    fontmap: FontMap,
+    families: FontFamily[],
+    n_families: number
+  ) => void;
+  static load_fontset: (
+    fontmap: FontMap,
+    context: Context,
+    desc: FontDescription,
+    language: Language
+  ) => Fontset | null;
   static shape_engine_type: string;
   static get_serial: (fontmap: FontMap) => number;
   static changed: (fontmap: FontMap) => void;
@@ -732,7 +836,11 @@ export class FontsetClass {
   static get_font: (fontset: Fontset, wc: number) => Font;
   static get_metrics: (fontset: Fontset) => FontMetrics;
   static get_language: (fontset: Fontset) => Language;
-  static foreach: (fontset: Fontset, func: FontsetForeachFunc, data: object | null) => void;
+  static foreach: (
+    fontset: Fontset,
+    func: FontsetForeachFunc,
+    data: object | null
+  ) => void;
   static _pango_reserved1: () => void;
   static _pango_reserved2: () => void;
   static _pango_reserved3: () => void;
@@ -756,7 +864,11 @@ export class GlyphItem {
   copy(): GlyphItem | null;
   free(): void;
   get_logical_widths(text: string, logical_widths: number[]): void;
-  letter_space(text: string, log_attrs: LogAttr[], letter_spacing: number): void;
+  letter_space(
+    text: string,
+    log_attrs: LogAttr[],
+    letter_spacing: number
+  ): void;
   split(text: string, split_index: number): GlyphItem;
 }
 export class GlyphItemIter {
@@ -783,13 +895,38 @@ export class GlyphString {
   static space: number;
   copy(): GlyphString | null;
   extents(font: Font, ink_rect?: Rectangle, logical_rect?: Rectangle): void;
-  extents_range(start: number, end: number, font: Font, ink_rect?: Rectangle, logical_rect?: Rectangle): void;
+  extents_range(
+    start: number,
+    end: number,
+    font: Font,
+    ink_rect?: Rectangle,
+    logical_rect?: Rectangle
+  ): void;
   free(): void;
-  get_logical_widths(text: string, length: number, embedding_level: number, logical_widths: number[]): void;
+  get_logical_widths(
+    text: string,
+    length: number,
+    embedding_level: number,
+    logical_widths: number[]
+  ): void;
   get_width(): number;
-  index_to_x(text: string, length: number, analysis: Analysis, index_: number, trailing: boolean, x_pos: number): void;
+  index_to_x(
+    text: string,
+    length: number,
+    analysis: Analysis,
+    index_: number,
+    trailing: boolean,
+    x_pos: number
+  ): void;
   set_size(new_len: number): void;
-  x_to_index(text: string, length: number, analysis: Analysis, x_pos: number, index_: number, trailing: number): void;
+  x_to_index(
+    text: string,
+    length: number,
+    analysis: Analysis,
+    x_pos: number,
+    index_: number,
+    trailing: number
+  ): void;
 }
 export class GlyphVisAttr {
   static is_cluster_start: number;
@@ -851,7 +988,12 @@ export class LayoutLine {
   static resolved_dir: number;
   get_extents(ink_rect?: Rectangle, logical_rect?: Rectangle): void;
   get_pixel_extents(ink_rect?: Rectangle, logical_rect?: Rectangle): void;
-  get_x_ranges(start_index: number, end_index: number, ranges: number[], n_ranges: number): void;
+  get_x_ranges(
+    start_index: number,
+    end_index: number,
+    ranges: number[],
+    n_ranges: number
+  ): void;
   index_to_x(index_: number, trailing: boolean, x_pos: number): void;
   ref(): LayoutLine;
   unref(): void;
@@ -874,7 +1016,11 @@ export class LogAttr {
 }
 export class Map {
   get_engine(script: Script): Engine;
-  get_engines(script: Script, exact_engines: GLib.SList, fallback_engines: GLib.SList): void;
+  get_engines(
+    script: Script,
+    exact_engines: GLib.SList,
+    fallback_engines: GLib.SList
+  ): void;
 }
 export class MapEntry {}
 export class Matrix {
@@ -905,17 +1051,62 @@ export class Rectangle {
 }
 export class RendererClass {
   static parent_class: GObject.ObjectClass;
-  static draw_glyphs: (renderer: Renderer, font: Font, glyphs: GlyphString, x: number, y: number) => void;
-  static draw_rectangle: (renderer: Renderer, part: RenderPart, x: number, y: number, width: number, height: number) => void;
-  static draw_error_underline: (renderer: Renderer, x: number, y: number, width: number, height: number) => void;
-  static draw_shape: (renderer: Renderer, attr: AttrShape, x: number, y: number) => void;
-  static draw_trapezoid: (renderer: Renderer, part: RenderPart, y1_: number, x11: number, x21: number, y2: number, x12: number, x22: number) => void;
-  static draw_glyph: (renderer: Renderer, font: Font, glyph: Glyph, x: number, y: number) => void;
+  static draw_glyphs: (
+    renderer: Renderer,
+    font: Font,
+    glyphs: GlyphString,
+    x: number,
+    y: number
+  ) => void;
+  static draw_rectangle: (
+    renderer: Renderer,
+    part: RenderPart,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) => void;
+  static draw_error_underline: (
+    renderer: Renderer,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) => void;
+  static draw_shape: (
+    renderer: Renderer,
+    attr: AttrShape,
+    x: number,
+    y: number
+  ) => void;
+  static draw_trapezoid: (
+    renderer: Renderer,
+    part: RenderPart,
+    y1_: number,
+    x11: number,
+    x21: number,
+    y2: number,
+    x12: number,
+    x22: number
+  ) => void;
+  static draw_glyph: (
+    renderer: Renderer,
+    font: Font,
+    glyph: Glyph,
+    x: number,
+    y: number
+  ) => void;
   static part_changed: (renderer: Renderer, part: RenderPart) => void;
   static begin: (renderer: Renderer) => void;
   static end: (renderer: Renderer) => void;
   static prepare_run: (renderer: Renderer, run: LayoutRun) => void;
-  static draw_glyph_item: (renderer: Renderer, text: string | null, glyph_item: GlyphItem, x: number, y: number) => void;
+  static draw_glyph_item: (
+    renderer: Renderer,
+    text: string | null,
+    glyph_item: GlyphItem,
+    x: number,
+    y: number
+  ) => void;
   static _pango_reserved2: () => void;
   static _pango_reserved3: () => void;
   static _pango_reserved4: () => void;
@@ -939,61 +1130,175 @@ export class TabArray {
   set_tab(tab_index: number, alignment: TabAlign, location: number): void;
 }
 export function attr_background_alpha_new(alpha: number): Attribute;
-export function attr_background_new(red: number, green: number, blue: number): Attribute;
+export function attr_background_new(
+  red: number,
+  green: number,
+  blue: number
+): Attribute;
 export function attr_fallback_new(enable_fallback: boolean): Attribute;
 export function attr_family_new(family: string): Attribute;
 export function attr_foreground_alpha_new(alpha: number): Attribute;
-export function attr_foreground_new(red: number, green: number, blue: number): Attribute;
+export function attr_foreground_new(
+  red: number,
+  green: number,
+  blue: number
+): Attribute;
 export function attr_gravity_hint_new(hint: GravityHint): Attribute;
 export function attr_gravity_new(gravity: Gravity): Attribute;
 export function attr_letter_spacing_new(letter_spacing: number): Attribute;
 export function attr_rise_new(rise: number): Attribute;
 export function attr_scale_new(scale_factor: number): Attribute;
 export function attr_stretch_new(stretch: Stretch): Attribute;
-export function attr_strikethrough_color_new(red: number, green: number, blue: number): Attribute;
+export function attr_strikethrough_color_new(
+  red: number,
+  green: number,
+  blue: number
+): Attribute;
 export function attr_strikethrough_new(strikethrough: boolean): Attribute;
 export function attr_style_new(style: Style): Attribute;
 export function attr_type_get_name(type: AttrType): string | null;
 export function attr_type_register(name: string): AttrType;
-export function attr_underline_color_new(red: number, green: number, blue: number): Attribute;
+export function attr_underline_color_new(
+  red: number,
+  green: number,
+  blue: number
+): Attribute;
 export function attr_underline_new(underline: Underline): Attribute;
 export function attr_variant_new(variant: Variant): Attribute;
 export function attr_weight_new(weight: Weight): Attribute;
 export function bidi_type_for_unichar(ch: number): BidiType;
-export function g_break(text: string, length: number, analysis: Analysis, attrs: LogAttr[], attrs_len: number): void;
+export function g_break(
+  text: string,
+  length: number,
+  analysis: Analysis,
+  attrs: LogAttr[],
+  attrs_len: number
+): void;
 export function config_key_get(key: string): string;
 export function config_key_get_system(key: string): string;
-export function default_break(text: string, length: number, analysis: Analysis | null, attrs: LogAttr, attrs_len: number): void;
-export function extents_to_pixels(inclusive: Rectangle | null, nearest: Rectangle | null): void;
+export function default_break(
+  text: string,
+  length: number,
+  analysis: Analysis | null,
+  attrs: LogAttr,
+  attrs_len: number
+): void;
+export function extents_to_pixels(
+  inclusive: Rectangle | null,
+  nearest: Rectangle | null
+): void;
 export function find_base_dir(text: string, length: number): Direction;
-export function find_map(language: Language, engine_type_id: number, render_type_id: number): Map;
-export function find_paragraph_boundary(text: string, length: number, paragraph_delimiter_index: number, next_paragraph_start: number): void;
+export function find_map(
+  language: Language,
+  engine_type_id: number,
+  render_type_id: number
+): Map;
+export function find_paragraph_boundary(
+  text: string,
+  length: number,
+  paragraph_delimiter_index: number,
+  next_paragraph_start: number
+): void;
 export function font_description_from_string(str: string): FontDescription;
 export function get_lib_subdirectory(): string;
-export function get_log_attrs(text: string, length: number, level: number, language: Language, log_attrs: LogAttr[], attrs_len: number): void;
+export function get_log_attrs(
+  text: string,
+  length: number,
+  level: number,
+  language: Language,
+  log_attrs: LogAttr[],
+  attrs_len: number
+): void;
 export function get_mirror_char(ch: number, mirrored_ch: number): boolean;
 export function get_sysconf_subdirectory(): string;
 export function gravity_get_for_matrix(matrix: Matrix | null): Gravity;
-export function gravity_get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity;
-export function gravity_get_for_script_and_width(script: Script, wide: boolean, base_gravity: Gravity, hint: GravityHint): Gravity;
+export function gravity_get_for_script(
+  script: Script,
+  base_gravity: Gravity,
+  hint: GravityHint
+): Gravity;
+export function gravity_get_for_script_and_width(
+  script: Script,
+  wide: boolean,
+  base_gravity: Gravity,
+  hint: GravityHint
+): Gravity;
 export function gravity_to_rotation(gravity: Gravity): number;
 export function is_zero_width(ch: number): boolean;
-export function itemize(context: Context, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): GLib.List;
-export function itemize_with_base_dir(context: Context, base_dir: Direction, text: string, start_index: number, length: number, attrs: AttrList, cached_iter: AttrIterator | null): GLib.List;
+export function itemize(
+  context: Context,
+  text: string,
+  start_index: number,
+  length: number,
+  attrs: AttrList,
+  cached_iter: AttrIterator | null
+): GLib.List;
+export function itemize_with_base_dir(
+  context: Context,
+  base_dir: Direction,
+  text: string,
+  start_index: number,
+  length: number,
+  attrs: AttrList,
+  cached_iter: AttrIterator | null
+): GLib.List;
 export function language_from_string(language: string | null): Language | null;
 export function language_get_default(): Language;
-export function log2vis_get_embedding_levels(text: string, length: number, pbase_dir: Direction): number;
-export function lookup_aliases(fontname: string, families: string[], n_families: number): void;
-export function markup_parser_finish(context: GLib.MarkupParseContext, attr_list: AttrList, text: string, accel_char: number): boolean;
-export function markup_parser_new(accel_marker: number): GLib.MarkupParseContext;
+export function log2vis_get_embedding_levels(
+  text: string,
+  length: number,
+  pbase_dir: Direction
+): number;
+export function lookup_aliases(
+  fontname: string,
+  families: string[],
+  n_families: number
+): void;
+export function markup_parser_finish(
+  context: GLib.MarkupParseContext,
+  attr_list: AttrList,
+  text: string,
+  accel_char: number
+): boolean;
+export function markup_parser_new(
+  accel_marker: number
+): GLib.MarkupParseContext;
 export function module_register(module: IncludedModule): void;
-export function parse_enum(type: any, str: string | null, value: number, warn: boolean, possible_values: string): boolean;
-export function parse_markup(markup_text: string, length: number, accel_marker: number, attr_list: AttrList, text: string, accel_char: number): boolean;
-export function parse_stretch(str: string, stretch: Stretch, warn: boolean): boolean;
+export function parse_enum(
+  type: any,
+  str: string | null,
+  value: number,
+  warn: boolean,
+  possible_values: string
+): boolean;
+export function parse_markup(
+  markup_text: string,
+  length: number,
+  accel_marker: number,
+  attr_list: AttrList,
+  text: string,
+  accel_char: number
+): boolean;
+export function parse_stretch(
+  str: string,
+  stretch: Stretch,
+  warn: boolean
+): boolean;
 export function parse_style(str: string, style: Style, warn: boolean): boolean;
-export function parse_variant(str: string, variant: Variant, warn: boolean): boolean;
-export function parse_weight(str: string, weight: Weight, warn: boolean): boolean;
-export function quantize_line_geometry(thickness: number, position: number): void;
+export function parse_variant(
+  str: string,
+  variant: Variant,
+  warn: boolean
+): boolean;
+export function parse_weight(
+  str: string,
+  weight: Weight,
+  warn: boolean
+): boolean;
+export function quantize_line_geometry(
+  thickness: number,
+  position: number
+): void;
 export function read_line(stream: object | null, str: GLib.String): number;
 export function reorder_items(logical_items: GLib.List): GLib.List;
 export function scan_int(pos: string, out: number): boolean;
@@ -1001,8 +1306,20 @@ export function scan_string(pos: string, out: GLib.String): boolean;
 export function scan_word(pos: string, out: GLib.String): boolean;
 export function script_for_unichar(ch: number): Script;
 export function script_get_sample_language(script: Script): Language | null;
-export function shape(text: string, length: number, analysis: Analysis, glyphs: GlyphString): void;
-export function shape_full(item_text: string, item_length: number, paragraph_text: string | null, paragraph_length: number, analysis: Analysis, glyphs: GlyphString): void;
+export function shape(
+  text: string,
+  length: number,
+  analysis: Analysis,
+  glyphs: GlyphString
+): void;
+export function shape_full(
+  item_text: string,
+  item_length: number,
+  paragraph_text: string | null,
+  paragraph_length: number,
+  analysis: Analysis,
+  glyphs: GlyphString
+): void;
 export function skip_space(pos: string): boolean;
 export function split_file_list(str: string): string[];
 export function trim_string(str: string): string;
@@ -1010,8 +1327,19 @@ export function unichar_direction(ch: number): Direction;
 export function units_from_double(d: number): number;
 export function units_to_double(i: number): number;
 export function version(): number;
-export function version_check(required_major: number, required_minor: number, required_micro: number): string | null;
+export function version_check(
+  required_major: number,
+  required_minor: number,
+  required_micro: number
+): string | null;
 export function version_string(): string;
 export type AttrDataCopyFunc = (user_data: object | null) => object | null;
-export type AttrFilterFunc = (attribute: Attribute, user_data: object | null) => boolean;
-export type FontsetForeachFunc = (fontset: Fontset, font: Font, user_data: object | null) => boolean;
+export type AttrFilterFunc = (
+  attribute: Attribute,
+  user_data: object | null
+) => boolean;
+export type FontsetForeachFunc = (
+  fontset: Fontset,
+  font: Font,
+  user_data: object | null
+) => boolean;

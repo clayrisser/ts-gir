@@ -96,14 +96,14 @@ export enum ConsoleMessageLevel {
   WEBKIT_CONSOLE_MESSAGE_LEVEL_LOG,
   WEBKIT_CONSOLE_MESSAGE_LEVEL_WARNING,
   WEBKIT_CONSOLE_MESSAGE_LEVEL_ERROR,
-  WEBKIT_CONSOLE_MESSAGE_LEVEL_DEBUG,
+  WEBKIT_CONSOLE_MESSAGE_LEVEL_DEBUG
 }
 export enum ConsoleMessageSource {
   WEBKIT_CONSOLE_MESSAGE_SOURCE_JAVASCRIPT,
   WEBKIT_CONSOLE_MESSAGE_SOURCE_NETWORK,
   WEBKIT_CONSOLE_MESSAGE_SOURCE_CONSOLE_API,
   WEBKIT_CONSOLE_MESSAGE_SOURCE_SECURITY,
-  WEBKIT_CONSOLE_MESSAGE_SOURCE_OTHER,
+  WEBKIT_CONSOLE_MESSAGE_SOURCE_OTHER
 }
 export enum ContextMenuAction {
   WEBKIT_CONTEXT_MENU_ACTION_NO_ACTION,
@@ -151,11 +151,11 @@ export enum ContextMenuAction {
   WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_VIDEO_TO_DISK,
   WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_AUDIO_TO_DISK,
   WEBKIT_CONTEXT_MENU_ACTION_INSERT_EMOJI,
-  WEBKIT_CONTEXT_MENU_ACTION_CUSTOM,
+  WEBKIT_CONTEXT_MENU_ACTION_CUSTOM
 }
 export enum FormSubmissionStep {
   WEBKIT_FORM_SUBMISSION_WILL_SEND_DOM_EVENT,
-  WEBKIT_FORM_SUBMISSION_WILL_COMPLETE,
+  WEBKIT_FORM_SUBMISSION_WILL_COMPLETE
 }
 export enum HitTestResultContext {
   WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT,
@@ -164,14 +164,22 @@ export enum HitTestResultContext {
   WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA,
   WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE,
   WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR,
-  WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION,
+  WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION
 }
 export interface DOMEventTarget {
   add_event_listener(...args: any[]): any;
-  add_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+  add_event_listener_with_closure(
+    event_name: string,
+    handler: GObject.Closure,
+    use_capture: boolean
+  ): boolean;
   dispatch_event(...args: any[]): any;
   remove_event_listener(...args: any[]): any;
-  remove_event_listener_with_closure(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+  remove_event_listener_with_closure(
+    event_name: string,
+    handler: GObject.Closure,
+    use_capture: boolean
+  ): boolean;
 }
 export interface DOMNodeFilter {
   accept_node(...args: any[]): any;
@@ -326,8 +334,16 @@ export class DOMComment extends DOMCharacterData {
 export class DOMDOMImplementation extends DOMObject {
   static parent_instance: DOMObject;
   create_css_style_sheet(title: string, media: string): DOMCSSStyleSheet;
-  create_document(namespaceURI: string | null, qualifiedName: string, doctype: DOMDocumentType | null): DOMDocument;
-  create_document_type(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
+  create_document(
+    namespaceURI: string | null,
+    qualifiedName: string,
+    doctype: DOMDocumentType | null
+  ): DOMDocument;
+  create_document_type(
+    qualifiedName: string,
+    publicId: string,
+    systemId: string
+  ): DOMDocumentType;
   create_html_document(title: string): DOMHTMLDocument;
   has_feature(feature: string, version: string): boolean;
 }
@@ -367,7 +383,12 @@ export class DOMDOMSelection extends DOMObject {
   modify(alter: string, direction: string, granularity: string): void;
   remove_all_ranges(): void;
   select_all_children(node: DOMNode): void;
-  set_base_and_extent(baseNode: DOMNode, baseOffset: number, extentNode: DOMNode, extentOffset: number): void;
+  set_base_and_extent(
+    baseNode: DOMNode,
+    baseOffset: number,
+    extentNode: DOMNode,
+    extentOffset: number
+  ): void;
   set_position(node: DOMNode, offset: number): void;
 }
 export class DOMDOMTokenList extends DOMObject {
@@ -419,10 +440,21 @@ export class DOMDOMWindow extends DOMObject {
   capture_events(): void;
   close(): void;
   confirm(message: string): boolean;
-  find(string: string, caseSensitive: boolean, backwards: boolean, wrap: boolean, wholeWord: boolean, searchInFrames: boolean, showDialog: boolean): boolean;
+  find(
+    string: string,
+    caseSensitive: boolean,
+    backwards: boolean,
+    wrap: boolean,
+    wholeWord: boolean,
+    searchInFrames: boolean,
+    showDialog: boolean
+  ): boolean;
   focus(): void;
   get_closed(): boolean;
-  get_computed_style(element: DOMElement, pseudoElement: string | null): DOMCSSStyleDeclaration;
+  get_computed_style(
+    element: DOMElement,
+    pseudoElement: string | null
+  ): DOMCSSStyleDeclaration;
   get_default_status(): string;
   get_device_pixel_ratio(): number;
   get_document(): DOMDocument;
@@ -464,7 +496,10 @@ export class DOMDOMWindow extends DOMObject {
   set_name(value: string): void;
   set_status(value: string): void;
   stop(): void;
-  webkit_message_handlers_post_message(handler: string, message: string): boolean;
+  webkit_message_handlers_post_message(
+    handler: string,
+    message: string
+  ): boolean;
 }
 export class DOMDocument extends DOMNode {
   'active-element': DOMElement;
@@ -522,24 +557,49 @@ export class DOMDocument extends DOMNode {
   adopt_node(source: DOMNode): DOMNode;
   caret_range_from_point(x: number, y: number): DOMRange;
   create_attribute(name: string): DOMAttr;
-  create_attribute_ns(namespaceURI: string | null, qualifiedName: string): DOMAttr;
+  create_attribute_ns(
+    namespaceURI: string | null,
+    qualifiedName: string
+  ): DOMAttr;
   create_cdata_section(data: string): DOMCDATASection;
   create_comment(data: string): DOMComment;
   create_css_style_declaration(): DOMCSSStyleDeclaration;
   create_document_fragment(): DOMDocumentFragment;
   create_element(tagName: string): DOMElement;
-  create_element_ns(namespaceURI: string | null, qualifiedName: string): DOMElement;
+  create_element_ns(
+    namespaceURI: string | null,
+    qualifiedName: string
+  ): DOMElement;
   create_entity_reference(name: string | null): DOMEntityReference;
   create_event(eventType: string): DOMEvent;
   create_expression(expression: string, resolver: any): DOMXPathExpression;
-  create_node_iterator(root: DOMNode, whatToShow: number, filter: any | null, expandEntityReferences: boolean): DOMNodeIterator;
+  create_node_iterator(
+    root: DOMNode,
+    whatToShow: number,
+    filter: any | null,
+    expandEntityReferences: boolean
+  ): DOMNodeIterator;
   create_ns_resolver(nodeResolver: DOMNode): any;
-  create_processing_instruction(target: string, data: string): DOMProcessingInstruction;
+  create_processing_instruction(
+    target: string,
+    data: string
+  ): DOMProcessingInstruction;
   create_range(): DOMRange;
   create_text_node(data: string): DOMText;
-  create_tree_walker(root: DOMNode, whatToShow: number, filter: any | null, expandEntityReferences: boolean): DOMTreeWalker;
+  create_tree_walker(
+    root: DOMNode,
+    whatToShow: number,
+    filter: any | null,
+    expandEntityReferences: boolean
+  ): DOMTreeWalker;
   element_from_point(x: number, y: number): DOMElement;
-  evaluate(expression: string, contextNode: DOMNode, resolver: any | null, type: number, inResult: DOMXPathResult | null): DOMXPathResult;
+  evaluate(
+    expression: string,
+    contextNode: DOMNode,
+    resolver: any | null,
+    type: number,
+    inResult: DOMXPathResult | null
+  ): DOMXPathResult;
   exec_command(command: string, userInterface: boolean, value: string): boolean;
   exit_pointer_lock(): void;
   get_active_element(): DOMElement;
@@ -564,12 +624,22 @@ export class DOMDocument extends DOMNode {
   get_domain(): string;
   get_element_by_id(elementId: string): DOMElement;
   get_elements_by_class_name(class_name: string): DOMNodeList;
-  get_elements_by_class_name_as_html_collection(classNames: string): DOMHTMLCollection;
+  get_elements_by_class_name_as_html_collection(
+    classNames: string
+  ): DOMHTMLCollection;
   get_elements_by_name(elementName: string): DOMNodeList;
   get_elements_by_tag_name(tag_name: string): DOMNodeList;
-  get_elements_by_tag_name_as_html_collection(tagname: string): DOMHTMLCollection;
-  get_elements_by_tag_name_ns(namespace_uri: string, tag_name: string): DOMNodeList;
-  get_elements_by_tag_name_ns_as_html_collection(namespaceURI: string, localName: string): DOMHTMLCollection;
+  get_elements_by_tag_name_as_html_collection(
+    tagname: string
+  ): DOMHTMLCollection;
+  get_elements_by_tag_name_ns(
+    namespace_uri: string,
+    tag_name: string
+  ): DOMNodeList;
+  get_elements_by_tag_name_ns_as_html_collection(
+    namespaceURI: string,
+    localName: string
+  ): DOMHTMLCollection;
   get_embeds(): DOMHTMLCollection;
   get_first_element_child(): DOMElement;
   get_forms(): DOMHTMLCollection;
@@ -582,7 +652,10 @@ export class DOMDocument extends DOMNode {
   get_last_modified(): string;
   get_links(): DOMHTMLCollection;
   get_origin(): string;
-  get_override_style(element: DOMElement, pseudoElement: string | null): DOMCSSStyleDeclaration;
+  get_override_style(
+    element: DOMElement,
+    pseudoElement: string | null
+  ): DOMCSSStyleDeclaration;
   get_plugins(): DOMHTMLCollection;
   get_pointer_lock_element(): DOMElement;
   get_preferred_stylesheet_set(): string;
@@ -706,11 +779,19 @@ export class DOMElement extends DOMNode {
   get_client_top(): number;
   get_client_width(): number;
   get_elements_by_class_name(class_name: string): DOMNodeList;
-  get_elements_by_class_name_as_html_collection(name: string): DOMHTMLCollection;
+  get_elements_by_class_name_as_html_collection(
+    name: string
+  ): DOMHTMLCollection;
   get_elements_by_tag_name(tag_name: string): DOMNodeList;
   get_elements_by_tag_name_as_html_collection(name: string): DOMHTMLCollection;
-  get_elements_by_tag_name_ns(namespace_uri: string, tag_name: string): DOMNodeList;
-  get_elements_by_tag_name_ns_as_html_collection(namespaceURI: string, localName: string): DOMHTMLCollection;
+  get_elements_by_tag_name_ns(
+    namespace_uri: string,
+    tag_name: string
+  ): DOMNodeList;
+  get_elements_by_tag_name_ns_as_html_collection(
+    namespaceURI: string,
+    localName: string
+  ): DOMHTMLCollection;
   get_first_element_child(): DOMElement;
   get_id(): string;
   get_inner_html(): string;
@@ -758,7 +839,11 @@ export class DOMElement extends DOMNode {
   set_attribute(name: string, value: string): void;
   set_attribute_node(newAttr: DOMAttr): DOMAttr;
   set_attribute_node_ns(newAttr: DOMAttr): DOMAttr;
-  set_attribute_ns(namespaceURI: string | null, qualifiedName: string, value: string): void;
+  set_attribute_ns(
+    namespaceURI: string | null,
+    qualifiedName: string,
+    value: string
+  ): void;
   set_class_name(value: string): void;
   set_id(value: string): void;
   set_inner_html(value: string): void;
@@ -793,7 +878,11 @@ export class DOMEvent extends DOMObject {
   get_src_element(): any;
   get_target(): any;
   get_time_stamp(): number;
-  init_event(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+  init_event(
+    eventTypeArg: string,
+    canBubbleArg: boolean,
+    cancelableArg: boolean
+  ): void;
   prevent_default(): void;
   set_cancel_bubble(value: boolean): void;
   set_return_value(value: boolean): void;
@@ -2010,7 +2099,19 @@ export class DOMKeyboardEvent extends DOMUIEvent {
   get_meta_key(): boolean;
   get_modifier_state(keyIdentifierArg: string): boolean;
   get_shift_key(): boolean;
-  init_keyboard_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+  init_keyboard_event(
+    type: string,
+    canBubble: boolean,
+    cancelable: boolean,
+    view: DOMDOMWindow,
+    keyIdentifier: string,
+    location: number,
+    ctrlKey: boolean,
+    altKey: boolean,
+    shiftKey: boolean,
+    metaKey: boolean,
+    altGraphKey: boolean
+  ): void;
 }
 export class DOMMediaList extends DOMObject {
   length: number;
@@ -2057,7 +2158,23 @@ export class DOMMouseEvent extends DOMUIEvent {
   get_to_element(): DOMNode;
   get_x(): number;
   get_y(): number;
-  init_mouse_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: any): void;
+  init_mouse_event(
+    type: string,
+    canBubble: boolean,
+    cancelable: boolean,
+    view: DOMDOMWindow,
+    detail: number,
+    screenX: number,
+    screenY: number,
+    clientX: number,
+    clientY: number,
+    ctrlKey: boolean,
+    altKey: boolean,
+    shiftKey: boolean,
+    metaKey: boolean,
+    button: number,
+    relatedTarget: any
+  ): void;
 }
 export class DOMNamedNodeMap extends DOMObject {
   length: number;
@@ -2268,7 +2385,13 @@ export class DOMUIEvent extends DOMEvent {
   get_page_x(): number;
   get_page_y(): number;
   get_view(): DOMDOMWindow;
-  init_ui_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, detail: number): void;
+  init_ui_event(
+    type: string,
+    canBubble: boolean,
+    cancelable: boolean,
+    view: DOMDOMWindow,
+    detail: number
+  ): void;
 }
 export class DOMWheelEvent extends DOMMouseEvent {
   'wheel-delta': number;
@@ -2278,11 +2401,27 @@ export class DOMWheelEvent extends DOMMouseEvent {
   get_wheel_delta(): number;
   get_wheel_delta_x(): number;
   get_wheel_delta_y(): number;
-  init_wheel_event(wheelDeltaX: number, wheelDeltaY: number, view: DOMDOMWindow, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+  init_wheel_event(
+    wheelDeltaX: number,
+    wheelDeltaY: number,
+    view: DOMDOMWindow,
+    screenX: number,
+    screenY: number,
+    clientX: number,
+    clientY: number,
+    ctrlKey: boolean,
+    altKey: boolean,
+    shiftKey: boolean,
+    metaKey: boolean
+  ): void;
 }
 export class DOMXPathExpression extends DOMObject {
   static parent_instance: DOMObject;
-  evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+  evaluate(
+    contextNode: DOMNode,
+    type: number,
+    inResult: DOMXPathResult
+  ): DOMXPathResult;
 }
 export class DOMXPathResult extends DOMObject {
   'boolean-value': boolean;
@@ -2312,7 +2451,10 @@ export class Frame extends GObject.Object {
   get_js_context(): JavaScriptCore.Context;
   get_js_context_for_script_world(world: ScriptWorld): JavaScriptCore.Context;
   get_js_value_for_dom_object(dom_object: DOMObject): JavaScriptCore.Value;
-  get_js_value_for_dom_object_in_script_world(dom_object: DOMObject, world: ScriptWorld): JavaScriptCore.Value;
+  get_js_value_for_dom_object_in_script_world(
+    dom_object: DOMObject,
+    world: ScriptWorld
+  ): JavaScriptCore.Value;
   get_uri(): string;
   is_main_frame(): boolean;
 }
@@ -2491,8 +2633,18 @@ export class DOMEventClass {
 export class DOMEventTargetIface {
   static gIface: GObject.TypeInterface;
   static dispatch_event: (target: any, event: DOMEvent) => boolean;
-  static add_event_listener: (target: any, event_name: string, handler: GObject.Closure, use_capture: boolean) => boolean;
-  static remove_event_listener: (target: any, event_name: string, handler: GObject.Closure, use_capture: boolean) => boolean;
+  static add_event_listener: (
+    target: any,
+    event_name: string,
+    handler: GObject.Closure,
+    use_capture: boolean
+  ) => boolean;
+  static remove_event_listener: (
+    target: any,
+    event_name: string,
+    handler: GObject.Closure,
+    use_capture: boolean
+  ) => boolean;
   static _webkitdom_reserved0: () => void;
   static _webkitdom_reserved1: () => void;
   static _webkitdom_reserved2: () => void;
@@ -2813,4 +2965,7 @@ export class _ContextMenuItem {
   static priv: ContextMenuItemPrivate;
 }
 export type WebExtensionInitializeFunction = (extension: WebExtension) => void;
-export type WebExtensionInitializeWithUserDataFunction = (extension: WebExtension, user_data: GLib.Variant) => void;
+export type WebExtensionInitializeWithUserDataFunction = (
+  extension: WebExtension,
+  user_data: GLib.Variant
+) => void;

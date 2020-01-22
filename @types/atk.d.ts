@@ -9,12 +9,12 @@ export const VERSION_MIN_REQUIRED: number;
 export enum CoordType {
   ATK_XY_SCREEN,
   ATK_XY_WINDOW,
-  ATK_XY_PARENT,
+  ATK_XY_PARENT
 }
 export enum KeyEventType {
   ATK_KEY_EVENT_PRESS,
   ATK_KEY_EVENT_RELEASE,
-  ATK_KEY_EVENT_LAST_DEFINED,
+  ATK_KEY_EVENT_LAST_DEFINED
 }
 export enum Layer {
   ATK_LAYER_INVALID,
@@ -24,7 +24,7 @@ export enum Layer {
   ATK_LAYER_MDI,
   ATK_LAYER_POPUP,
   ATK_LAYER_OVERLAY,
-  ATK_LAYER_WINDOW,
+  ATK_LAYER_WINDOW
 }
 export enum RelationType {
   ATK_RELATION_NULL,
@@ -48,7 +48,7 @@ export enum RelationType {
   ATK_RELATION_DETAILS_FOR,
   ATK_RELATION_ERROR_MESSAGE,
   ATK_RELATION_ERROR_FOR,
-  ATK_RELATION_LAST_DEFINED,
+  ATK_RELATION_LAST_DEFINED
 }
 export enum Role {
   ATK_ROLE_INVALID,
@@ -176,7 +176,7 @@ export enum Role {
   ATK_ROLE_FOOTNOTE,
   ATK_ROLE_CONTENT_DELETION,
   ATK_ROLE_CONTENT_INSERTION,
-  ATK_ROLE_LAST_DEFINED,
+  ATK_ROLE_LAST_DEFINED
 }
 export enum ScrollType {
   ATK_SCROLL_TOP_LEFT,
@@ -185,7 +185,7 @@ export enum ScrollType {
   ATK_SCROLL_BOTTOM_EDGE,
   ATK_SCROLL_LEFT_EDGE,
   ATK_SCROLL_RIGHT_EDGE,
-  ATK_SCROLL_ANYWHERE,
+  ATK_SCROLL_ANYWHERE
 }
 export enum StateType {
   ATK_STATE_INVALID,
@@ -231,7 +231,7 @@ export enum StateType {
   ATK_STATE_HAS_POPUP,
   ATK_STATE_HAS_TOOLTIP,
   ATK_STATE_READ_ONLY,
-  ATK_STATE_LAST_DEFINED,
+  ATK_STATE_LAST_DEFINED
 }
 export enum TextAttribute {
   ATK_TEXT_ATTR_INVALID,
@@ -262,7 +262,7 @@ export enum TextAttribute {
   ATK_TEXT_ATTR_STRETCH,
   ATK_TEXT_ATTR_VARIANT,
   ATK_TEXT_ATTR_STYLE,
-  ATK_TEXT_ATTR_LAST_DEFINED,
+  ATK_TEXT_ATTR_LAST_DEFINED
 }
 export enum TextBoundary {
   ATK_TEXT_BOUNDARY_CHAR,
@@ -271,20 +271,20 @@ export enum TextBoundary {
   ATK_TEXT_BOUNDARY_SENTENCE_START,
   ATK_TEXT_BOUNDARY_SENTENCE_END,
   ATK_TEXT_BOUNDARY_LINE_START,
-  ATK_TEXT_BOUNDARY_LINE_END,
+  ATK_TEXT_BOUNDARY_LINE_END
 }
 export enum TextClipType {
   ATK_TEXT_CLIP_NONE,
   ATK_TEXT_CLIP_MIN,
   ATK_TEXT_CLIP_MAX,
-  ATK_TEXT_CLIP_BOTH,
+  ATK_TEXT_CLIP_BOTH
 }
 export enum TextGranularity {
   ATK_TEXT_GRANULARITY_CHAR,
   ATK_TEXT_GRANULARITY_WORD,
   ATK_TEXT_GRANULARITY_SENTENCE,
   ATK_TEXT_GRANULARITY_LINE,
-  ATK_TEXT_GRANULARITY_PARAGRAPH,
+  ATK_TEXT_GRANULARITY_PARAGRAPH
 }
 export enum ValueType {
   ATK_VALUE_VERY_WEAK,
@@ -302,10 +302,10 @@ export enum ValueType {
   ATK_VALUE_GOOD,
   ATK_VALUE_VERY_GOOD,
   ATK_VALUE_BEST,
-  ATK_VALUE_LAST_DEFINED,
+  ATK_VALUE_LAST_DEFINED
 }
 export enum HyperlinkStateFlags {
-  ATK_HYPERLINK_IS_INLINE,
+  ATK_HYPERLINK_IS_INLINE
 }
 export type AttributeSet = GLib.SList;
 export type State = number;
@@ -673,22 +673,61 @@ export class Attribute {
 export class ComponentIface {
   static parent: GObject.TypeInterface;
   static add_focus_handler: (component: any, handler: FocusHandler) => number;
-  static contains: (component: any, x: number, y: number, coord_type: CoordType) => boolean;
-  static ref_accessible_at_point: (component: any, x: number, y: number, coord_type: CoordType) => Object | null;
-  static get_extents: (component: any, x: number, y: number, width: number, height: number, coord_type: CoordType) => void;
-  static get_position: (component: any, x: number, y: number, coord_type: CoordType) => void;
+  static contains: (
+    component: any,
+    x: number,
+    y: number,
+    coord_type: CoordType
+  ) => boolean;
+  static ref_accessible_at_point: (
+    component: any,
+    x: number,
+    y: number,
+    coord_type: CoordType
+  ) => Object | null;
+  static get_extents: (
+    component: any,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    coord_type: CoordType
+  ) => void;
+  static get_position: (
+    component: any,
+    x: number,
+    y: number,
+    coord_type: CoordType
+  ) => void;
   static get_size: (component: any, width: number, height: number) => void;
   static grab_focus: (component: any) => boolean;
   static remove_focus_handler: (component: any, handler_id: number) => void;
-  static set_extents: (component: any, x: number, y: number, width: number, height: number, coord_type: CoordType) => boolean;
-  static set_position: (component: any, x: number, y: number, coord_type: CoordType) => boolean;
+  static set_extents: (
+    component: any,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    coord_type: CoordType
+  ) => boolean;
+  static set_position: (
+    component: any,
+    x: number,
+    y: number,
+    coord_type: CoordType
+  ) => boolean;
   static set_size: (component: any, width: number, height: number) => boolean;
   static get_layer: (component: any) => Layer;
   static get_mdi_zorder: (component: any) => number;
   static bounds_changed: (component: any, bounds: Rectangle) => void;
   static get_alpha: (component: any) => number;
   static scroll_to: (component: any, type: ScrollType) => boolean;
-  static scroll_to_point: (component: any, coords: CoordType, x: number, y: number) => boolean;
+  static scroll_to_point: (
+    component: any,
+    coords: CoordType,
+    x: number,
+    y: number
+  ) => boolean;
 }
 export class DocumentIface {
   static parent: GObject.TypeInterface;
@@ -696,16 +735,33 @@ export class DocumentIface {
   static get_document: (document: any) => object | null;
   static get_document_locale: (document: any) => string;
   static get_document_attributes: (document: any) => AttributeSet;
-  static get_document_attribute_value: (document: any, attribute_name: string) => string | null;
-  static set_document_attribute: (document: any, attribute_name: string, attribute_value: string) => boolean;
+  static get_document_attribute_value: (
+    document: any,
+    attribute_name: string
+  ) => string | null;
+  static set_document_attribute: (
+    document: any,
+    attribute_name: string,
+    attribute_value: string
+  ) => boolean;
   static get_current_page_number: (document: any) => number;
   static get_page_count: (document: any) => number;
 }
 export class EditableTextIface {
   static parent_interface: GObject.TypeInterface;
-  static set_run_attributes: (text: any, attrib_set: AttributeSet, start_offset: number, end_offset: number) => boolean;
+  static set_run_attributes: (
+    text: any,
+    attrib_set: AttributeSet,
+    start_offset: number,
+    end_offset: number
+  ) => boolean;
   static set_text_contents: (text: any, string: string) => void;
-  static insert_text: (text: any, string: string, length: number, position: number) => void;
+  static insert_text: (
+    text: any,
+    string: string,
+    length: number,
+    position: number
+  ) => void;
   static copy_text: (text: any, start_pos: number, end_pos: number) => void;
   static cut_text: (text: any, start_pos: number, end_pos: number) => void;
   static delete_text: (text: any, start_pos: number, end_pos: number) => void;
@@ -742,7 +798,12 @@ export class HypertextIface {
 }
 export class ImageIface {
   static parent: GObject.TypeInterface;
-  static get_image_position: (image: any, x: number, y: number, coord_type: CoordType) => void;
+  static get_image_position: (
+    image: any,
+    x: number,
+    y: number,
+    coord_type: CoordType
+  ) => void;
   static get_image_description: (image: any) => string;
   static get_image_size: (image: any, width: number, height: number) => void;
   static set_image_description: (image: any, description: string) => boolean;
@@ -789,15 +850,32 @@ export class ObjectClass {
   static set_description: (accessible: Object, description: string) => void;
   static set_parent: (accessible: Object, parent: Object) => void;
   static set_role: (accessible: Object, role: Role) => void;
-  static connect_property_change_handler: (accessible: Object, handler: PropertyChangeHandler) => number;
-  static remove_property_change_handler: (accessible: Object, handler_id: number) => void;
+  static connect_property_change_handler: (
+    accessible: Object,
+    handler: PropertyChangeHandler
+  ) => number;
+  static remove_property_change_handler: (
+    accessible: Object,
+    handler_id: number
+  ) => void;
   static initialize: (accessible: Object, data: object | null) => void;
-  static children_changed: (accessible: Object, change_index: number, changed_child: object | null) => void;
+  static children_changed: (
+    accessible: Object,
+    change_index: number,
+    changed_child: object | null
+  ) => void;
   static focus_event: (accessible: Object, focus_in: boolean) => void;
   static property_change: (accessible: Object, values: PropertyValues) => void;
-  static state_change: (accessible: Object, name: string, state_set: boolean) => void;
+  static state_change: (
+    accessible: Object,
+    name: string,
+    state_set: boolean
+  ) => void;
   static visible_data_changed: (accessible: Object) => void;
-  static active_descendant_changed: (accessible: Object, child: object | null) => void;
+  static active_descendant_changed: (
+    accessible: Object,
+    child: object | null
+  ) => void;
   static get_attributes: (accessible: Object) => AttributeSet;
   static get_object_locale: (accessible: Object) => string;
   static pad1: Function;
@@ -879,7 +957,13 @@ export class TableCellIface {
   static get_position: (cell: any, row: number, column: number) => boolean;
   static get_row_span: (cell: any) => number;
   static get_row_header_cells: (cell: any) => Object[];
-  static get_row_column_span: (cell: any, row: number, column: number, row_span: number, column_span: number) => boolean;
+  static get_row_column_span: (
+    cell: any,
+    row: number,
+    column: number,
+    row_span: number,
+    column_span: number
+  ) => boolean;
   static get_table: (cell: any) => Object;
 }
 export class TableIface {
@@ -890,7 +974,11 @@ export class TableIface {
   static get_row_at_index: (table: any, index_: number) => number;
   static get_n_columns: (table: any) => number;
   static get_n_rows: (table: any) => number;
-  static get_column_extent_at: (table: any, row: number, column: number) => number;
+  static get_column_extent_at: (
+    table: any,
+    row: number,
+    column: number
+  ) => number;
   static get_row_extent_at: (table: any, row: number, column: number) => number;
   static get_caption: (table: any) => Object | null;
   static get_column_description: (table: any, column: number) => string;
@@ -899,9 +987,21 @@ export class TableIface {
   static get_row_header: (table: any, row: number) => Object | null;
   static get_summary: (table: any) => Object;
   static set_caption: (table: any, caption: Object) => void;
-  static set_column_description: (table: any, column: number, description: string) => void;
-  static set_column_header: (table: any, column: number, header: Object) => void;
-  static set_row_description: (table: any, row: number, description: string) => void;
+  static set_column_description: (
+    table: any,
+    column: number,
+    description: string
+  ) => void;
+  static set_column_header: (
+    table: any,
+    column: number,
+    header: Object
+  ) => void;
+  static set_row_description: (
+    table: any,
+    row: number,
+    description: string
+  ) => void;
   static set_row_header: (table: any, row: number, header: Object) => void;
   static set_summary: (table: any, accessible: Object) => void;
   static get_selected_columns: (table: any, selected: number) => number;
@@ -914,41 +1014,133 @@ export class TableIface {
   static add_column_selection: (table: any, column: number) => boolean;
   static remove_column_selection: (table: any, column: number) => boolean;
   static row_inserted: (table: any, row: number, num_inserted: number) => void;
-  static column_inserted: (table: any, column: number, num_inserted: number) => void;
+  static column_inserted: (
+    table: any,
+    column: number,
+    num_inserted: number
+  ) => void;
   static row_deleted: (table: any, row: number, num_deleted: number) => void;
-  static column_deleted: (table: any, column: number, num_deleted: number) => void;
+  static column_deleted: (
+    table: any,
+    column: number,
+    num_deleted: number
+  ) => void;
   static row_reordered: (table: any) => void;
   static column_reordered: (table: any) => void;
   static model_changed: (table: any) => void;
 }
 export class TextIface {
   static parent: GObject.TypeInterface;
-  static get_text: (text: any, start_offset: number, end_offset: number) => string;
-  static get_text_after_offset: (text: any, offset: number, boundary_type: TextBoundary, start_offset: number, end_offset: number) => string;
-  static get_text_at_offset: (text: any, offset: number, boundary_type: TextBoundary, start_offset: number, end_offset: number) => string;
+  static get_text: (
+    text: any,
+    start_offset: number,
+    end_offset: number
+  ) => string;
+  static get_text_after_offset: (
+    text: any,
+    offset: number,
+    boundary_type: TextBoundary,
+    start_offset: number,
+    end_offset: number
+  ) => string;
+  static get_text_at_offset: (
+    text: any,
+    offset: number,
+    boundary_type: TextBoundary,
+    start_offset: number,
+    end_offset: number
+  ) => string;
   static get_character_at_offset: (text: any, offset: number) => number;
-  static get_text_before_offset: (text: any, offset: number, boundary_type: TextBoundary, start_offset: number, end_offset: number) => string;
+  static get_text_before_offset: (
+    text: any,
+    offset: number,
+    boundary_type: TextBoundary,
+    start_offset: number,
+    end_offset: number
+  ) => string;
   static get_caret_offset: (text: any) => number;
-  static get_run_attributes: (text: any, offset: number, start_offset: number, end_offset: number) => AttributeSet;
+  static get_run_attributes: (
+    text: any,
+    offset: number,
+    start_offset: number,
+    end_offset: number
+  ) => AttributeSet;
   static get_default_attributes: (text: any) => AttributeSet;
-  static get_character_extents: (text: any, offset: number, x: number, y: number, width: number, height: number, coords: CoordType) => void;
+  static get_character_extents: (
+    text: any,
+    offset: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    coords: CoordType
+  ) => void;
   static get_character_count: (text: any) => number;
-  static get_offset_at_point: (text: any, x: number, y: number, coords: CoordType) => number;
+  static get_offset_at_point: (
+    text: any,
+    x: number,
+    y: number,
+    coords: CoordType
+  ) => number;
   static get_n_selections: (text: any) => number;
-  static get_selection: (text: any, selection_num: number, start_offset: number, end_offset: number) => string;
-  static add_selection: (text: any, start_offset: number, end_offset: number) => boolean;
+  static get_selection: (
+    text: any,
+    selection_num: number,
+    start_offset: number,
+    end_offset: number
+  ) => string;
+  static add_selection: (
+    text: any,
+    start_offset: number,
+    end_offset: number
+  ) => boolean;
   static remove_selection: (text: any, selection_num: number) => boolean;
-  static set_selection: (text: any, selection_num: number, start_offset: number, end_offset: number) => boolean;
+  static set_selection: (
+    text: any,
+    selection_num: number,
+    start_offset: number,
+    end_offset: number
+  ) => boolean;
   static set_caret_offset: (text: any, offset: number) => boolean;
   static text_changed: (text: any, position: number, length: number) => void;
   static text_caret_moved: (text: any, location: number) => void;
   static text_selection_changed: (text: any) => void;
   static text_attributes_changed: (text: any) => void;
-  static get_range_extents: (text: any, start_offset: number, end_offset: number, coord_type: CoordType, rect: TextRectangle) => void;
-  static get_bounded_ranges: (text: any, rect: TextRectangle, coord_type: CoordType, x_clip_type: TextClipType, y_clip_type: TextClipType) => TextRange[];
-  static get_string_at_offset: (text: any, offset: number, granularity: TextGranularity, start_offset: number, end_offset: number) => string | null;
-  static scroll_substring_to: (text: any, start_offset: number, end_offset: number, type: ScrollType) => boolean;
-  static scroll_substring_to_point: (text: any, start_offset: number, end_offset: number, coords: CoordType, x: number, y: number) => boolean;
+  static get_range_extents: (
+    text: any,
+    start_offset: number,
+    end_offset: number,
+    coord_type: CoordType,
+    rect: TextRectangle
+  ) => void;
+  static get_bounded_ranges: (
+    text: any,
+    rect: TextRectangle,
+    coord_type: CoordType,
+    x_clip_type: TextClipType,
+    y_clip_type: TextClipType
+  ) => TextRange[];
+  static get_string_at_offset: (
+    text: any,
+    offset: number,
+    granularity: TextGranularity,
+    start_offset: number,
+    end_offset: number
+  ) => string | null;
+  static scroll_substring_to: (
+    text: any,
+    start_offset: number,
+    end_offset: number,
+    type: ScrollType
+  ) => boolean;
+  static scroll_substring_to_point: (
+    text: any,
+    start_offset: number,
+    end_offset: number,
+    coords: CoordType,
+    x: number,
+    y: number
+  ) => boolean;
 }
 export class TextRange {
   static bounds: TextRectangle;
@@ -964,9 +1156,15 @@ export class TextRectangle {
 }
 export class UtilClass {
   static parent: GObject.ObjectClass;
-  static add_global_event_listener: (listener: GObject.SignalEmissionHook, event_type: string) => number;
+  static add_global_event_listener: (
+    listener: GObject.SignalEmissionHook,
+    event_type: string
+  ) => number;
   static remove_global_event_listener: (listener_id: number) => void;
-  static add_key_event_listener: (listener: KeySnoopFunc, data: object | null) => number;
+  static add_key_event_listener: (
+    listener: KeySnoopFunc,
+    data: object | null
+  ) => number;
   static remove_key_event_listener: (listener_id: number) => void;
   static get_root: () => Object;
   static get_toolkit_name: () => string;
@@ -989,8 +1187,14 @@ export class WindowIface {
   static parent: GObject.TypeInterface;
 }
 export function add_focus_tracker(focus_tracker: EventListener): number;
-export function add_global_event_listener(listener: GObject.SignalEmissionHook, event_type: string): number;
-export function add_key_event_listener(listener: KeySnoopFunc, data: object | null): number;
+export function add_global_event_listener(
+  listener: GObject.SignalEmissionHook,
+  event_type: string
+): number;
+export function add_key_event_listener(
+  listener: KeySnoopFunc,
+  data: object | null
+): number;
 export function attribute_set_free(attrib_set: AttributeSet): void;
 export function focus_tracker_init(init: EventListenerInit): void;
 export function focus_tracker_notify(object: Object): void;
@@ -1020,7 +1224,10 @@ export function state_type_get_name(type: StateType): string;
 export function state_type_register(name: string): StateType;
 export function text_attribute_for_name(name: string): TextAttribute;
 export function text_attribute_get_name(attr: TextAttribute): string;
-export function text_attribute_get_value(attr: TextAttribute, index_: number): string | null;
+export function text_attribute_get_value(
+  attr: TextAttribute,
+  index_: number
+): string | null;
 export function text_attribute_register(name: string): TextAttribute;
 export function text_free_ranges(ranges: TextRange[]): void;
 export function value_type_get_localized_name(value_type: ValueType): string;
@@ -1029,5 +1236,8 @@ export type EventListener = (obj: Object) => void;
 export type EventListenerInit = () => void;
 export type FocusHandler = (object: Object, focus_in: boolean) => void;
 export type Function = (user_data: object | null) => boolean;
-export type KeySnoopFunc = (event: KeyEventStruct, user_data: object | null) => number;
+export type KeySnoopFunc = (
+  event: KeyEventStruct,
+  user_data: object | null
+) => number;
 export type PropertyChangeHandler = (obj: Object, vals: PropertyValues) => void;

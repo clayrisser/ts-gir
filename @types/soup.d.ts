@@ -118,16 +118,16 @@ export const VERSION_MIN_REQUIRED: number;
 export enum AddressFamily {
   SOUP_ADDRESS_FAMILY_INVALID,
   SOUP_ADDRESS_FAMILY_IPV4,
-  SOUP_ADDRESS_FAMILY_IPV6,
+  SOUP_ADDRESS_FAMILY_IPV6
 }
 export enum CacheResponse {
   SOUP_CACHE_RESPONSE_FRESH,
   SOUP_CACHE_RESPONSE_NEEDS_VALIDATION,
-  SOUP_CACHE_RESPONSE_STALE,
+  SOUP_CACHE_RESPONSE_STALE
 }
 export enum CacheType {
   SOUP_CACHE_SINGLE_USER,
-  SOUP_CACHE_SHARED,
+  SOUP_CACHE_SHARED
 }
 export enum ConnectionState {
   SOUP_CONNECTION_NEW,
@@ -135,12 +135,12 @@ export enum ConnectionState {
   SOUP_CONNECTION_IDLE,
   SOUP_CONNECTION_IN_USE,
   SOUP_CONNECTION_REMOTE_DISCONNECTED,
-  SOUP_CONNECTION_DISCONNECTED,
+  SOUP_CONNECTION_DISCONNECTED
 }
 export enum CookieJarAcceptPolicy {
   SOUP_COOKIE_JAR_ACCEPT_ALWAYS,
   SOUP_COOKIE_JAR_ACCEPT_NEVER,
-  SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY,
+  SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY
 }
 export enum DateFormat {
   SOUP_DATE_HTTP,
@@ -149,7 +149,7 @@ export enum DateFormat {
   SOUP_DATE_ISO8601_COMPACT,
   SOUP_DATE_ISO8601_FULL,
   SOUP_DATE_ISO8601,
-  SOUP_DATE_ISO8601_XMLRPC,
+  SOUP_DATE_ISO8601_XMLRPC
 }
 export enum Encoding {
   SOUP_ENCODING_UNRECOGNIZED,
@@ -157,11 +157,11 @@ export enum Encoding {
   SOUP_ENCODING_CONTENT_LENGTH,
   SOUP_ENCODING_EOF,
   SOUP_ENCODING_CHUNKED,
-  SOUP_ENCODING_BYTERANGES,
+  SOUP_ENCODING_BYTERANGES
 }
 export enum HTTPVersion {
   SOUP_HTTP_1_0,
-  SOUP_HTTP_1_1,
+  SOUP_HTTP_1_1
 }
 export enum KnownStatusCode {
   SOUP_KNOWN_STATUS_CODE_NONE,
@@ -226,47 +226,47 @@ export enum KnownStatusCode {
   SOUP_KNOWN_STATUS_CODE_GATEWAY_TIMEOUT,
   SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED,
   SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE,
-  SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED,
+  SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED
 }
 export enum LoggerLogLevel {
   SOUP_LOGGER_LOG_NONE,
   SOUP_LOGGER_LOG_MINIMAL,
   SOUP_LOGGER_LOG_HEADERS,
-  SOUP_LOGGER_LOG_BODY,
+  SOUP_LOGGER_LOG_BODY
 }
 export enum MemoryUse {
   SOUP_MEMORY_STATIC,
   SOUP_MEMORY_TAKE,
   SOUP_MEMORY_COPY,
-  SOUP_MEMORY_TEMPORARY,
+  SOUP_MEMORY_TEMPORARY
 }
 export enum MessageHeadersType {
   SOUP_MESSAGE_HEADERS_REQUEST,
   SOUP_MESSAGE_HEADERS_RESPONSE,
-  SOUP_MESSAGE_HEADERS_MULTIPART,
+  SOUP_MESSAGE_HEADERS_MULTIPART
 }
 export enum MessagePriority {
   SOUP_MESSAGE_PRIORITY_VERY_LOW,
   SOUP_MESSAGE_PRIORITY_LOW,
   SOUP_MESSAGE_PRIORITY_NORMAL,
   SOUP_MESSAGE_PRIORITY_HIGH,
-  SOUP_MESSAGE_PRIORITY_VERY_HIGH,
+  SOUP_MESSAGE_PRIORITY_VERY_HIGH
 }
 export enum RequestError {
   SOUP_REQUEST_ERROR_BAD_URI,
   SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME,
   SOUP_REQUEST_ERROR_PARSING,
-  SOUP_REQUEST_ERROR_ENCODING,
+  SOUP_REQUEST_ERROR_ENCODING
 }
 export enum RequesterError {
   SOUP_REQUESTER_ERROR_BAD_URI,
-  SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME,
+  SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME
 }
 export enum SocketIOStatus {
   SOUP_SOCKET_OK,
   SOUP_SOCKET_WOULD_BLOCK,
   SOUP_SOCKET_EOF,
-  SOUP_SOCKET_ERROR,
+  SOUP_SOCKET_ERROR
 }
 export enum Status {
   SOUP_STATUS_NONE,
@@ -331,14 +331,14 @@ export enum Status {
   SOUP_STATUS_GATEWAY_TIMEOUT,
   SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED,
   SOUP_STATUS_INSUFFICIENT_STORAGE,
-  SOUP_STATUS_NOT_EXTENDED,
+  SOUP_STATUS_NOT_EXTENDED
 }
 export enum TLDError {
   SOUP_TLD_ERROR_INVALID_HOSTNAME,
   SOUP_TLD_ERROR_IS_IP_ADDRESS,
   SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS,
   SOUP_TLD_ERROR_NO_BASE_DOMAIN,
-  SOUP_TLD_ERROR_NO_PSL_DATA,
+  SOUP_TLD_ERROR_NO_PSL_DATA
 }
 export enum WebsocketCloseCode {
   SOUP_WEBSOCKET_CLOSE_NORMAL,
@@ -352,31 +352,31 @@ export enum WebsocketCloseCode {
   SOUP_WEBSOCKET_CLOSE_TOO_BIG,
   SOUP_WEBSOCKET_CLOSE_NO_EXTENSION,
   SOUP_WEBSOCKET_CLOSE_SERVER_ERROR,
-  SOUP_WEBSOCKET_CLOSE_TLS_HANDSHAKE,
+  SOUP_WEBSOCKET_CLOSE_TLS_HANDSHAKE
 }
 export enum WebsocketConnectionType {
   SOUP_WEBSOCKET_CONNECTION_UNKNOWN,
   SOUP_WEBSOCKET_CONNECTION_CLIENT,
-  SOUP_WEBSOCKET_CONNECTION_SERVER,
+  SOUP_WEBSOCKET_CONNECTION_SERVER
 }
 export enum WebsocketDataType {
   SOUP_WEBSOCKET_DATA_TEXT,
-  SOUP_WEBSOCKET_DATA_BINARY,
+  SOUP_WEBSOCKET_DATA_BINARY
 }
 export enum WebsocketError {
   SOUP_WEBSOCKET_ERROR_FAILED,
   SOUP_WEBSOCKET_ERROR_NOT_WEBSOCKET,
   SOUP_WEBSOCKET_ERROR_BAD_HANDSHAKE,
-  SOUP_WEBSOCKET_ERROR_BAD_ORIGIN,
+  SOUP_WEBSOCKET_ERROR_BAD_ORIGIN
 }
 export enum WebsocketState {
   SOUP_WEBSOCKET_STATE_OPEN,
   SOUP_WEBSOCKET_STATE_CLOSING,
-  SOUP_WEBSOCKET_STATE_CLOSED,
+  SOUP_WEBSOCKET_STATE_CLOSED
 }
 export enum XMLRPCError {
   SOUP_XMLRPC_ERROR_ARGUMENTS,
-  SOUP_XMLRPC_ERROR_RETVAL,
+  SOUP_XMLRPC_ERROR_RETVAL
 }
 export enum XMLRPCFault {
   SOUP_XMLRPC_FAULT_PARSE_ERROR_NOT_WELL_FORMED,
@@ -388,17 +388,17 @@ export enum XMLRPCFault {
   SOUP_XMLRPC_FAULT_SERVER_ERROR_INTERNAL_XML_RPC_ERROR,
   SOUP_XMLRPC_FAULT_APPLICATION_ERROR,
   SOUP_XMLRPC_FAULT_SYSTEM_ERROR,
-  SOUP_XMLRPC_FAULT_TRANSPORT_ERROR,
+  SOUP_XMLRPC_FAULT_TRANSPORT_ERROR
 }
 export enum Cacheability {
   SOUP_CACHE_CACHEABLE,
   SOUP_CACHE_UNCACHEABLE,
   SOUP_CACHE_INVALIDATES,
-  SOUP_CACHE_VALIDATES,
+  SOUP_CACHE_VALIDATES
 }
 export enum Expectation {
   SOUP_EXPECTATION_UNRECOGNIZED,
-  SOUP_EXPECTATION_CONTINUE,
+  SOUP_EXPECTATION_CONTINUE
 }
 export enum MessageFlags {
   SOUP_MESSAGE_NO_REDIRECT,
@@ -409,12 +409,12 @@ export enum MessageFlags {
   SOUP_MESSAGE_NEW_CONNECTION,
   SOUP_MESSAGE_IDEMPOTENT,
   SOUP_MESSAGE_IGNORE_CONNECTION_LIMITS,
-  SOUP_MESSAGE_DO_NOT_USE_AUTH_CACHE,
+  SOUP_MESSAGE_DO_NOT_USE_AUTH_CACHE
 }
 export enum ServerListenOptions {
   SOUP_SERVER_LISTEN_HTTPS,
   SOUP_SERVER_LISTEN_IPV4_ONLY,
-  SOUP_SERVER_LISTEN_IPV6_ONLY,
+  SOUP_SERVER_LISTEN_IPV6_ONLY
 }
 export interface PasswordManager {
   get_passwords_async(...args: any[]): any;
@@ -454,7 +454,12 @@ export class Address extends GObject.Object {
   hash_by_ip(): number;
   hash_by_name(): number;
   is_resolved(): boolean;
-  resolve_async(async_context: GLib.MainContext | null, cancellable: Gio.Cancellable | null, callback: AddressCallback, user_data: object | null): void;
+  resolve_async(
+    async_context: GLib.MainContext | null,
+    cancellable: Gio.Cancellable | null,
+    callback: AddressCallback,
+    user_data: object | null
+  ): void;
   resolve_sync(cancellable: Gio.Cancellable | null): number;
 }
 export class Auth extends GObject.Object {
@@ -510,8 +515,16 @@ export class AuthDomain extends GObject.Object {
   covers(msg: Message): boolean;
   get_realm(): string;
   remove_path(path: string): void;
-  set_filter(filter: AuthDomainFilter, filter_data: object | null, dnotify: GLib.DestroyNotify): void;
-  set_generic_auth_callback(auth_callback: AuthDomainGenericAuthCallback, auth_data: object | null, dnotify: GLib.DestroyNotify): void;
+  set_filter(
+    filter: AuthDomainFilter,
+    filter_data: object | null,
+    dnotify: GLib.DestroyNotify
+  ): void;
+  set_generic_auth_callback(
+    auth_callback: AuthDomainGenericAuthCallback,
+    auth_data: object | null,
+    dnotify: GLib.DestroyNotify
+  ): void;
   try_generic_auth_callback(msg: Message, username: string): boolean;
   accepts(...args: any[]): any;
   challenge(...args: any[]): any;
@@ -522,15 +535,27 @@ export class AuthDomainBasic extends AuthDomain {
   'auth-callback': AuthDomainBasicAuthCallback;
   'auth-data': object;
   static parent: any;
-  set_auth_callback(callback: AuthDomainBasicAuthCallback, user_data: object | null, dnotify: GLib.DestroyNotify): void;
+  set_auth_callback(
+    callback: AuthDomainBasicAuthCallback,
+    user_data: object | null,
+    dnotify: GLib.DestroyNotify
+  ): void;
 }
 export class AuthDomainDigest extends AuthDomain {
   constructor(optname1: string, ...args: any[]);
   'auth-callback': AuthDomainDigestAuthCallback;
   'auth-data': object;
   static parent: any;
-  set_auth_callback(callback: AuthDomainDigestAuthCallback, user_data: object | null, dnotify: GLib.DestroyNotify): void;
-  static encode_password(username: string, realm: string, password: string): string;
+  set_auth_callback(
+    callback: AuthDomainDigestAuthCallback,
+    user_data: object | null,
+    dnotify: GLib.DestroyNotify
+  ): void;
+  static encode_password(
+    username: string,
+    realm: string,
+    password: string
+  ): string;
 }
 export class AuthManager extends GObject.Object {
   static parent: GObject.Object;
@@ -576,7 +601,11 @@ export class CookieJar extends GObject.Object {
   'read-only': boolean;
   static parent: GObject.Object;
   add_cookie(cookie: Cookie): void;
-  add_cookie_full(cookie: Cookie, uri: URI | null, first_party: URI | null): void;
+  add_cookie_full(
+    cookie: Cookie,
+    uri: URI | null,
+    first_party: URI | null
+  ): void;
   add_cookie_with_first_party(first_party: URI, cookie: Cookie): void;
   all_cookies(): GLib.SList;
   delete_cookie(cookie: Cookie): void;
@@ -630,9 +659,21 @@ export class Logger extends GObject.Object {
   static parent: GObject.Object;
   attach(session: Session): void;
   detach(session: Session): void;
-  set_printer(printer: LoggerPrinter, printer_data: object | null, destroy: GLib.DestroyNotify): void;
-  set_request_filter(request_filter: LoggerFilter, filter_data: object | null, destroy: GLib.DestroyNotify): void;
-  set_response_filter(response_filter: LoggerFilter, filter_data: object | null, destroy: GLib.DestroyNotify): void;
+  set_printer(
+    printer: LoggerPrinter,
+    printer_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
+  set_request_filter(
+    request_filter: LoggerFilter,
+    filter_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
+  set_response_filter(
+    response_filter: LoggerFilter,
+    filter_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
 }
 export class Message extends GObject.Object {
   constructor(method: string, uri_string: string);
@@ -661,8 +702,18 @@ export class Message extends GObject.Object {
   static request_headers: MessageHeaders;
   static response_body: MessageBody;
   static response_headers: MessageHeaders;
-  add_header_handler(signal: string, header: string, callback: GObject.Callback, user_data: object | null): number;
-  add_status_code_handler(signal: string, status_code: number, callback: GObject.Callback, user_data: object | null): number;
+  add_header_handler(
+    signal: string,
+    header: string,
+    callback: GObject.Callback,
+    user_data: object | null
+  ): number;
+  add_status_code_handler(
+    signal: string,
+    status_code: number,
+    callback: GObject.Callback,
+    user_data: object | null
+  ): number;
   content_sniffed(content_type: string, params: GLib.HashTable): void;
   disable_feature(feature_type: any): void;
   finished(...args: any[]): any;
@@ -670,7 +721,10 @@ export class Message extends GObject.Object {
   get_first_party(): URI;
   get_flags(): MessageFlags;
   get_http_version(): HTTPVersion;
-  get_https_status(certificate: Gio.TlsCertificate, errors: Gio.TlsCertificateFlags): boolean;
+  get_https_status(
+    certificate: Gio.TlsCertificate,
+    errors: Gio.TlsCertificateFlags
+  ): boolean;
   get_priority(): MessagePriority;
   get_soup_request(): Request;
   get_uri(): URI;
@@ -680,14 +734,28 @@ export class Message extends GObject.Object {
   got_informational(...args: any[]): any;
   is_keepalive(): boolean;
   restarted(...args: any[]): any;
-  set_chunk_allocator(allocator: ChunkAllocator, user_data: object | null, destroy_notify: GLib.DestroyNotify): void;
+  set_chunk_allocator(
+    allocator: ChunkAllocator,
+    user_data: object | null,
+    destroy_notify: GLib.DestroyNotify
+  ): void;
   set_first_party(first_party: URI): void;
   set_flags(flags: MessageFlags): void;
   set_http_version(version: HTTPVersion): void;
   set_priority(priority: MessagePriority): void;
   set_redirect(status_code: number, redirect_uri: string): void;
-  set_request(content_type: string | null, req_use: MemoryUse, req_body: number[] | null, req_length: number): void;
-  set_response(content_type: string | null, resp_use: MemoryUse, resp_body: number[] | null, resp_length: number): void;
+  set_request(
+    content_type: string | null,
+    req_use: MemoryUse,
+    req_body: number[] | null,
+    req_length: number
+  ): void;
+  set_response(
+    content_type: string | null,
+    resp_use: MemoryUse,
+    resp_body: number[] | null,
+    resp_length: number
+  ): void;
   set_status(status_code: number): void;
   set_status_full(status_code: number, reason_phrase: string): void;
   set_uri(uri: URI): void;
@@ -716,7 +784,12 @@ export class MultipartInputStream extends Gio.FilterInputStream {
   static priv: MultipartInputStreamPrivate;
   get_headers(): MessageHeaders | null;
   next_part(cancellable: Gio.Cancellable | null): Gio.InputStream | null;
-  next_part_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, data: object | null): void;
+  next_part_async(
+    io_priority: number,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    data: object | null
+  ): void;
   next_part_finish(result: Gio.AsyncResult): Gio.InputStream | null;
 }
 export class ProxyResolverDefault extends GObject.Object {
@@ -778,12 +851,33 @@ export class Server extends GObject.Object {
   'ssl-key-file': string;
   'tls-certificate': Gio.TlsCertificate;
   static parent: GObject.Object;
-  accept_iostream(stream: Gio.IOStream, local_addr: Gio.SocketAddress | null, remote_addr: Gio.SocketAddress | null): boolean;
+  accept_iostream(
+    stream: Gio.IOStream,
+    local_addr: Gio.SocketAddress | null,
+    remote_addr: Gio.SocketAddress | null
+  ): boolean;
   add_auth_domain(auth_domain: AuthDomain): void;
-  add_early_handler(path: string | null, callback: ServerCallback, user_data: object | null, destroy: GLib.DestroyNotify): void;
-  add_handler(path: string | null, callback: ServerCallback, user_data: object | null, destroy: GLib.DestroyNotify): void;
+  add_early_handler(
+    path: string | null,
+    callback: ServerCallback,
+    user_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
+  add_handler(
+    path: string | null,
+    callback: ServerCallback,
+    user_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
   add_websocket_extension(extension_type: any): void;
-  add_websocket_handler(path: string | null, origin: string | null, protocols: string[] | null, callback: ServerWebsocketCallback, user_data: object | null, destroy: GLib.DestroyNotify): void;
+  add_websocket_handler(
+    path: string | null,
+    origin: string | null,
+    protocols: string[] | null,
+    callback: ServerWebsocketCallback,
+    user_data: object | null,
+    destroy: GLib.DestroyNotify
+  ): void;
   disconnect(): void;
   get_async_context(): GLib.MainContext | null;
   get_listener(): Socket;
@@ -840,7 +934,13 @@ export class Session extends GObject.Object {
   add_feature(feature: any): void;
   add_feature_by_type(feature_type: any): void;
   cancel_message(...args: any[]): any;
-  connect_async(uri: URI, cancellable: Gio.Cancellable | null, progress_callback: SessionConnectProgressCallback | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  connect_async(
+    uri: URI,
+    cancellable: Gio.Cancellable | null,
+    progress_callback: SessionConnectProgressCallback | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   connect_finish(result: Gio.AsyncResult): Gio.IOStream;
   get_async_context(): GLib.MainContext | null;
   get_feature(feature_type: any): any | null;
@@ -848,7 +948,12 @@ export class Session extends GObject.Object {
   get_features(feature_type: any): GLib.SList;
   has_feature(feature_type: any): boolean;
   pause_message(msg: Message): void;
-  prefetch_dns(hostname: string, cancellable: Gio.Cancellable | null, callback: AddressCallback | null, user_data: object | null): void;
+  prefetch_dns(
+    hostname: string,
+    cancellable: Gio.Cancellable | null,
+    callback: AddressCallback | null,
+    user_data: object | null
+  ): void;
   prepare_for_uri(uri: URI): void;
   queue_message(...args: any[]): any;
   redirect_message(msg: Message): boolean;
@@ -860,12 +965,24 @@ export class Session extends GObject.Object {
   request_uri(uri: URI): Request;
   requeue_message(...args: any[]): any;
   send(msg: Message, cancellable: Gio.Cancellable | null): Gio.InputStream;
-  send_async(msg: Message, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  send_async(
+    msg: Message,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   send_finish(result: Gio.AsyncResult): Gio.InputStream;
   send_message(...args: any[]): any;
   steal_connection(msg: Message): Gio.IOStream;
   unpause_message(msg: Message): void;
-  websocket_connect_async(msg: Message, origin: string | null, protocols: string[] | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null): void;
+  websocket_connect_async(
+    msg: Message,
+    origin: string | null,
+    protocols: string[] | null,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ): void;
   websocket_connect_finish(result: Gio.AsyncResult): WebsocketConnection;
   would_redirect(msg: Message): boolean;
   auth_required(msg: Message, auth: Auth, retrying: boolean): void;
@@ -907,7 +1024,11 @@ export class Socket extends GObject.Object {
   'trusted-certificate': boolean;
   'use-thread-context': boolean;
   static parent: GObject.Object;
-  connect_async(cancellable: Gio.Cancellable | null, callback: SocketCallback, user_data: object | null): void;
+  connect_async(
+    cancellable: Gio.Cancellable | null,
+    callback: SocketCallback,
+    user_data: object | null
+  ): void;
   connect_sync(cancellable: Gio.Cancellable | null): number;
   disconnect(): void;
   get_fd(): number;
@@ -916,18 +1037,45 @@ export class Socket extends GObject.Object {
   is_connected(): boolean;
   is_ssl(): boolean;
   listen(): boolean;
-  read(buffer: number[], len: number, nread: number, cancellable: Gio.Cancellable | null): SocketIOStatus;
-  read_until(buffer: number[], len: number, boundary: object | null, boundary_len: number, nread: number, got_boundary: boolean, cancellable: Gio.Cancellable | null): SocketIOStatus;
-  start_proxy_ssl(ssl_host: string, cancellable: Gio.Cancellable | null): boolean;
+  read(
+    buffer: number[],
+    len: number,
+    nread: number,
+    cancellable: Gio.Cancellable | null
+  ): SocketIOStatus;
+  read_until(
+    buffer: number[],
+    len: number,
+    boundary: object | null,
+    boundary_len: number,
+    nread: number,
+    got_boundary: boolean,
+    cancellable: Gio.Cancellable | null
+  ): SocketIOStatus;
+  start_proxy_ssl(
+    ssl_host: string,
+    cancellable: Gio.Cancellable | null
+  ): boolean;
   start_ssl(cancellable: Gio.Cancellable | null): boolean;
-  write(buffer: number[], len: number, nwrote: number, cancellable: Gio.Cancellable | null): SocketIOStatus;
+  write(
+    buffer: number[],
+    len: number,
+    nwrote: number,
+    cancellable: Gio.Cancellable | null
+  ): SocketIOStatus;
   disconnected(): void;
   new_connection(new_sock: Socket): void;
   readable(): void;
   writable(): void;
 }
 export class WebsocketConnection extends GObject.Object {
-  constructor(stream: Gio.IOStream, uri: URI, type: WebsocketConnectionType, origin: string | null, protocol: string | null);
+  constructor(
+    stream: Gio.IOStream,
+    uri: URI,
+    type: WebsocketConnectionType,
+    origin: string | null,
+    protocol: string | null
+  );
   'connection-type': WebsocketConnectionType;
   extensions: object;
   'io-stream': Gio.IOStream;
@@ -992,7 +1140,11 @@ export class AuthClass {
   static parent_class: GObject.ObjectClass;
   static scheme_name: string;
   static strength: number;
-  static update: (auth: Auth, msg: Message, auth_header: GLib.HashTable) => boolean;
+  static update: (
+    auth: Auth,
+    msg: Message,
+    auth_header: GLib.HashTable
+  ) => boolean;
   static get_protection_space: (auth: Auth, source_uri: URI) => GLib.SList;
   static authenticate: (auth: Auth, username: string, password: string) => void;
   static is_authenticated: (auth: Auth) => boolean;
@@ -1013,7 +1165,12 @@ export class AuthDomainClass {
   static parent_class: GObject.ObjectClass;
   static accepts: (domain: AuthDomain, msg: Message, header: string) => string;
   static challenge: (domain: AuthDomain, msg: Message) => string;
-  static check_password: (domain: AuthDomain, msg: Message, username: string, password: string) => boolean;
+  static check_password: (
+    domain: AuthDomain,
+    msg: Message,
+    username: string,
+    password: string
+  ) => boolean;
   static _libsoup_reserved2: () => void;
   static _libsoup_reserved3: () => void;
   static _libsoup_reserved4: () => void;
@@ -1027,7 +1184,12 @@ export class AuthDomainDigestClass {
 }
 export class AuthManagerClass {
   static parent_class: GObject.ObjectClass;
-  static authenticate: (manager: AuthManager, msg: Message, auth: Auth, retrying: boolean) => void;
+  static authenticate: (
+    manager: AuthManager,
+    msg: Message,
+    auth: Auth,
+    retrying: boolean
+  ) => void;
 }
 export class AuthManagerPrivate {}
 export class Buffer {
@@ -1072,7 +1234,12 @@ export class ContentDecoderClass {
 export class ContentDecoderPrivate {}
 export class ContentSnifferClass {
   static parent_class: GObject.ObjectClass;
-  static sniff: (sniffer: ContentSniffer, msg: Message, buffer: Buffer, params: GLib.HashTable) => string;
+  static sniff: (
+    sniffer: ContentSniffer,
+    msg: Message,
+    buffer: Buffer,
+    params: GLib.HashTable
+  ) => string;
   static get_buffer_size: (sniffer: ContentSniffer) => number;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
@@ -1082,7 +1249,13 @@ export class ContentSnifferClass {
 }
 export class ContentSnifferPrivate {}
 export class Cookie {
-  constructor(name: string, value: string, domain: string, path: string, max_age: number);
+  constructor(
+    name: string,
+    value: string,
+    domain: string,
+    path: string,
+    max_age: number
+  );
   static name: string;
   static value: string;
   static domain: string;
@@ -1118,7 +1291,11 @@ export class CookieJarClass {
   static parent_class: GObject.ObjectClass;
   static save: (jar: CookieJar) => void;
   static is_persistent: (jar: CookieJar) => boolean;
-  static changed: (jar: CookieJar, old_cookie: Cookie, new_cookie: Cookie) => void;
+  static changed: (
+    jar: CookieJar,
+    old_cookie: Cookie,
+    new_cookie: Cookie
+  ) => void;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
 }
@@ -1137,7 +1314,14 @@ export class CookieJarTextClass {
   static _libsoup_reserved4: () => void;
 }
 export class Date {
-  constructor(year: number, month: number, day: number, hour: number, minute: number, second: number);
+  constructor(
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    second: number
+  );
   static year: number;
   static month: number;
   static day: number;
@@ -1164,8 +1348,15 @@ export class Date {
 export class HSTSEnforcerClass {
   static parent_class: GObject.ObjectClass;
   static is_persistent: (hsts_enforcer: HSTSEnforcer) => boolean;
-  static has_valid_policy: (hsts_enforcer: HSTSEnforcer, domain: string) => boolean;
-  static changed: (enforcer: HSTSEnforcer, old_policy: HSTSPolicy, new_policy: HSTSPolicy) => void;
+  static has_valid_policy: (
+    hsts_enforcer: HSTSEnforcer,
+    domain: string
+  ) => boolean;
+  static changed: (
+    enforcer: HSTSEnforcer,
+    old_policy: HSTSPolicy,
+    new_policy: HSTSPolicy
+  ) => void;
   static hsts_enforced: (enforcer: HSTSEnforcer, message: Message) => void;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
@@ -1259,7 +1450,10 @@ export class MessageHeaders {
   header_equals(name: string, value: string): boolean;
   remove(name: string): void;
   replace(name: string, value: string): void;
-  set_content_disposition(disposition: string, params: GLib.HashTable | null): void;
+  set_content_disposition(
+    disposition: string,
+    params: GLib.HashTable | null
+  ): void;
   set_content_length(content_length: number): void;
   set_content_range(start: number, end: number, total_length: number): void;
   set_content_type(content_type: string, params: GLib.HashTable | null): void;
@@ -1277,7 +1471,12 @@ export class MessageQueue {}
 export class MessageQueueItem {}
 export class Multipart {
   constructor(mime_type: string);
-  append_form_file(control_name: string, filename: string, content_type: string, body: Buffer): void;
+  append_form_file(
+    control_name: string,
+    filename: string,
+    content_type: string,
+    body: Buffer
+  ): void;
   append_form_string(control_name: string, data: string): void;
   append_part(headers: MessageHeaders, body: Buffer): void;
   free(): void;
@@ -1291,21 +1490,59 @@ export class MultipartInputStreamClass {
 export class MultipartInputStreamPrivate {}
 export class PasswordManagerInterface {
   static base: GObject.TypeInterface;
-  static get_passwords_async: (password_manager: any, msg: Message, auth: Auth, retrying: boolean, async_context: GLib.MainContext, cancellable: Gio.Cancellable | null, callback: PasswordManagerCallback, user_data: object | null) => void;
-  static get_passwords_sync: (password_manager: any, msg: Message, auth: Auth, cancellable: Gio.Cancellable | null) => void;
+  static get_passwords_async: (
+    password_manager: any,
+    msg: Message,
+    auth: Auth,
+    retrying: boolean,
+    async_context: GLib.MainContext,
+    cancellable: Gio.Cancellable | null,
+    callback: PasswordManagerCallback,
+    user_data: object | null
+  ) => void;
+  static get_passwords_sync: (
+    password_manager: any,
+    msg: Message,
+    auth: Auth,
+    cancellable: Gio.Cancellable | null
+  ) => void;
 }
 export class ProxyResolverDefaultClass {
   static parent_class: GObject.ObjectClass;
 }
 export class ProxyResolverInterface {
   static base: GObject.TypeInterface;
-  static get_proxy_async: (proxy_resolver: any, msg: Message, async_context: GLib.MainContext, cancellable: Gio.Cancellable | null, callback: ProxyResolverCallback, user_data: object | null) => void;
-  static get_proxy_sync: (proxy_resolver: any, msg: Message, cancellable: Gio.Cancellable | null, addr: Address) => number;
+  static get_proxy_async: (
+    proxy_resolver: any,
+    msg: Message,
+    async_context: GLib.MainContext,
+    cancellable: Gio.Cancellable | null,
+    callback: ProxyResolverCallback,
+    user_data: object | null
+  ) => void;
+  static get_proxy_sync: (
+    proxy_resolver: any,
+    msg: Message,
+    cancellable: Gio.Cancellable | null,
+    addr: Address
+  ) => number;
 }
 export class ProxyURIResolverInterface {
   static base: GObject.TypeInterface;
-  static get_proxy_uri_async: (proxy_uri_resolver: any, uri: URI, async_context: GLib.MainContext | null, cancellable: Gio.Cancellable | null, callback: ProxyURIResolverCallback, user_data: object | null) => void;
-  static get_proxy_uri_sync: (proxy_uri_resolver: any, uri: URI, cancellable: Gio.Cancellable | null, proxy_uri: URI) => number;
+  static get_proxy_uri_async: (
+    proxy_uri_resolver: any,
+    uri: URI,
+    async_context: GLib.MainContext | null,
+    cancellable: Gio.Cancellable | null,
+    callback: ProxyURIResolverCallback,
+    user_data: object | null
+  ) => void;
+  static get_proxy_uri_sync: (
+    proxy_uri_resolver: any,
+    uri: URI,
+    cancellable: Gio.Cancellable | null,
+    proxy_uri: URI
+  ) => number;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
   static _libsoup_reserved3: () => void;
@@ -1319,9 +1556,20 @@ export class RequestClass {
   static parent: GObject.ObjectClass;
   static schemes: string;
   static check_uri: (req_base: Request, uri: URI) => boolean;
-  static send: (request: Request, cancellable: Gio.Cancellable | null) => Gio.InputStream;
-  static send_async: (request: Request, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback | null, user_data: object | null) => void;
-  static send_finish: (request: Request, result: Gio.AsyncResult) => Gio.InputStream;
+  static send: (
+    request: Request,
+    cancellable: Gio.Cancellable | null
+  ) => Gio.InputStream;
+  static send_async: (
+    request: Request,
+    cancellable: Gio.Cancellable | null,
+    callback: Gio.AsyncReadyCallback | null,
+    user_data: object | null
+  ) => void;
+  static send_finish: (
+    request: Request,
+    result: Gio.AsyncResult
+  ) => Gio.InputStream;
   static get_content_length: (request: Request) => number;
   static get_content_type: (request: Request) => string | null;
 }
@@ -1344,10 +1592,26 @@ export class RequesterClass {
 export class RequesterPrivate {}
 export class ServerClass {
   static parent_class: GObject.ObjectClass;
-  static request_started: (server: Server, msg: Message, client: ClientContext) => void;
-  static request_read: (server: Server, msg: Message, client: ClientContext) => void;
-  static request_finished: (server: Server, msg: Message, client: ClientContext) => void;
-  static request_aborted: (server: Server, msg: Message, client: ClientContext) => void;
+  static request_started: (
+    server: Server,
+    msg: Message,
+    client: ClientContext
+  ) => void;
+  static request_read: (
+    server: Server,
+    msg: Message,
+    client: ClientContext
+  ) => void;
+  static request_finished: (
+    server: Server,
+    msg: Message,
+    client: ClientContext
+  ) => void;
+  static request_aborted: (
+    server: Server,
+    msg: Message,
+    client: ClientContext
+  ) => void;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
   static _libsoup_reserved3: () => void;
@@ -1362,13 +1626,36 @@ export class SessionAsyncClass {
 }
 export class SessionClass {
   static parent_class: GObject.ObjectClass;
-  static request_started: (session: Session, msg: Message, socket: Socket) => void;
-  static authenticate: (session: Session, msg: Message, auth: Auth, retrying: boolean) => void;
-  static queue_message: (session: Session, msg: Message, callback: SessionCallback | null, user_data: object | null) => void;
+  static request_started: (
+    session: Session,
+    msg: Message,
+    socket: Socket
+  ) => void;
+  static authenticate: (
+    session: Session,
+    msg: Message,
+    auth: Auth,
+    retrying: boolean
+  ) => void;
+  static queue_message: (
+    session: Session,
+    msg: Message,
+    callback: SessionCallback | null,
+    user_data: object | null
+  ) => void;
   static requeue_message: (session: Session, msg: Message) => void;
   static send_message: (session: Session, msg: Message) => number;
-  static cancel_message: (session: Session, msg: Message, status_code: number) => void;
-  static auth_required: (session: Session, msg: Message, auth: Auth, retrying: boolean) => void;
+  static cancel_message: (
+    session: Session,
+    msg: Message,
+    status_code: number
+  ) => void;
+  static auth_required: (
+    session: Session,
+    msg: Message,
+    auth: Auth,
+    retrying: boolean
+  ) => void;
   static flush_queue: (session: Session) => void;
   static kick: (session: Session) => void;
   static _libsoup_reserved4: () => void;
@@ -1378,8 +1665,17 @@ export class SessionFeatureInterface {
   static attach: (feature: any, session: Session) => void;
   static detach: (feature: any, session: Session) => void;
   static request_queued: (feature: any, session: Session, msg: Message) => void;
-  static request_started: (feature: any, session: Session, msg: Message, socket: Socket) => void;
-  static request_unqueued: (feature: any, session: Session, msg: Message) => void;
+  static request_started: (
+    feature: any,
+    session: Session,
+    msg: Message,
+    socket: Socket
+  ) => void;
+  static request_unqueued: (
+    feature: any,
+    session: Session,
+    msg: Message
+  ) => void;
   static add_feature: (feature: any, type: any) => boolean;
   static remove_feature: (feature: any, type: any) => boolean;
   static has_feature: (feature: any, type: any) => boolean;
@@ -1444,7 +1740,11 @@ export class URI {
 }
 export class WebsocketConnectionClass {
   static parent: GObject.ObjectClass;
-  static message: (self: WebsocketConnection, type: WebsocketDataType, message: GLib.Bytes) => void;
+  static message: (
+    self: WebsocketConnection,
+    type: WebsocketDataType,
+    message: GLib.Bytes
+  ) => void;
   static error: (self: WebsocketConnection, error: GLib.Error) => void;
   static closing: (self: WebsocketConnection) => void;
   static closed: (self: WebsocketConnection) => void;
@@ -1454,11 +1754,23 @@ export class WebsocketConnectionPrivate {}
 export class WebsocketExtensionClass {
   static parent_class: GObject.ObjectClass;
   static name: string;
-  static configure: (extension: WebsocketExtension, connection_type: WebsocketConnectionType, params: GLib.HashTable | null) => boolean;
+  static configure: (
+    extension: WebsocketExtension,
+    connection_type: WebsocketConnectionType,
+    params: GLib.HashTable | null
+  ) => boolean;
   static get_request_params: (extension: WebsocketExtension) => string | null;
   static get_response_params: (extension: WebsocketExtension) => string | null;
-  static process_outgoing_message: (extension: WebsocketExtension, header: number, payload: GLib.Bytes) => GLib.Bytes;
-  static process_incoming_message: (extension: WebsocketExtension, header: number, payload: GLib.Bytes) => GLib.Bytes;
+  static process_outgoing_message: (
+    extension: WebsocketExtension,
+    header: number,
+    payload: GLib.Bytes
+  ) => GLib.Bytes;
+  static process_incoming_message: (
+    extension: WebsocketExtension,
+    header: number,
+    payload: GLib.Bytes
+  ) => GLib.Bytes;
   static _libsoup_reserved1: () => void;
   static _libsoup_reserved2: () => void;
   static _libsoup_reserved3: () => void;
@@ -1474,11 +1786,34 @@ export class XMLRPCParams {
   free(): void;
   parse(signature: string | null): GLib.Variant;
 }
-export function add_completion(async_context: GLib.MainContext | null, _function: GLib.SourceFunc, data: object | null): GLib.Source;
-export function add_idle(async_context: GLib.MainContext | null, _function: GLib.SourceFunc, data: object | null): GLib.Source;
-export function add_io_watch(async_context: GLib.MainContext | null, chan: GLib.IOChannel, condition: GLib.IOCondition, _function: GLib.IOFunc, data: object | null): GLib.Source;
-export function add_timeout(async_context: GLib.MainContext | null, interval: number, _function: GLib.SourceFunc, data: object | null): GLib.Source;
-export function check_version(major: number, minor: number, micro: number): boolean;
+export function add_completion(
+  async_context: GLib.MainContext | null,
+  _function: GLib.SourceFunc,
+  data: object | null
+): GLib.Source;
+export function add_idle(
+  async_context: GLib.MainContext | null,
+  _function: GLib.SourceFunc,
+  data: object | null
+): GLib.Source;
+export function add_io_watch(
+  async_context: GLib.MainContext | null,
+  chan: GLib.IOChannel,
+  condition: GLib.IOCondition,
+  _function: GLib.IOFunc,
+  data: object | null
+): GLib.Source;
+export function add_timeout(
+  async_context: GLib.MainContext | null,
+  interval: number,
+  _function: GLib.SourceFunc,
+  data: object | null
+): GLib.Source;
+export function check_version(
+  major: number,
+  minor: number,
+  micro: number
+): boolean;
 export function cookie_parse(header: string, origin: URI): Cookie | null;
 export function cookies_free(cookies: GLib.SList): void;
 export function cookies_from_request(msg: Message): GLib.SList;
@@ -1487,35 +1822,98 @@ export function cookies_to_cookie_header(cookies: GLib.SList): string;
 export function cookies_to_request(cookies: GLib.SList, msg: Message): void;
 export function cookies_to_response(cookies: GLib.SList, msg: Message): void;
 export function form_decode(encoded_form: string): GLib.HashTable;
-export function form_decode_multipart(msg: Message, file_control_name: string | null, filename: string, content_type: string, file: Buffer): GLib.HashTable | null;
+export function form_decode_multipart(
+  msg: Message,
+  file_control_name: string | null,
+  filename: string,
+  content_type: string,
+  file: Buffer
+): GLib.HashTable | null;
 export function form_encode(first_field: string, ...args: any[]): string;
 export function form_encode_datalist(form_data_set: GLib.Data): string;
 export function form_encode_hash(form_data_set: GLib.HashTable): string;
 export function form_encode_valist(first_field: string, args: any): string;
-export function form_request_new(method: string, uri: string, first_field: string, ...args: any[]): Message;
-export function form_request_new_from_datalist(method: string, uri: string, form_data_set: GLib.Data): Message;
-export function form_request_new_from_hash(method: string, uri: string, form_data_set: GLib.HashTable): Message;
-export function form_request_new_from_multipart(uri: string, multipart: Multipart): Message;
+export function form_request_new(
+  method: string,
+  uri: string,
+  first_field: string,
+  ...args: any[]
+): Message;
+export function form_request_new_from_datalist(
+  method: string,
+  uri: string,
+  form_data_set: GLib.Data
+): Message;
+export function form_request_new_from_hash(
+  method: string,
+  uri: string,
+  form_data_set: GLib.HashTable
+): Message;
+export function form_request_new_from_multipart(
+  uri: string,
+  multipart: Multipart
+): Message;
 export function get_major_version(): number;
 export function get_micro_version(): number;
 export function get_minor_version(): number;
 export function header_contains(header: string, token: string): boolean;
 export function header_free_list(list: GLib.SList): void;
 export function header_free_param_list(param_list: GLib.HashTable): void;
-export function header_g_string_append_param(string: GLib.String, name: string, value: string): void;
-export function header_g_string_append_param_quoted(string: GLib.String, name: string, value: string): void;
+export function header_g_string_append_param(
+  string: GLib.String,
+  name: string,
+  value: string
+): void;
+export function header_g_string_append_param_quoted(
+  string: GLib.String,
+  name: string,
+  value: string
+): void;
 export function header_parse_list(header: string): GLib.SList;
 export function header_parse_param_list(header: string): GLib.HashTable;
-export function header_parse_param_list_strict(header: string): GLib.HashTable | null;
-export function header_parse_quality_list(header: string, unacceptable: GLib.SList): GLib.SList;
+export function header_parse_param_list_strict(
+  header: string
+): GLib.HashTable | null;
+export function header_parse_quality_list(
+  header: string,
+  unacceptable: GLib.SList
+): GLib.SList;
 export function header_parse_semi_param_list(header: string): GLib.HashTable;
-export function header_parse_semi_param_list_strict(header: string): GLib.HashTable | null;
-export function headers_parse(str: string, len: number, dest: MessageHeaders): boolean;
-export function headers_parse_request(str: string, len: number, req_headers: MessageHeaders, req_method: string, req_path: string, ver: HTTPVersion): number;
-export function headers_parse_response(str: string, len: number, headers: MessageHeaders, ver: HTTPVersion, status_code: number, reason_phrase: string): boolean;
-export function headers_parse_status_line(status_line: string, ver: HTTPVersion, status_code: number, reason_phrase: string): boolean;
+export function header_parse_semi_param_list_strict(
+  header: string
+): GLib.HashTable | null;
+export function headers_parse(
+  str: string,
+  len: number,
+  dest: MessageHeaders
+): boolean;
+export function headers_parse_request(
+  str: string,
+  len: number,
+  req_headers: MessageHeaders,
+  req_method: string,
+  req_path: string,
+  ver: HTTPVersion
+): number;
+export function headers_parse_response(
+  str: string,
+  len: number,
+  headers: MessageHeaders,
+  ver: HTTPVersion,
+  status_code: number,
+  reason_phrase: string
+): boolean;
+export function headers_parse_status_line(
+  status_line: string,
+  ver: HTTPVersion,
+  status_code: number,
+  reason_phrase: string
+): boolean;
 export function http_error_quark(): GLib.Quark;
-export function message_headers_iter_init(iter: MessageHeadersIter, hdrs: MessageHeaders): void;
+export function message_headers_iter_init(
+  iter: MessageHeadersIter,
+  hdrs: MessageHeaders
+): void;
 export function request_error_quark(): GLib.Quark;
 export function requester_error_quark(): GLib.Quark;
 export function status_get_phrase(status_code: number): string;
@@ -1527,66 +1925,301 @@ export function tld_error_quark(): GLib.Quark;
 export function tld_get_base_domain(hostname: string): string;
 export function uri_decode(part: string): string;
 export function uri_encode(part: string, escape_extra: string | null): string;
-export function uri_normalize(part: string, unescape_extra: string | null): string;
-export function value_array_append(array: GObject.ValueArray, type: any, ...args: any[]): void;
-export function value_array_append_vals(array: GObject.ValueArray, first_type: any, ...args: any[]): void;
+export function uri_normalize(
+  part: string,
+  unescape_extra: string | null
+): string;
+export function value_array_append(
+  array: GObject.ValueArray,
+  type: any,
+  ...args: any[]
+): void;
+export function value_array_append_vals(
+  array: GObject.ValueArray,
+  first_type: any,
+  ...args: any[]
+): void;
 export function value_array_from_args(args: any): GObject.ValueArray | null;
-export function value_array_get_nth(array: GObject.ValueArray, index_: number, type: any, ...args: any[]): boolean;
-export function value_array_insert(array: GObject.ValueArray, index_: number, type: any, ...args: any[]): void;
+export function value_array_get_nth(
+  array: GObject.ValueArray,
+  index_: number,
+  type: any,
+  ...args: any[]
+): boolean;
+export function value_array_insert(
+  array: GObject.ValueArray,
+  index_: number,
+  type: any,
+  ...args: any[]
+): void;
 export function value_array_new(): GObject.ValueArray;
-export function value_array_new_with_vals(first_type: any, ...args: any[]): GObject.ValueArray;
-export function value_array_to_args(array: GObject.ValueArray, args: any): boolean;
-export function value_hash_insert(hash: GLib.HashTable, key: string, type: any, ...args: any[]): void;
-export function value_hash_insert_vals(hash: GLib.HashTable, first_key: string, ...args: any[]): void;
-export function value_hash_insert_value(hash: GLib.HashTable, key: string, value: GObject.Value): void;
-export function value_hash_lookup(hash: GLib.HashTable, key: string, type: any, ...args: any[]): boolean;
-export function value_hash_lookup_vals(hash: GLib.HashTable, first_key: string, ...args: any[]): boolean;
+export function value_array_new_with_vals(
+  first_type: any,
+  ...args: any[]
+): GObject.ValueArray;
+export function value_array_to_args(
+  array: GObject.ValueArray,
+  args: any
+): boolean;
+export function value_hash_insert(
+  hash: GLib.HashTable,
+  key: string,
+  type: any,
+  ...args: any[]
+): void;
+export function value_hash_insert_vals(
+  hash: GLib.HashTable,
+  first_key: string,
+  ...args: any[]
+): void;
+export function value_hash_insert_value(
+  hash: GLib.HashTable,
+  key: string,
+  value: GObject.Value
+): void;
+export function value_hash_lookup(
+  hash: GLib.HashTable,
+  key: string,
+  type: any,
+  ...args: any[]
+): boolean;
+export function value_hash_lookup_vals(
+  hash: GLib.HashTable,
+  first_key: string,
+  ...args: any[]
+): boolean;
 export function value_hash_new(): GLib.HashTable;
-export function value_hash_new_with_vals(first_key: string, ...args: any[]): GLib.HashTable;
-export function websocket_client_prepare_handshake(msg: Message, origin: string | null, protocols: string[] | null): void;
-export function websocket_client_prepare_handshake_with_extensions(msg: Message, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): void;
+export function value_hash_new_with_vals(
+  first_key: string,
+  ...args: any[]
+): GLib.HashTable;
+export function websocket_client_prepare_handshake(
+  msg: Message,
+  origin: string | null,
+  protocols: string[] | null
+): void;
+export function websocket_client_prepare_handshake_with_extensions(
+  msg: Message,
+  origin: string | null,
+  protocols: string[] | null,
+  supported_extensions: GObject.TypeClass[] | null
+): void;
 export function websocket_client_verify_handshake(msg: Message): boolean;
-export function websocket_client_verify_handshake_with_extensions(msg: Message, supported_extensions: GObject.TypeClass[] | null, accepted_extensions: GLib.List): boolean;
+export function websocket_client_verify_handshake_with_extensions(
+  msg: Message,
+  supported_extensions: GObject.TypeClass[] | null,
+  accepted_extensions: GLib.List
+): boolean;
 export function websocket_error_get_quark(): GLib.Quark;
-export function websocket_server_check_handshake(msg: Message, origin: string | null, protocols: string[] | null): boolean;
-export function websocket_server_check_handshake_with_extensions(msg: Message, origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null): boolean;
-export function websocket_server_process_handshake(msg: Message, expected_origin: string | null, protocols: string[] | null): boolean;
-export function websocket_server_process_handshake_with_extensions(msg: Message, expected_origin: string | null, protocols: string[] | null, supported_extensions: GObject.TypeClass[] | null, accepted_extensions: GLib.List): boolean;
-export function xmlrpc_build_fault(fault_code: number, fault_format: string, ...args: any[]): string;
-export function xmlrpc_build_method_call(method_name: string, params: GObject.Value[], n_params: number): string | null;
-export function xmlrpc_build_method_response(value: GObject.Value): string | null;
-export function xmlrpc_build_request(method_name: string, params: GLib.Variant): string;
+export function websocket_server_check_handshake(
+  msg: Message,
+  origin: string | null,
+  protocols: string[] | null
+): boolean;
+export function websocket_server_check_handshake_with_extensions(
+  msg: Message,
+  origin: string | null,
+  protocols: string[] | null,
+  supported_extensions: GObject.TypeClass[] | null
+): boolean;
+export function websocket_server_process_handshake(
+  msg: Message,
+  expected_origin: string | null,
+  protocols: string[] | null
+): boolean;
+export function websocket_server_process_handshake_with_extensions(
+  msg: Message,
+  expected_origin: string | null,
+  protocols: string[] | null,
+  supported_extensions: GObject.TypeClass[] | null,
+  accepted_extensions: GLib.List
+): boolean;
+export function xmlrpc_build_fault(
+  fault_code: number,
+  fault_format: string,
+  ...args: any[]
+): string;
+export function xmlrpc_build_method_call(
+  method_name: string,
+  params: GObject.Value[],
+  n_params: number
+): string | null;
+export function xmlrpc_build_method_response(
+  value: GObject.Value
+): string | null;
+export function xmlrpc_build_request(
+  method_name: string,
+  params: GLib.Variant
+): string;
 export function xmlrpc_build_response(value: GLib.Variant): string;
 export function xmlrpc_error_quark(): GLib.Quark;
-export function xmlrpc_extract_method_call(method_call: string, length: number, method_name: string, ...args: any[]): boolean;
-export function xmlrpc_extract_method_response(method_response: string, length: number, error: GLib.Error, type: any, ...args: any[]): boolean;
+export function xmlrpc_extract_method_call(
+  method_call: string,
+  length: number,
+  method_name: string,
+  ...args: any[]
+): boolean;
+export function xmlrpc_extract_method_response(
+  method_response: string,
+  length: number,
+  error: GLib.Error,
+  type: any,
+  ...args: any[]
+): boolean;
 export function xmlrpc_fault_quark(): GLib.Quark;
-export function xmlrpc_message_new(uri: string, method_name: string, params: GLib.Variant): Message;
-export function xmlrpc_message_set_fault(msg: Message, fault_code: number, fault_format: string, ...args: any[]): void;
-export function xmlrpc_message_set_response(msg: Message, value: GLib.Variant): boolean;
-export function xmlrpc_parse_method_call(method_call: string, length: number, method_name: string, params: GObject.ValueArray): boolean;
-export function xmlrpc_parse_method_response(method_response: string, length: number, value: GObject.Value): boolean;
-export function xmlrpc_parse_request(method_call: string, length: number, params: XMLRPCParams): string;
-export function xmlrpc_parse_response(method_response: string, length: number, signature: string | null): GLib.Variant;
-export function xmlrpc_request_new(uri: string, method_name: string, ...args: any[]): Message;
-export function xmlrpc_set_fault(msg: Message, fault_code: number, fault_format: string, ...args: any[]): void;
-export function xmlrpc_set_response(msg: Message, type: any, ...args: any[]): void;
+export function xmlrpc_message_new(
+  uri: string,
+  method_name: string,
+  params: GLib.Variant
+): Message;
+export function xmlrpc_message_set_fault(
+  msg: Message,
+  fault_code: number,
+  fault_format: string,
+  ...args: any[]
+): void;
+export function xmlrpc_message_set_response(
+  msg: Message,
+  value: GLib.Variant
+): boolean;
+export function xmlrpc_parse_method_call(
+  method_call: string,
+  length: number,
+  method_name: string,
+  params: GObject.ValueArray
+): boolean;
+export function xmlrpc_parse_method_response(
+  method_response: string,
+  length: number,
+  value: GObject.Value
+): boolean;
+export function xmlrpc_parse_request(
+  method_call: string,
+  length: number,
+  params: XMLRPCParams
+): string;
+export function xmlrpc_parse_response(
+  method_response: string,
+  length: number,
+  signature: string | null
+): GLib.Variant;
+export function xmlrpc_request_new(
+  uri: string,
+  method_name: string,
+  ...args: any[]
+): Message;
+export function xmlrpc_set_fault(
+  msg: Message,
+  fault_code: number,
+  fault_format: string,
+  ...args: any[]
+): void;
+export function xmlrpc_set_response(
+  msg: Message,
+  type: any,
+  ...args: any[]
+): void;
 export function xmlrpc_variant_get_datetime(variant: GLib.Variant): Date;
 export function xmlrpc_variant_new_datetime(date: Date): GLib.Variant;
-export type AddressCallback = (addr: Address, status: number, user_data: object | null) => void;
-export type AuthDomainBasicAuthCallback = (domain: AuthDomainBasic, msg: Message, username: string, password: string, user_data: object | null) => boolean;
-export type AuthDomainDigestAuthCallback = (domain: AuthDomainDigest, msg: Message, username: string, user_data: object | null) => string | null;
-export type AuthDomainFilter = (domain: AuthDomain, msg: Message, user_data: object | null) => boolean;
-export type AuthDomainGenericAuthCallback = (domain: AuthDomain, msg: Message, username: string, user_data: object | null) => boolean;
-export type ChunkAllocator = (msg: Message, max_len: number, user_data: object | null) => Buffer | null;
-export type LoggerFilter = (logger: Logger, msg: Message, user_data: object | null) => LoggerLogLevel;
-export type LoggerPrinter = (logger: Logger, level: LoggerLogLevel, direction: number, data: string, user_data: object | null) => void;
-export type MessageHeadersForeachFunc = (name: string, value: string, user_data: object | null) => void;
-export type PasswordManagerCallback = (password_manager: any, msg: Message, auth: Auth, retrying: boolean, user_data: object | null) => void;
-export type ProxyResolverCallback = (proxy_resolver: any, msg: Message, arg: number, addr: Address, user_data: object | null) => void;
-export type ProxyURIResolverCallback = (resolver: any, status: number, proxy_uri: URI, user_data: object | null) => void;
-export type ServerCallback = (server: Server, msg: Message, path: string, query: GLib.HashTable | null, client: ClientContext, user_data: object | null) => void;
-export type ServerWebsocketCallback = (server: Server, connection: WebsocketConnection, path: string, client: ClientContext, user_data: object | null) => void;
-export type SessionCallback = (session: Session, msg: Message, user_data: object | null) => void;
-export type SessionConnectProgressCallback = (session: Session, event: Gio.SocketClientEvent, connection: Gio.IOStream, user_data: object | null) => void;
-export type SocketCallback = (sock: Socket, status: number, user_data: object | null) => void;
+export type AddressCallback = (
+  addr: Address,
+  status: number,
+  user_data: object | null
+) => void;
+export type AuthDomainBasicAuthCallback = (
+  domain: AuthDomainBasic,
+  msg: Message,
+  username: string,
+  password: string,
+  user_data: object | null
+) => boolean;
+export type AuthDomainDigestAuthCallback = (
+  domain: AuthDomainDigest,
+  msg: Message,
+  username: string,
+  user_data: object | null
+) => string | null;
+export type AuthDomainFilter = (
+  domain: AuthDomain,
+  msg: Message,
+  user_data: object | null
+) => boolean;
+export type AuthDomainGenericAuthCallback = (
+  domain: AuthDomain,
+  msg: Message,
+  username: string,
+  user_data: object | null
+) => boolean;
+export type ChunkAllocator = (
+  msg: Message,
+  max_len: number,
+  user_data: object | null
+) => Buffer | null;
+export type LoggerFilter = (
+  logger: Logger,
+  msg: Message,
+  user_data: object | null
+) => LoggerLogLevel;
+export type LoggerPrinter = (
+  logger: Logger,
+  level: LoggerLogLevel,
+  direction: number,
+  data: string,
+  user_data: object | null
+) => void;
+export type MessageHeadersForeachFunc = (
+  name: string,
+  value: string,
+  user_data: object | null
+) => void;
+export type PasswordManagerCallback = (
+  password_manager: any,
+  msg: Message,
+  auth: Auth,
+  retrying: boolean,
+  user_data: object | null
+) => void;
+export type ProxyResolverCallback = (
+  proxy_resolver: any,
+  msg: Message,
+  arg: number,
+  addr: Address,
+  user_data: object | null
+) => void;
+export type ProxyURIResolverCallback = (
+  resolver: any,
+  status: number,
+  proxy_uri: URI,
+  user_data: object | null
+) => void;
+export type ServerCallback = (
+  server: Server,
+  msg: Message,
+  path: string,
+  query: GLib.HashTable | null,
+  client: ClientContext,
+  user_data: object | null
+) => void;
+export type ServerWebsocketCallback = (
+  server: Server,
+  connection: WebsocketConnection,
+  path: string,
+  client: ClientContext,
+  user_data: object | null
+) => void;
+export type SessionCallback = (
+  session: Session,
+  msg: Message,
+  user_data: object | null
+) => void;
+export type SessionConnectProgressCallback = (
+  session: Session,
+  event: Gio.SocketClientEvent,
+  connection: Gio.IOStream,
+  user_data: object | null
+) => void;
+export type SocketCallback = (
+  sock: Socket,
+  status: number,
+  user_data: object | null
+) => void;

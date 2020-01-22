@@ -51,7 +51,7 @@ export enum CollectionMatchType {
   ATSPI_Collection_MATCH_ANY,
   ATSPI_Collection_MATCH_NONE,
   ATSPI_Collection_MATCH_EMPTY,
-  ATSPI_Collection_MATCH_LAST_DEFINED,
+  ATSPI_Collection_MATCH_LAST_DEFINED
 }
 export enum CollectionSortOrder {
   ATSPI_Collection_SORT_ORDER_INVALID,
@@ -61,13 +61,13 @@ export enum CollectionSortOrder {
   ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL,
   ATSPI_Collection_SORT_ORDER_REVERSE_FLOW,
   ATSPI_Collection_SORT_ORDER_REVERSE_TAB,
-  ATSPI_Collection_SORT_ORDER_LAST_DEFINED,
+  ATSPI_Collection_SORT_ORDER_LAST_DEFINED
 }
 export enum CollectionTreeTraversalType {
   ATSPI_Collection_TREE_RESTRICT_CHILDREN,
   ATSPI_Collection_TREE_RESTRICT_SIBLING,
   ATSPI_Collection_TREE_INORDER,
-  ATSPI_Collection_TREE_LAST_DEFINED,
+  ATSPI_Collection_TREE_LAST_DEFINED
 }
 export enum ComponentLayer {
   ATSPI_LAYER_INVALID,
@@ -78,22 +78,22 @@ export enum ComponentLayer {
   ATSPI_LAYER_POPUP,
   ATSPI_LAYER_OVERLAY,
   ATSPI_LAYER_WINDOW,
-  ATSPI_LAYER_LAST_DEFINED,
+  ATSPI_LAYER_LAST_DEFINED
 }
 export enum CoordType {
   ATSPI_COORD_TYPE_SCREEN,
   ATSPI_COORD_TYPE_WINDOW,
-  ATSPI_COORD_TYPE_PARENT,
+  ATSPI_COORD_TYPE_PARENT
 }
 export enum EventType {
   ATSPI_KEY_PRESSED_EVENT,
   ATSPI_KEY_RELEASED_EVENT,
   ATSPI_BUTTON_PRESSED_EVENT,
-  ATSPI_BUTTON_RELEASED_EVENT,
+  ATSPI_BUTTON_RELEASED_EVENT
 }
 export enum KeyEventType {
   ATSPI_KEY_PRESSED,
-  ATSPI_KEY_RELEASED,
+  ATSPI_KEY_RELEASED
 }
 export enum KeySynthType {
   ATSPI_KEY_PRESS,
@@ -102,7 +102,7 @@ export enum KeySynthType {
   ATSPI_KEY_SYM,
   ATSPI_KEY_STRING,
   ATSPI_KEY_LOCKMODIFIERS,
-  ATSPI_KEY_UNLOCKMODIFIERS,
+  ATSPI_KEY_UNLOCKMODIFIERS
 }
 export enum LocaleType {
   ATSPI_LOCALE_TYPE_MESSAGES,
@@ -110,7 +110,7 @@ export enum LocaleType {
   ATSPI_LOCALE_TYPE_CTYPE,
   ATSPI_LOCALE_TYPE_MONETARY,
   ATSPI_LOCALE_TYPE_NUMERIC,
-  ATSPI_LOCALE_TYPE_TIME,
+  ATSPI_LOCALE_TYPE_TIME
 }
 export enum ModifierType {
   ATSPI_MODIFIER_SHIFT,
@@ -120,7 +120,7 @@ export enum ModifierType {
   ATSPI_MODIFIER_META,
   ATSPI_MODIFIER_META2,
   ATSPI_MODIFIER_META3,
-  ATSPI_MODIFIER_NUMLOCK,
+  ATSPI_MODIFIER_NUMLOCK
 }
 export enum RelationType {
   ATSPI_RELATION_NULL,
@@ -146,7 +146,7 @@ export enum RelationType {
   ATSPI_RELATION_DETAILS_FOR,
   ATSPI_RELATION_ERROR_MESSAGE,
   ATSPI_RELATION_ERROR_FOR,
-  ATSPI_RELATION_LAST_DEFINED,
+  ATSPI_RELATION_LAST_DEFINED
 }
 export enum Role {
   ATSPI_ROLE_INVALID,
@@ -276,7 +276,7 @@ export enum Role {
   ATSPI_ROLE_FOOTNOTE,
   ATSPI_ROLE_CONTENT_DELETION,
   ATSPI_ROLE_CONTENT_INSERTION,
-  ATSPI_ROLE_LAST_DEFINED,
+  ATSPI_ROLE_LAST_DEFINED
 }
 export enum ScrollType {
   ATSPI_SCROLL_TOP_LEFT,
@@ -285,7 +285,7 @@ export enum ScrollType {
   ATSPI_SCROLL_BOTTOM_EDGE,
   ATSPI_SCROLL_LEFT_EDGE,
   ATSPI_SCROLL_RIGHT_EDGE,
-  ATSPI_SCROLL_ANYWHERE,
+  ATSPI_SCROLL_ANYWHERE
 }
 export enum StateType {
   ATSPI_STATE_INVALID,
@@ -332,7 +332,7 @@ export enum StateType {
   ATSPI_STATE_CHECKABLE,
   ATSPI_STATE_HAS_POPUP,
   ATSPI_STATE_READ_ONLY,
-  ATSPI_STATE_LAST_DEFINED,
+  ATSPI_STATE_LAST_DEFINED
 }
 export enum TextBoundaryType {
   ATSPI_TEXT_BOUNDARY_CHAR,
@@ -341,20 +341,20 @@ export enum TextBoundaryType {
   ATSPI_TEXT_BOUNDARY_SENTENCE_START,
   ATSPI_TEXT_BOUNDARY_SENTENCE_END,
   ATSPI_TEXT_BOUNDARY_LINE_START,
-  ATSPI_TEXT_BOUNDARY_LINE_END,
+  ATSPI_TEXT_BOUNDARY_LINE_END
 }
 export enum TextClipType {
   ATSPI_TEXT_CLIP_NONE,
   ATSPI_TEXT_CLIP_MIN,
   ATSPI_TEXT_CLIP_MAX,
-  ATSPI_TEXT_CLIP_BOTH,
+  ATSPI_TEXT_CLIP_BOTH
 }
 export enum TextGranularity {
   ATSPI_TEXT_GRANULARITY_CHAR,
   ATSPI_TEXT_GRANULARITY_WORD,
   ATSPI_TEXT_GRANULARITY_SENTENCE,
   ATSPI_TEXT_GRANULARITY_LINE,
-  ATSPI_TEXT_GRANULARITY_PARAGRAPH,
+  ATSPI_TEXT_GRANULARITY_PARAGRAPH
 }
 export enum Cache {
   ATSPI_CACHE_NONE,
@@ -368,13 +368,13 @@ export enum Cache {
   ATSPI_CACHE_ATTRIBUTES,
   ATSPI_CACHE_ALL,
   ATSPI_CACHE_DEFAULT,
-  ATSPI_CACHE_UNDEFINED,
+  ATSPI_CACHE_UNDEFINED
 }
 export enum KeyListenerSyncType {
   ATSPI_KEYLISTENER_NOSYNC,
   ATSPI_KEYLISTENER_SYNCHRONOUS,
   ATSPI_KEYLISTENER_CANCONSUME,
-  ATSPI_KEYLISTENER_ALL_WINDOWS,
+  ATSPI_KEYLISTENER_ALL_WINDOWS
 }
 export type ControllerEventMask = number;
 export type DeviceEventMask = number;
@@ -393,14 +393,38 @@ export interface Action {
 }
 export interface Collection {
   get_active_descendant(): Accessible;
-  get_matches(rule: MatchRule, sortby: CollectionSortOrder, count: number, traverse: boolean): Accessible[];
-  get_matches_from(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, count: number, traverse: boolean): Accessible[];
-  get_matches_to(current_object: Accessible, rule: MatchRule, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: boolean, count: number, traverse: boolean): Accessible[];
+  get_matches(
+    rule: MatchRule,
+    sortby: CollectionSortOrder,
+    count: number,
+    traverse: boolean
+  ): Accessible[];
+  get_matches_from(
+    current_object: Accessible,
+    rule: MatchRule,
+    sortby: CollectionSortOrder,
+    tree: CollectionTreeTraversalType,
+    count: number,
+    traverse: boolean
+  ): Accessible[];
+  get_matches_to(
+    current_object: Accessible,
+    rule: MatchRule,
+    sortby: CollectionSortOrder,
+    tree: CollectionTreeTraversalType,
+    limit_scope: boolean,
+    count: number,
+    traverse: boolean
+  ): Accessible[];
   is_ancestor_of(test: Accessible): boolean;
 }
 export interface Component {
   contains(x: number, y: number, ctype: CoordType): boolean;
-  get_accessible_at_point(x: number, y: number, ctype: CoordType): Accessible | null;
+  get_accessible_at_point(
+    x: number,
+    y: number,
+    ctype: CoordType
+  ): Accessible | null;
   get_alpha(): number;
   get_extents(ctype: CoordType): Rect;
   get_layer(): ComponentLayer;
@@ -410,7 +434,13 @@ export interface Component {
   grab_focus(): boolean;
   scroll_to(type: ScrollType): boolean;
   scroll_to_point(coords: CoordType, x: number, y: number): boolean;
-  set_extents(x: number, y: number, width: number, height: number, ctype: CoordType): boolean;
+  set_extents(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    ctype: CoordType
+  ): boolean;
   set_position(x: number, y: number, ctype: CoordType): boolean;
   set_size(width: number, height: number): boolean;
 }
@@ -468,7 +498,14 @@ export interface Table {
   get_n_selected_columns(): number;
   get_n_selected_rows(): number;
   get_row_at_index(index: number): number;
-  get_row_column_extents_at_index(index: number, row: number, col: number, row_extents: number, col_extents: number, is_selected: boolean): boolean;
+  get_row_column_extents_at_index(
+    index: number,
+    row: number,
+    col: number,
+    row_extents: number,
+    col_extents: number,
+    is_selected: boolean
+  ): boolean;
   get_row_description(row: number): string;
   get_row_extent_at(row: number, column: number): number;
   get_row_header(row: number): Accessible;
@@ -486,17 +523,39 @@ export interface TableCell {
   get_column_index(): number;
   get_column_span(): number;
   get_position(row: number, column: number): number;
-  get_row_column_span(row: number, column: number, row_span: number, column_span: number): void;
+  get_row_column_span(
+    row: number,
+    column: number,
+    row_span: number,
+    column_span: number
+  ): void;
   get_row_header_cells(): Accessible[];
   get_row_span(): number;
   get_table(): Accessible;
 }
 export interface Text {
   add_selection(start_offset: number, end_offset: number): boolean;
-  get_attribute_run(offset: number, include_defaults: boolean, start_offset: number, end_offset: number): GLib.HashTable;
+  get_attribute_run(
+    offset: number,
+    include_defaults: boolean,
+    start_offset: number,
+    end_offset: number
+  ): GLib.HashTable;
   get_attribute_value(offset: number, attribute_name: string): string | null;
-  get_attributes(offset: number, start_offset: number, end_offset: number): GLib.HashTable;
-  get_bounded_ranges(x: number, y: number, width: number, height: number, type: CoordType, clipTypeX: TextClipType, clipTypeY: TextClipType): TextRange[];
+  get_attributes(
+    offset: number,
+    start_offset: number,
+    end_offset: number
+  ): GLib.HashTable;
+  get_bounded_ranges(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    type: CoordType,
+    clipTypeX: TextClipType,
+    clipTypeY: TextClipType
+  ): TextRange[];
   get_caret_offset(): number;
   get_character_at_offset(offset: number): number;
   get_character_count(): number;
@@ -504,20 +563,45 @@ export interface Text {
   get_default_attributes(): GLib.HashTable;
   get_n_selections(): number;
   get_offset_at_point(x: number, y: number, type: CoordType): number;
-  get_range_extents(start_offset: number, end_offset: number, type: CoordType): Rect;
+  get_range_extents(
+    start_offset: number,
+    end_offset: number,
+    type: CoordType
+  ): Rect;
   get_selection(selection_num: number): Range;
   get_string_at_offset(offset: number, granularity: TextGranularity): TextRange;
   get_text(start_offset: number, end_offset: number): string;
   get_text_after_offset(offset: number, type: TextBoundaryType): TextRange;
   get_text_at_offset(offset: number, type: TextBoundaryType): TextRange;
-  get_text_attribute_value(offset: number, attribute_name: string): string | null;
-  get_text_attributes(offset: number, start_offset: number, end_offset: number): GLib.HashTable;
+  get_text_attribute_value(
+    offset: number,
+    attribute_name: string
+  ): string | null;
+  get_text_attributes(
+    offset: number,
+    start_offset: number,
+    end_offset: number
+  ): GLib.HashTable;
   get_text_before_offset(offset: number, type: TextBoundaryType): TextRange;
   remove_selection(selection_num: number): boolean;
-  scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean;
-  scroll_substring_to_point(start_offset: number, end_offset: number, coords: CoordType, x: number, y: number): boolean;
+  scroll_substring_to(
+    start_offset: number,
+    end_offset: number,
+    type: ScrollType
+  ): boolean;
+  scroll_substring_to_point(
+    start_offset: number,
+    end_offset: number,
+    coords: CoordType,
+    x: number,
+    y: number
+  ): boolean;
   set_caret_offset(new_offset: number): boolean;
-  set_selection(selection_num: number, start_offset: number, end_offset: number): boolean;
+  set_selection(
+    selection_num: number,
+    start_offset: number,
+    end_offset: number
+  ): boolean;
 }
 export interface Value {
   get_current_value(): number;
@@ -601,16 +685,28 @@ export class Application extends GObject.Object {
   static time_added: object;
 }
 export class DeviceListener extends GObject.Object {
-  constructor(callback: DeviceListenerCB, user_data: object | null, callback_destroyed: GLib.DestroyNotify);
+  constructor(
+    callback: DeviceListenerCB,
+    user_data: object | null,
+    callback_destroyed: GLib.DestroyNotify
+  );
   static parent: GObject.Object;
   static id: number;
   static callbacks: GLib.List;
-  add_callback(callback: DeviceListenerCB, callback_destroyed: GLib.DestroyNotify, user_data: object | null): void;
+  add_callback(
+    callback: DeviceListenerCB,
+    callback_destroyed: GLib.DestroyNotify,
+    user_data: object | null
+  ): void;
   remove_callback(callback: DeviceListenerCB): void;
   device_event(event: DeviceEvent): boolean;
 }
 export class EventListener extends GObject.Object {
-  constructor(callback: EventListenerCB, user_data: object | null, callback_destroyed: GLib.DestroyNotify);
+  constructor(
+    callback: EventListenerCB,
+    user_data: object | null,
+    callback_destroyed: GLib.DestroyNotify
+  );
   static parent: GObject.Object;
   static callback: EventListenerCB;
   static user_data: object;
@@ -618,11 +714,33 @@ export class EventListener extends GObject.Object {
   deregister(event_type: string): boolean;
   register(event_type: string): boolean;
   register_full(event_type: string, properties: string[] | null): boolean;
-  static deregister_from_callback(callback: EventListenerCB, user_data: object | null, event_type: string): boolean;
-  static deregister_no_data(callback: EventListenerSimpleCB, event_type: string): boolean;
-  static register_from_callback(callback: EventListenerCB, user_data: object | null, callback_destroyed: GLib.DestroyNotify, event_type: string): boolean;
-  static register_from_callback_full(callback: EventListenerCB | null, user_data: object | null, callback_destroyed: GLib.DestroyNotify, event_type: string, properties: string[]): boolean;
-  static register_no_data(callback: EventListenerSimpleCB, callback_destroyed: GLib.DestroyNotify, event_type: string): boolean;
+  static deregister_from_callback(
+    callback: EventListenerCB,
+    user_data: object | null,
+    event_type: string
+  ): boolean;
+  static deregister_no_data(
+    callback: EventListenerSimpleCB,
+    event_type: string
+  ): boolean;
+  static register_from_callback(
+    callback: EventListenerCB,
+    user_data: object | null,
+    callback_destroyed: GLib.DestroyNotify,
+    event_type: string
+  ): boolean;
+  static register_from_callback_full(
+    callback: EventListenerCB | null,
+    user_data: object | null,
+    callback_destroyed: GLib.DestroyNotify,
+    event_type: string,
+    properties: string[]
+  ): boolean;
+  static register_no_data(
+    callback: EventListenerSimpleCB,
+    callback_destroyed: GLib.DestroyNotify,
+    event_type: string
+  ): boolean;
 }
 export class Hyperlink extends Object {
   static parent: any;
@@ -635,7 +753,17 @@ export class Hyperlink extends Object {
   is_valid(): boolean;
 }
 export class MatchRule extends GObject.Object {
-  constructor(states: StateSet, statematchtype: CollectionMatchType, attributes: GLib.HashTable, attributematchtype: CollectionMatchType, roles: Role[], rolematchtype: CollectionMatchType, interfaces: string[], interfacematchtype: CollectionMatchType, invert: boolean);
+  constructor(
+    states: StateSet,
+    statematchtype: CollectionMatchType,
+    attributes: GLib.HashTable,
+    attributematchtype: CollectionMatchType,
+    roles: Role[],
+    rolematchtype: CollectionMatchType,
+    interfaces: string[],
+    interfacematchtype: CollectionMatchType,
+    invert: boolean
+  );
   static parent: GObject.Object;
   static states: StateSet;
   static statematchtype: CollectionMatchType;
@@ -676,7 +804,11 @@ export class StateSet extends GObject.Object {
 }
 export class AccessibleClass {
   static parent_class: ObjectClass;
-  static region_changed: (accessible: Accessible, current_offset: number, last_offset: number) => void;
+  static region_changed: (
+    accessible: Accessible,
+    current_offset: number,
+    last_offset: number
+  ) => void;
 }
 export class AccessiblePrivate {}
 export class ApplicationClass {
@@ -693,7 +825,10 @@ export class DeviceEvent {
 }
 export class DeviceListenerClass {
   static parent_class: GObject.ObjectClass;
-  static device_event: (listener: DeviceListener, event: DeviceEvent) => boolean;
+  static device_event: (
+    listener: DeviceListener,
+    event: DeviceEvent
+  ) => boolean;
 }
 export class Event {
   static type: string;
@@ -762,28 +897,63 @@ export class TextRange {
   static end_offset: number;
   static content: string;
 }
-export function dbus_connection_setup_with_g_main(connection: DBus.Connection, context: GLib.MainContext): void;
-export function dbus_server_setup_with_g_main(server: any, context: GLib.MainContext): void;
-export function deregister_device_event_listener(listener: DeviceListener, filter: object | null): boolean;
-export function deregister_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask): boolean;
+export function dbus_connection_setup_with_g_main(
+  connection: DBus.Connection,
+  context: GLib.MainContext
+): void;
+export function dbus_server_setup_with_g_main(
+  server: any,
+  context: GLib.MainContext
+): void;
+export function deregister_device_event_listener(
+  listener: DeviceListener,
+  filter: object | null
+): boolean;
+export function deregister_keystroke_listener(
+  listener: DeviceListener,
+  key_set: KeyDefinition[] | null,
+  modmask: KeyMaskType,
+  event_types: KeyEventMask
+): boolean;
 export function event_main(): void;
 export function event_quit(): void;
 export function exit(): number;
-export function generate_keyboard_event(keyval: number, keystring: string | null, synth_type: KeySynthType): boolean;
-export function generate_mouse_event(x: number, y: number, name: string): boolean;
+export function generate_keyboard_event(
+  keyval: number,
+  keystring: string | null,
+  synth_type: KeySynthType
+): boolean;
+export function generate_mouse_event(
+  x: number,
+  y: number,
+  name: string
+): boolean;
 export function get_a11y_bus(): DBus.Connection;
 export function get_desktop(i: number): Accessible;
 export function get_desktop_count(): number;
 export function get_desktop_list(): Accessible[];
 export function init(): number;
 export function is_initialized(): boolean;
-export function register_device_event_listener(listener: DeviceListener, event_types: DeviceEventMask, filter: object | null): boolean;
-export function register_keystroke_listener(listener: DeviceListener, key_set: KeyDefinition[] | null, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: KeyListenerSyncType): boolean;
+export function register_device_event_listener(
+  listener: DeviceListener,
+  event_types: DeviceEventMask,
+  filter: object | null
+): boolean;
+export function register_keystroke_listener(
+  listener: DeviceListener,
+  key_set: KeyDefinition[] | null,
+  modmask: KeyMaskType,
+  event_types: KeyEventMask,
+  sync_type: KeyListenerSyncType
+): boolean;
 export function role_get_name(role: Role): string;
 export function set_main_context(cnx: GLib.MainContext): void;
 export function set_reference_window(accessible: Accessible): void;
 export function set_timeout(val: number, startup_time: number): void;
-export type DeviceListenerCB = (stroke: DeviceEvent, user_data: object | null) => boolean;
+export type DeviceListenerCB = (
+  stroke: DeviceEvent,
+  user_data: object | null
+) => boolean;
 export type DeviceListenerSimpleCB = (stroke: DeviceEvent) => boolean;
 export type EventListenerCB = (event: Event, user_data: object | null) => void;
 export type EventListenerSimpleCB = (event: Event) => void;

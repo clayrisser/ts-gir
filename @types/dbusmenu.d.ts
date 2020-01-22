@@ -64,12 +64,12 @@ export const SERVER_SIGNAL_ITEM_ACTIVATION: string;
 export const SERVER_SIGNAL_LAYOUT_UPDATED: string;
 export enum Status {
   DBUSMENU_STATUS_NORMAL,
-  DBUSMENU_STATUS_NOTICE,
+  DBUSMENU_STATUS_NOTICE
 }
 export enum TextDirection {
   DBUSMENU_TEXT_DIRECTION_NONE,
   DBUSMENU_TEXT_DIRECTION_LTR,
-  DBUSMENU_TEXT_DIRECTION_RTL,
+  DBUSMENU_TEXT_DIRECTION_RTL
 }
 export class Client extends GObject.Object {
   constructor(name: string, object: string);
@@ -81,7 +81,12 @@ export class Client extends GObject.Object {
   static parent: GObject.Object;
   static priv: ClientPrivate;
   add_type_handler(type: string, newfunc: ClientTypeHandler): boolean;
-  add_type_handler_full(type: string, newfunc: ClientTypeHandler, user_data: object | null, destroy_func: GLib.DestroyNotify): boolean;
+  add_type_handler_full(
+    type: string,
+    newfunc: ClientTypeHandler,
+    user_data: object | null,
+    destroy_func: GLib.DestroyNotify
+  ): boolean;
   get_icon_paths(): string[];
   get_root(): Menuitem;
   get_status(): Status;
@@ -118,7 +123,11 @@ export class Menuitem extends GObject.Object {
   property_remove(property: string): void;
   property_set(property: string, value: string): boolean;
   property_set_bool(property: string, value: boolean): boolean;
-  property_set_byte_array(property: string, value: number, nelements: number): boolean;
+  property_set_byte_array(
+    property: string,
+    value: number,
+    nelements: number
+  ): boolean;
   property_set_int(property: string, value: number): boolean;
   property_set_variant(property: string, value: GLib.Variant): boolean;
   send_about_to_show(...args: any[]): any;
@@ -164,8 +173,18 @@ export class ClientClass {
   static root_changed: (newroot: Menuitem) => void;
   static new_menuitem: (newitem: Menuitem) => void;
   static item_activate: (item: Menuitem, timestamp: number) => void;
-  static event_result: (item: Menuitem, event: string, data: GLib.Variant, timestamp: number, error: GLib.Error) => void;
-  static icon_theme_dirs: (item: Menuitem, theme_dirs: object, error: GLib.Error) => void;
+  static event_result: (
+    item: Menuitem,
+    event: string,
+    data: GLib.Variant,
+    timestamp: number,
+    error: GLib.Error
+  ) => void;
+  static icon_theme_dirs: (
+    item: Menuitem,
+    theme_dirs: object,
+    error: GLib.Error
+  ) => void;
   static reserved1: () => void;
   static reserved2: () => void;
   static reserved3: () => void;
@@ -182,9 +201,22 @@ export class MenuitemClass {
   static child_moved: (child: Menuitem, newpos: number, oldpos: number) => void;
   static realized: () => void;
   static buildvariant: any;
-  static handle_event: (mi: Menuitem, name: string, variant: GLib.Variant, timestamp: number) => void;
-  static send_about_to_show: (mi: Menuitem, cb: any, cb_data: object | null) => void;
-  static show_to_user: (mi: Menuitem, timestamp: number, cb_data: object | null) => void;
+  static handle_event: (
+    mi: Menuitem,
+    name: string,
+    variant: GLib.Variant,
+    timestamp: number
+  ) => void;
+  static send_about_to_show: (
+    mi: Menuitem,
+    cb: any,
+    cb_data: object | null
+  ) => void;
+  static show_to_user: (
+    mi: Menuitem,
+    timestamp: number,
+    cb_data: object | null
+  ) => void;
   static about_to_show: () => boolean;
   static event: (name: string, value: GLib.Variant, timestamp: number) => void;
   static reserved1: () => void;
@@ -216,6 +248,17 @@ export class ServerClass {
   static reserved6: () => void;
 }
 export class ServerPrivate {}
-export type ClientTypeHandler = (newitem: Menuitem, parent: Menuitem, client: Client, user_data: object | null) => boolean;
-export type menuitem_about_to_show_cb = (mi: Menuitem, user_data: object | null) => void;
-export type menuitem_buildvariant_slot_t = (mi: Menuitem, properties: string | null) => GLib.Variant;
+export type ClientTypeHandler = (
+  newitem: Menuitem,
+  parent: Menuitem,
+  client: Client,
+  user_data: object | null
+) => boolean;
+export type menuitem_about_to_show_cb = (
+  mi: Menuitem,
+  user_data: object | null
+) => void;
+export type menuitem_buildvariant_slot_t = (
+  mi: Menuitem,
+  properties: string | null
+) => GLib.Variant;
