@@ -37,7 +37,9 @@
     "url": "https://github.com/codejamninja/ts-gir"
   },
   "scripts": {
-    "build": "npm run test && babel src -d lib --extensions \".ts,.tsx\" --source-maps inline && tsc -d --emitDeclarationOnly",
+    "build": "npm run build:js && npm run build:types",
+    "build:types": "tsc -d --emitDeclarationOnly",
+    "build:js": "babel src -d lib --extensions \".ts,.tsx\" --source-maps inline",
     "clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/* && jest --clearCache",
     "clean:purge": "jest --clearCache && git clean -fXd",
     "format": "prettier --write ./**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx} --ignore-path .gitignore",
@@ -48,43 +50,45 @@
     "test": "npm run lint && jest"
   },
   "dependencies": {
-    "@babel/parser": "^7.5.5",
-    "@oclif/command": "^1.5.18",
+    "@babel/parser": "^7.8.3",
+    "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/errors": "^1.2.2",
-    "@oclif/plugin-help": "^2.2.1",
+    "@oclif/plugin-help": "^2.2.3",
     "babel-parser-generator": "^0.1.11",
-    "bluebird": "^3.5.5",
-    "core-js": "^3.2.1",
-    "cosmiconfig": "^5.2.1",
+    "bluebird": "^3.7.2",
+    "core-js": "^3.6.4",
+    "cosmiconfig": "^6.0.0",
     "err": "^2.1.11",
-    "fast-xml-parser": "^3.12.20",
+    "fast-xml-parser": "^3.16.0",
     "fs-extra": "^8.1.0",
+    "glob": "^7.1.6",
     "lodash": "^4.17.15",
     "pkg-dir": "^4.2.0",
     "ts-optchain.macro": "^1.1.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "@types/babel-generator": "^6.25.3",
-    "@types/bluebird": "^3.5.27",
-    "@types/cosmiconfig": "^5.0.3",
-    "@types/fs-extra": "^8.0.0",
-    "@types/jest": "^24.0.18",
-    "@types/lodash": "^4.14.137",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
+    "@types/bluebird": "^3.5.29",
+    "@types/cosmiconfig": "^6.0.0",
+    "@types/fs-extra": "^8.0.1",
+    "@types/glob": "^7.1.1",
+    "@types/jest": "^24.9.0",
+    "@types/lodash": "^4.14.149",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
     "babel-preset-jam": "^0.4.3",
-    "eslint": "^6.2.1",
-    "eslint-config-airbnb-typescript": "^4.0.1",
-    "eslint-config-jam": "^0.2.17",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-config-jam": "^0.2.20",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "tsc": "^1.20150623.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.5"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -97,10 +101,7 @@
     "verbose": true
   },
   "tsgir": {
-    "moduleName": "gnome-gobject",
-    "output": "index",
-    "importMap": {
-      "g-lib": "gnome-glib"
-    }
+    "importMap": {},
+    "dir": "@types"
   }
 }

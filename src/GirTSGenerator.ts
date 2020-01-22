@@ -181,9 +181,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
     $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
       const typeName = $aliasOrUnion['@_name'];
-      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as (
+      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as
         | Field[]
-        | Alias[]);
+        | Alias[];
       if (($aliasOrUnion as Union).field) {
         types = ($aliasOrUnion as Union).field as Field[];
       }
@@ -276,6 +276,12 @@ export default class GirTSGenerator extends BabelParserGenerator {
     $callbacks: Callback[],
     path: InjectPath = ''
   ): void {
+    if (!Array.isArray($callbacks)) {
+      this.logger.warn(
+        `$callbacks is not an array: ${JSON.stringify($callbacks, null, 2)}`
+      );
+      return;
+    }
     $callbacks.forEach(($callback: Callback) => {
       const returnType = this.getType($callback['return-value']);
       const callbackName = $callback['@_name'];
@@ -346,9 +352,12 @@ export default class GirTSGenerator extends BabelParserGenerator {
   }
 
   buildClassDeclarations($classes: Class[], path: InjectPath = ''): void {
+    if (!$classes.forEach) {
+      return undefined;
+    }
     return $classes.forEach(($class: Class) => {
-      const className = $class['@_name'];
-      const parentClassName = $class['@_parent'];
+      let className = $class['@_name'];
+      let parentClassName = $class['@_parent'];
       if (parentClassName) {
         const parentClassNameSplit = parentClassName.split('.');
         if (
@@ -358,6 +367,21 @@ export default class GirTSGenerator extends BabelParserGenerator {
           this.imports.add(parentClassNameSplit[0]);
         }
       }
+
+      if (this.isReservedKeyword(className)) {
+        this.logger.warn(
+          `parent class '${className}' renamed to 'g_${className}'`
+        );
+        className = `g_${className}`;
+      }
+
+      if (this.isReservedKeyword(parentClassName)) {
+        this.logger.warn(
+          `parent class '${parentClassName}' renamed to 'g_${parentClassName}'`
+        );
+        parentClassName = `g_${parentClassName}`;
+      }
+
       const count = this.append(
         `export class ${className} ${
           parentClassName ? `extends ${parentClassName} ` : ''
@@ -407,7 +431,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
     if (!$class) return result;
     const $parentClass = _.find(
       oc(this.$namespace).class([]),
-      $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
+      $namespaceClass =>
+        $namespaceClass['@_name'] === $class['@_parent'] &&
+        typeof $namespaceClass['@_name'] === 'object'
     );
     let $properties = oc($class).property([]);
     if (!Array.isArray($properties)) {
@@ -539,7 +565,7 @@ export default class GirTSGenerator extends BabelParserGenerator {
     }
     if (!$constructor['@_name']) return;
     const count = this.append(
-      `class C {constructor()}`,
+      'class C {constructor()}',
       [path, 'declaration.body.body'],
       'body.body.0'
     );
