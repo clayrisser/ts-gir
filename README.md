@@ -4,6 +4,8 @@
 
 > generate typescript from gir
 
+![](assets/ts-gir.png)
+
 Please ★ this repo if you found it useful ★ ★ ★
 
 ## Features
