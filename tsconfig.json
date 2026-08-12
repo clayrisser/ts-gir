@@ -1,22 +1,19 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "incremental": true,
-    "lib": ["ES2018", "ESNext.AsyncIterable"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "outDir": "lib",
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2023"],
+    "module": "node16",
+    "moduleResolution": "node16",
+    "noEmit": true,
     "resolveJsonModule": true,
-    "rootDir": "src",
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext"
+    "target": "ES2023",
+    "types": ["node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules/**"]
+  "include": ["src", "tests", "vitest.config.ts"]
 }

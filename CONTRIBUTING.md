@@ -1,47 +1,53 @@
 # Contributing
 
-We accept contributions of every kind: documentation, code, artwork. Any help is greatly
-appreciated. This document contains everything needed to get started with your first contribution.
+This project is preserved rather than actively developed — see the
+[status section](README.md#status-2026) of the readme. New feature work almost
+certainly belongs in [`ts-for-gir`](https://github.com/gjsify/ts-for-gir)
+instead. Bug fixes, documentation and build repairs are still welcome.
 
-## Contributing Code
+## Getting set up
 
-We keep the source code on [GitHub](https://www.github.com) and take contributions through
-[GitHub pull requests](https://help.github.com/articles/using-pull-requests).
+The source lives on [GitLab](https://gitlab.com/bitspur/misc/ts-gir) and changes
+are taken through merge requests.
 
-For smaller patches and bug fixes just go ahead and either report an issue or submit a pull
-request.
+```sh
+make prepare   # asdf toolchain from .tool-versions, cloc, pnpm install
+make build
+make test
+make lint
+```
 
-It is usually a good idea to discuss major changes with the developers, this will help us
-determine whether the contribution would be a good fit for the project and if it is likely to be
-accepted. There's nothing worse than seeing your hard work being rejected because it falls outside
-of the scope of the project.
+Use **pnpm**, never npm or yarn. Formatting and linting are **oxfmt** and
+**oxlint**; run `make format` before pushing and `make lint` to check.
 
-Make sure your editor respects the [EditorConfig](http://editorconfig.org) configuration file we
-put at the root of the repository.
+## Workflow
 
-We follow [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) as our git workflow of
-choice which boils down to:
+- `main` is always stable.
+- Branch off `main` with a descriptive name (`fix-enum-members`, `issue-32`).
+- Rebase regularly against `main`.
+- Open a merge request when you want feedback or think you are ready.
 
-- The `master` branch is always stable and deployable.
-- To work on something new, branch off `master` and give the new branch a descriptive name (e.g.:
-  `sort-packages-by-name`, `issue-32`, etc).
-- Regularly **rebase** that branch against `master` and push your work to a branch with the same
-  name on the server.
-- When you need feedback, help or think you are ready,
-  [submit a pull request](https://help.github.com/articles/using-pull-requests).
-- Once the branch has been merged (or rebased) into `master`, delete it from both your local and
-  remote repository.
+Make sure your editor respects the [EditorConfig](http://editorconfig.org) file
+at the root of the repository, and follow
+[these guidelines](http://who-t.blogspot.de/2009/12/on-commit-messages.html) for
+commit messages. You do not need to add [CHANGELOG.md](CHANGELOG.md) entries —
+that is our responsibility.
 
-We invite you to follow
-[these guidelines](http://who-t.blogspot.de/2009/12/on-commit-messages.html) to write useful
-commit messages.
+## Tests
 
-Additionally, you don't need to add entries to the [CHANGELOG.md](CHANGELOG.md) file, this is our
-responsibility.
+`tests/unit` runs against the checked-in `tests/fixtures/Demo-1.0.gir`, which is
+deliberately small and exercises the shapes the generator special-cases. If you
+fix a generation bug, add the triggering construct to that fixture and assert on
+the output.
+
+`tests/integration` generates declarations for every `.gir` installed on the host
+and reparses each result to prove it is valid TypeScript. It skips itself when no
+`gir-1.0` directory is present, so install `gobject-introspection` locally if you
+want that coverage.
 
 ## Reading List
 
-- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html)
+- [GObject Introspection](https://gi.readthedocs.io/)
 - [Keep a Changelog](http://keepachangelog.com/)
 - [On Commit Messages](http://who-t.blogspot.de/2009/12/on-commit-messages.html)
 - [Semantic Versioning](http://semver.org/)

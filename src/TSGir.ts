@@ -1,120 +1,114 @@
-import Err from 'err';
-import _ from 'lodash';
+import { mkdir, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { cosmiconfig } from 'cosmiconfig';
-import util from 'util';
-import fs from 'fs-extra';
-import globCb from 'glob';
-import Path from 'path';
-import pkgDir from 'pkg-dir';
-import { Command, flags } from '@oclif/command';
-import { mapSeries } from 'bluebird';
-// Needs babel
-import { oc } from 'ts-optchain.macro';
-import Gir from './Gir';
-import GirJSGenerator from './GirJSGenerator';
-import GirTSGenerator from './GirTSGenerator';
-import { Namespace, UserConfig } from './types';
+import { glob } from 'glob';
+import _ from 'lodash';
+import Gir from './Gir.js';
+import GirJSGenerator from './GirJSGenerator.js';
+import GirTSGenerator from './GirTSGenerator.js';
+import type { Logger, Namespace, UserConfig } from './types.js';
+import { girChildren } from './utils.js';
 
-const glob = util.promisify(globCb);
+export interface TSGirOptions {
+  dir?: string;
+  inputs: string[];
+  module?: string;
+  output?: string;
+  silent?: boolean;
+  verbose?: boolean;
+}
 
-const rootPath = pkgDir.sync(process.cwd()) || process.cwd();
+export interface GeneratedNamespace {
+  basename: string;
+  js: string;
+  namespace: string;
+  ts: string;
+}
 
-export default class TSGir extends Command {
-  static description = 'generate typescript from gir';
-
-  static flags = {
-    help: flags.help({ char: 'h' }),
-    module: flags.string({ char: 'm' }),
-    output: flags.string({
-      char: 'o',
-      description: 'Output basename, if not set, the namespace is used'
-    }),
-    dir: flags.string({ char: 'd', description: 'Output dir' }),
-    silent: flags.boolean({ char: 's' }),
-    verbose: flags.boolean(),
-    version: flags.version({ char: 'v' }),
-    inputs: flags.string({
-      char: 'i',
-      multiple: true,
-      required: true,
-      default: '/usr/share/gir-1.0/*.gir',
-      description:
-        'Paths to GIR files to generate type definitions from (with wild card support)'
-    })
-  };
+export default class TSGir {
+  logger: Logger;
 
   warnings: Set<string> = new Set();
 
-  async getUserConfig(): Promise<UserConfig> {
-    const userConfig: Partial<UserConfig> = oc(
-      await cosmiconfig('tsgir').search(rootPath)
-    ).config({});
-    return {
-      importMap: {},
-      ignoreDuplicates: false,
-      ...userConfig
+  private userConfig?: UserConfig;
+
+  constructor(public options: TSGirOptions) {
+    this.logger = {
+      info: (message?: string, ...args: unknown[]) => {
+        if (this.options.silent) return;
+        console.log(message, ...args);
+      },
+      warn: (input: string | Error) => {
+        if (this.options.silent) return;
+        if (typeof input === 'string' && !this.options.verbose) {
+          if (this.warnings.has(input)) return;
+          this.warnings.add(input);
+        }
+        console.warn(`warning: ${input instanceof Error ? input.message : input}`);
+      },
     };
   }
 
-  async runForFile(girFile: string) {
-    const { flags } = this.parse(TSGir);
-    const gir = new Gir();
-    await gir.loadFile(girFile);
-    if (!gir.repository) throw new Err('xml not loaded');
-    let $namespaces = gir.repository.namespace;
-    if (!Array.isArray($namespaces)) $namespaces = [$namespaces];
-    await mapSeries($namespaces, async ($namespace: Namespace) => {
-      const namespaceName = $namespace['@_name'];
-      const userConfig = await this.getUserConfig();
-      const moduleName = flags.module || userConfig.moduleName;
-      // console.log(`Process namespace "${namespaceName}"`);
-      const basename =
-        flags.output || userConfig.output || _.kebabCase(namespaceName);
-      const dir = flags.dir || userConfig.dir || '';
-      const path = Path.resolve(process.cwd(), dir, basename);
-      const girTSGenerator = new GirTSGenerator(
-        $namespace,
-        userConfig,
-        {
-          info: this.log,
-          warn: this.handleWarn.bind(this)
-        },
-        moduleName
-      );
-      girTSGenerator.build();
+  async getUserConfig(): Promise<UserConfig> {
+    if (this.userConfig) return this.userConfig;
+    const result = await cosmiconfig('tsgir').search(process.cwd());
+    const userConfig: UserConfig = {
+      importMap: {},
+      ignoreDuplicates: false,
+      ...result?.config,
+    };
+    this.userConfig = userConfig;
+    return userConfig;
+  }
 
-      const girJSGenerator = new GirJSGenerator(
-        $namespace,
-        girTSGenerator.renamed
-      );
+  /**
+   * Every input is treated as a glob. The original only expanded wildcards for
+   * the built-in default, so an explicit `-i '/usr/share/gir-1.0/*.gir'` was
+   * passed through to the file reader verbatim and always failed.
+   */
+  async resolveInputs(): Promise<string[]> {
+    const matches = await glob(this.options.inputs, { nodir: true });
+    return _.uniq(matches).toSorted();
+  }
+
+  async generateForFile(girFile: string): Promise<GeneratedNamespace[]> {
+    const gir = new Gir();
+    const repository = await gir.loadFile(girFile);
+    const userConfig = await this.getUserConfig();
+    const moduleName = this.options.module || userConfig.moduleName;
+    return girChildren<Namespace>(repository, 'namespace').map(($namespace: Namespace) => {
+      const namespaceName = $namespace['@_name'];
+      const girTSGenerator = new GirTSGenerator($namespace, userConfig, this.logger, moduleName);
+      girTSGenerator.build();
+      const girJSGenerator = new GirJSGenerator($namespace, girTSGenerator.renamed);
       girJSGenerator.build();
-      const tsCode = girTSGenerator.generate();
-      const jsCode = girJSGenerator.generate();
-      await fs.writeFile(`${path}.d.ts`, tsCode);
-      await fs.writeFile(`${path}.js`, jsCode);
+      return {
+        basename: this.options.output || userConfig.output || _.kebabCase(namespaceName),
+        js: girJSGenerator.generate(),
+        namespace: namespaceName,
+        ts: girTSGenerator.generate(),
+      };
     });
   }
 
-  async run() {
-    const { flags } = this.parse(TSGir);
-    let inputFiles = [];
-    if (Array.isArray(flags.inputs)) {
-      inputFiles = flags.inputs;
-    } else {
-      inputFiles = await glob(flags.inputs);
+  async run(): Promise<string[]> {
+    const inputFiles = await this.resolveInputs();
+    if (!inputFiles.length) {
+      throw new Error(`no gir files matched ${this.options.inputs.join(', ')}`);
     }
-    for (let i = 0; i < inputFiles.length; i++) {
-      if (inputFiles[i]) {
-        await this.runForFile(inputFiles[i]);
+    const userConfig = await this.getUserConfig();
+    const outDir = path.resolve(process.cwd(), this.options.dir || userConfig.dir || '');
+    await mkdir(outDir, { recursive: true });
+    const written: string[] = [];
+    for (const girFile of inputFiles) {
+      this.logger.info(`generating from ${girFile}`);
+      for (const generated of await this.generateForFile(girFile)) {
+        const target = path.join(outDir, generated.basename);
+        await writeFile(`${target}.d.ts`, `${generated.ts}\n`);
+        await writeFile(`${target}.js`, `${generated.js}\n`);
+        written.push(`${target}.d.ts`, `${target}.js`);
       }
     }
-  }
-
-  handleWarn(input: string | Error): void {
-    if (typeof input === 'string') {
-      if (this.warnings.has(input)) return;
-      this.warnings.add(input);
-    }
-    this.warn(input);
+    return written;
   }
 }
