@@ -1,4 +1,5 @@
 #!/usr/bin/env node
 
-// require('@babel/polyfill');
-require('../lib');
+import { run } from '../lib/cli.js';
+
+await run();

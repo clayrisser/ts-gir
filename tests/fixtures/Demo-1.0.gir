@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!-- Hand-written GIR exercising the element shapes the generator special-cases:
+     reserved-word identifiers, single vs repeated children, arrays, optional
+     parameters, cross-namespace type references and duplicate identifiers. -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GObject" version="2.0"/>
+  <namespace name="Demo"
+             version="1.0"
+             shared-library="libdemo.so.0"
+             c:identifier-prefixes="Demo"
+             c:symbol-prefixes="demo">
+
+    <constant name="MAX_ITEMS" value="16" c:type="DEMO_MAX_ITEMS">
+      <type name="gint" c:type="gint"/>
+    </constant>
+
+    <alias name="Handle" c:type="DemoHandle">
+      <type name="guint32" c:type="guint32"/>
+    </alias>
+
+    <enumeration name="Direction" c:type="DemoDirection">
+      <member name="up" value="0" c:identifier="DEMO_DIRECTION_UP"/>
+      <member name="down" value="1" c:identifier="DEMO_DIRECTION_DOWN"/>
+    </enumeration>
+
+    <bitfield name="Flags" c:type="DemoFlags">
+      <member name="none" value="0" c:identifier="DEMO_FLAGS_NONE"/>
+      <member name="bold" value="1" c:identifier="DEMO_FLAGS_BOLD"/>
+    </bitfield>
+
+    <callback name="Notify" c:type="DemoNotify">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="message" transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </parameter>
+      </parameters>
+    </callback>
+
+    <interface name="Playable" c:symbol-prefix="playable" c:type="DemoPlayable">
+      <property name="playing" writable="1">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <method name="play" c:identifier="demo_playable_play">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+    </interface>
+
+    <class name="Widget"
+           c:symbol-prefix="widget"
+           c:type="DemoWidget"
+           parent="GObject.Object"
+           glib:type-name="DemoWidget">
+      <constructor name="new" c:identifier="demo_widget_new">
+        <return-value transfer-ownership="full">
+          <type name="Widget" c:type="DemoWidget*"/>
+        </return-value>
+        <parameters>
+          <parameter name="label" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <property name="label" writable="1">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="child-count">
+        <type name="gint" c:type="gint"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <method name="set_label" c:identifier="demo_widget_set_label">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self">
+            <type name="Widget" c:type="DemoWidget*"/>
+          </instance-parameter>
+          <parameter name="label" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="length" optional="1">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="delete" c:identifier="demo_widget_delete">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+      <method name="get_children" c:identifier="demo_widget_get_children">
+        <return-value transfer-ownership="container">
+          <array c:type="GList*">
+            <type name="Widget"/>
+          </array>
+        </return-value>
+      </method>
+      <virtual-method name="draw">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </virtual-method>
+      <function name="lookup" c:identifier="demo_widget_lookup">
+        <return-value transfer-ownership="none">
+          <type name="Widget" c:type="DemoWidget*"/>
+        </return-value>
+      </function>
+    </class>
+
+    <class name="Button"
+           c:symbol-prefix="button"
+           c:type="DemoButton"
+           parent="Widget"
+           glib:type-name="DemoButton">
+      <method name="set_label" c:identifier="demo_button_set_label">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </method>
+    </class>
+
+    <record name="Rect" c:type="DemoRect">
+      <field name="x">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="y">
+        <type name="gint" c:type="gint"/>
+      </field>
+    </record>
+
+    <union name="Value" c:type="DemoValue">
+      <field name="as_int">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="as_string">
+        <type name="utf8" c:type="char*"/>
+      </field>
+    </union>
+
+    <function name="init" c:identifier="demo_init">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+    </function>
+
+    <function name="new" c:identifier="demo_new">
+      <return-value transfer-ownership="full">
+        <type name="Widget" c:type="DemoWidget*"/>
+      </return-value>
+    </function>
+  </namespace>
+</repository>

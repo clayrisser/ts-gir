@@ -1,8 +1,8 @@
-import BabelParserGenerator, { InjectPath } from 'babel-parser-generator';
+import type { ParserOptions } from '@babel/parser';
 import _ from 'lodash';
-import { ParserOptions } from '@babel/parser';
-import { oc } from 'ts-optchain.macro';
-import {
+import BabelParserGenerator, { type InjectPath } from './BabelParserGenerator.js';
+import { constructorTag } from './Gir.js';
+import type {
   Alias,
   Bitfield,
   Callback,
@@ -25,13 +25,17 @@ import {
   Record,
   Renamed,
   Union,
-  UserConfig
-} from './types';
+  UserConfig,
+} from './types.js';
+import { girChildren } from './utils.js';
 
 export default class GirTSGenerator extends BabelParserGenerator {
+  // `dts` puts the parser in declaration-file mode, which is what the output
+  // actually is: ambient `export const X: T;` and body-less methods are only
+  // legal there. Babel 8 enforces this; Babel 7 used to let it slide.
   options: ParserOptions = {
-    plugins: ['jsx', 'typescript'],
-    sourceType: 'module'
+    plugins: ['jsx', ['typescript', { dts: true }]],
+    sourceType: 'module',
   };
 
   imports: Set<string> = new Set();
@@ -42,14 +46,14 @@ export default class GirTSGenerator extends BabelParserGenerator {
 
   renamed: Renamed = {
     classes: {},
-    functions: {}
+    functions: {},
   };
 
   constructor(
     public $namespace: Namespace,
     public userConfig: UserConfig,
     public logger: Logger,
-    public moduleName = ''
+    public moduleName = '',
   ) {
     super();
     this.isModule = !!moduleName.length;
@@ -62,107 +66,33 @@ export default class GirTSGenerator extends BabelParserGenerator {
   }
 
   setModulesTypes() {
-    let $constants = oc(this.$namespace).constant([]);
-    if (!Array.isArray($constants)) {
-      $constants = [($constants as unknown) as Constant];
-    }
-    let $enumerations = oc(this.$namespace).enumeration([]);
-    if (!Array.isArray($enumerations)) {
-      $enumerations = [($enumerations as unknown) as Enumeration];
-    }
-    let $aliases = oc(this.$namespace).alias([]);
-    if (!Array.isArray($aliases)) $aliases = [($aliases as unknown) as Alias];
-    let $unions = oc(this.$namespace).union([]);
-    if (!Array.isArray($unions)) $unions = [$unions];
-    let $classes = oc(this.$namespace).class([]);
-    if (!Array.isArray($classes)) $classes = [($classes as unknown) as Class];
-    let $records = oc(this.$namespace).record([]);
-    if (!Array.isArray($records)) {
-      $records = [($records as unknown) as Record];
-    }
-    let $bitfields = oc(this.$namespace).bitfield([]);
-    if (!Array.isArray($bitfields)) $bitfields = [$bitfields];
-    let $functions = oc(this.$namespace).function([]);
-    if (!Array.isArray($functions)) {
-      $functions = [($functions as unknown) as Function];
-    }
-    let $callbacks = oc(this.$namespace).callback([]);
-    if (!Array.isArray($callbacks)) {
-      $callbacks = [($callbacks as unknown) as Callback];
-    }
-    $constants.forEach(($constant: Constant) => {
-      this.moduleTypes.add($constant['@_name']);
-    });
-    $aliases.forEach(($alias: Alias) => {
-      this.moduleTypes.add($alias['@_name']);
-    });
-    $unions.forEach(($union: Union) => {
-      this.moduleTypes.add($union['@_name']);
-    });
-    $enumerations.forEach(($enumeration: Enumeration) => {
-      this.moduleTypes.add($enumeration['@_name']);
-    });
-    $classes.forEach(($class: Class) => {
-      this.moduleTypes.add($class['@_name']);
-    });
-    $bitfields.forEach(($bitfield: Bitfield) => {
-      this.moduleTypes.add($bitfield['@_name']);
-    });
-    $records.forEach(($record: Record) => {
-      this.moduleTypes.add($record['@_name']);
-    });
-    $functions.forEach(($function: Function) => {
-      this.moduleTypes.add($function['@_name']);
-    });
-    $callbacks.forEach(($callback: Callback) => {
-      this.moduleTypes.add($callback['@_name']);
-    });
+    const named = [
+      ...girChildren<Constant>(this.$namespace, 'constant'),
+      ...girChildren<Alias>(this.$namespace, 'alias'),
+      ...girChildren<Union>(this.$namespace, 'union'),
+      ...girChildren<Enumeration>(this.$namespace, 'enumeration'),
+      ...girChildren<Class>(this.$namespace, 'class'),
+      ...girChildren<Bitfield>(this.$namespace, 'bitfield'),
+      ...girChildren<Record>(this.$namespace, 'record'),
+      ...girChildren<Function>(this.$namespace, 'function'),
+      ...girChildren<Callback>(this.$namespace, 'callback'),
+    ];
+    named.forEach(($named) => this.moduleTypes.add($named['@_name']));
   }
 
   buildModules(path: InjectPath = ''): void {
-    const count = this.isModule
-      ? this.append(`declare module '${this.moduleName}' {}`, path)
-      : 0;
-    this.buildConstantDeclarations(oc(this.$namespace).constant([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildEnumDeclarations(oc(this.$namespace).enumeration([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildEnumDeclarations(oc(this.$namespace).bitfield([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildTypeDeclarations(oc(this.$namespace).alias([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildTypeDeclarations(oc(this.$namespace).union([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildInterfaceDeclarations(oc(this.$namespace).interface([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildClassDeclarations(oc(this.$namespace).class([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildClassDeclarations(oc(this.$namespace).record([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildFunctionDeclarations(oc(this.$namespace).function([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
-    this.buildCallbackDeclarations(oc(this.$namespace).callback([]), [
-      path,
-      this.isModule ? count - 1 : ''
-    ]);
+    const count = this.isModule ? this.append(`declare module '${this.moduleName}' {}`, path) : 0;
+    const at: InjectPath = [path, this.isModule ? count - 1 : ''];
+    this.buildConstantDeclarations(girChildren<Constant>(this.$namespace, 'constant'), at);
+    this.buildEnumDeclarations(girChildren<Enumeration>(this.$namespace, 'enumeration'), at);
+    this.buildEnumDeclarations(girChildren<Enumeration>(this.$namespace, 'bitfield'), at);
+    this.buildTypeDeclarations(girChildren<Alias>(this.$namespace, 'alias'), at);
+    this.buildTypeDeclarations(girChildren<Union>(this.$namespace, 'union'), at);
+    this.buildInterfaceDeclarations(girChildren<Interface>(this.$namespace, 'interface'), at);
+    this.buildClassDeclarations(girChildren<Class>(this.$namespace, 'class'), at);
+    this.buildClassDeclarations(girChildren<Class>(this.$namespace, 'record'), at);
+    this.buildFunctionDeclarations(girChildren<Function>(this.$namespace, 'function'), at);
+    this.buildCallbackDeclarations(girChildren<Callback>(this.$namespace, 'callback'), at);
   }
 
   buildImports(imports: Set<string>, path: InjectPath = ''): void {
@@ -174,141 +104,104 @@ export default class GirTSGenerator extends BabelParserGenerator {
     });
   }
 
-  buildTypeDeclarations(
-    $aliasesOrUnions: Alias[] | Union[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($aliasesOrUnions)) $aliasesOrUnions = [$aliasesOrUnions];
+  buildTypeDeclarations($aliasesOrUnions: Alias[] | Union[], path: InjectPath = ''): void {
     $aliasesOrUnions.forEach(($aliasOrUnion: Alias | Union) => {
       const typeName = $aliasOrUnion['@_name'];
-      let types: Field[] | Alias[] = ($aliasOrUnion as unknown) as
-        | Field[]
-        | Alias[];
-      if (($aliasOrUnion as Union).field) {
-        types = ($aliasOrUnion as Union).field as Field[];
-      }
-      if (!Array.isArray(types)) types = [types];
-      const typeString = _.uniq(
-        (types as GirType[]).map(t => this.getType(t))
-      ).join(' | ');
+      const $fields = girChildren<Field>($aliasOrUnion, 'field');
+      const types: GirType[] = $fields.length ? $fields : [$aliasOrUnion as unknown as GirType];
+      const typeString = _.uniq(types.map((t) => this.getType(t))).join(' | ');
       this.append(`export type ${typeName} = ${typeString}`, [
         path,
-        this.isModule ? 'body.body' : ''
+        this.isModule ? 'body.body' : '',
       ]);
     });
   }
 
-  buildEnumDeclarations(
-    $enumerations: Enumeration[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($enumerations)) $enumerations = [$enumerations];
+  buildEnumDeclarations($enumerations: Enumeration[], path: InjectPath = ''): void {
     $enumerations.forEach(($enumeration: Enumeration) => {
       const enumName = $enumeration['@_name'];
       const count = this.append(`export enum ${enumName} {}`, [
         path,
-        this.isModule ? 'body.body' : ''
+        this.isModule ? 'body.body' : '',
       ]);
-      this.buildEnumDeclarationMembers(oc($enumeration).member([]), [
+      this.buildEnumDeclarationMembers(girChildren<Member>($enumeration, 'member'), [
         path,
         this.isModule ? 'body.body' : '',
-        count - 1
+        count - 1,
       ]);
     });
   }
 
   buildEnumDeclarationMembers($members: Member[], path: InjectPath = ''): void {
-    if (!Array.isArray($members)) $members = [$members];
     $members.forEach(($member: Member) => {
       const identifierName = $member['@_c:identifier'];
+      // Babel 8 wraps enum members in a TSEnumBody node; Babel 7 hung
+      // `members` directly off the TSEnumDeclaration.
       this.append(
         `enum E {${identifierName}}`,
-        [path, 'declaration.members'],
-        'members.0'
+        [path, 'declaration.body.members'],
+        'body.members.0',
       );
     });
   }
 
-  buildConstantDeclarations(
-    $constants: Constant[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($constants)) $constants = [$constants];
+  buildConstantDeclarations($constants: Constant[], path: InjectPath = ''): void {
     $constants.forEach(($constant: Constant) => {
       const constantName = $constant['@_name'];
       const constantType = this.getType($constant);
       this.append(`export const ${constantName}: ${constantType};`, [
         path,
-        this.isModule ? 'body.body' : ''
+        this.isModule ? 'body.body' : '',
       ]);
     });
   }
 
-  buildFunctionDeclarations(
-    $functions: Function[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($functions)) $functions = [$functions];
+  buildFunctionDeclarations($functions: Function[], path: InjectPath = ''): void {
     $functions.forEach(($function: Function) => {
       const returnType = this.getType($function['return-value']);
       let functionName = $function['@_name'];
       if (this.isReservedKeyword(functionName)) {
         functionName = `g_${functionName}`;
         this.renamed.functions[$function['@_name']] = functionName;
-        this.logger.warn(
-          `function '${$function['@_name']}' renamed to '${functionName}'`
-        );
+        this.logger.warn(`function '${$function['@_name']}' renamed to '${functionName}'`);
       }
-      const count = this.append(
-        `export function ${functionName}(): ${returnType}`,
-        [path, this.isModule ? 'body.body' : '']
-      );
-      this.buildFunctionParams(oc($function).parameters.parameter([]), [
+      const count = this.append(`export function ${functionName}(): ${returnType}`, [
+        path,
+        this.isModule ? 'body.body' : '',
+      ]);
+      this.buildFunctionParams(girChildren<Parameter>($function.parameters, 'parameter'), [
         path,
         this.isModule ? 'body.body' : '',
         count - 1,
-        'declaration.params'
+        'declaration.params',
       ]);
     });
   }
 
-  buildCallbackDeclarations(
-    $callbacks: Callback[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($callbacks)) {
-      this.logger.warn(
-        `$callbacks is not an array: ${JSON.stringify($callbacks, null, 2)}`
-      );
-      return;
-    }
+  buildCallbackDeclarations($callbacks: Callback[], path: InjectPath = ''): void {
     $callbacks.forEach(($callback: Callback) => {
       const returnType = this.getType($callback['return-value']);
       const callbackName = $callback['@_name'];
-      const count = this.append(
-        `export type ${callbackName} = () => ${returnType}`,
-        [path, this.isModule ? 'body.body' : '']
-      );
-      this.buildFunctionParams(oc($callback).parameters.parameter([]), [
+      const count = this.append(`export type ${callbackName} = () => ${returnType}`, [
         path,
         this.isModule ? 'body.body' : '',
-        count - 1,
-        'declaration.typeAnnotation.parameters'
       ]);
+      this.buildFunctionParams(
+        girChildren<Parameter>($callback.parameters, 'parameter'),
+        // Babel 8 renamed TSFunctionType.parameters to params.
+        [path, this.isModule ? 'body.body' : '', count - 1, 'declaration.typeAnnotation.params'],
+      );
     });
   }
 
   buildFunctionParams($parameters: Parameter[], path: InjectPath = ''): void {
-    if (!Array.isArray($parameters)) $parameters = [$parameters];
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
       let paramName = this.safeWord($parameter['@_name']);
       let paramType = this.getType($parameter);
       if (paramName === 'arguments' || paramName === 'eval') {
         paramName = `_${paramName}`;
-        paramRequired = !paramRequired
-          ? false
-          : $parameter['@_optional'] !== '1';
+        paramRequired = !paramRequired ? false : $parameter['@_optional'] !== '1';
       } else if (paramName === '...') {
         paramName = '...args';
         paramRequired = true;
@@ -317,45 +210,36 @@ export default class GirTSGenerator extends BabelParserGenerator {
       if (paramType) {
         // TODO: some param types not supported
         this.append(
-          `function f(${paramName}${
-            paramRequired ? '' : '?'
-          }: ${paramType}) {}`,
+          `function f(${paramName}${paramRequired ? '' : '?'}: ${paramType});`,
           path,
-          'params.0'
+          'params.0',
         );
       }
     });
   }
 
-  buildInterfaceDeclarations(
-    $interfaces: Interface[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($interfaces)) $interfaces = [$interfaces];
-    return $interfaces.forEach(($interface: Interface) => {
+  buildInterfaceDeclarations($interfaces: Interface[], path: InjectPath = ''): void {
+    $interfaces.forEach(($interface: Interface) => {
       const interfaceName = $interface['@_name'];
       const count = this.append(`export interface ${interfaceName} {}`, [
         path,
-        this.isModule ? 'body.body' : ''
+        this.isModule ? 'body.body' : '',
       ]);
       this.buildPropertyDeclarations(
-        oc($interface).property([]),
+        girChildren<Property>($interface, 'property'),
         [path, this.isModule ? 'body.body' : '', count - 1],
-        $interface
+        $interface,
       );
       this.buildMethodDeclarations(
-        oc($interface).method([]),
+        girChildren<Method>($interface, 'method'),
         [path, this.isModule ? 'body.body' : '', count - 1],
-        $interface
+        $interface,
       );
     });
   }
 
   buildClassDeclarations($classes: Class[], path: InjectPath = ''): void {
-    if (!$classes.forEach) {
-      return undefined;
-    }
-    return $classes.forEach(($class: Class) => {
+    $classes.forEach(($class: Class) => {
       let className = $class['@_name'];
       let parentClassName = $class['@_parent'];
       if (parentClassName) {
@@ -369,127 +253,97 @@ export default class GirTSGenerator extends BabelParserGenerator {
       }
 
       if (this.isReservedKeyword(className)) {
-        this.logger.warn(
-          `parent class '${className}' renamed to 'g_${className}'`
-        );
+        this.logger.warn(`parent class '${className}' renamed to 'g_${className}'`);
         className = `g_${className}`;
       }
 
       if (this.isReservedKeyword(parentClassName)) {
-        this.logger.warn(
-          `parent class '${parentClassName}' renamed to 'g_${parentClassName}'`
-        );
+        this.logger.warn(`parent class '${parentClassName}' renamed to 'g_${parentClassName}'`);
         parentClassName = `g_${parentClassName}`;
       }
 
       const count = this.append(
-        `export class ${className} ${
-          parentClassName ? `extends ${parentClassName} ` : ''
-        }{}`,
-        [path, this.isModule ? 'body.body' : '']
+        `export class ${className} ${parentClassName ? `extends ${parentClassName} ` : ''}{}`,
+        [path, this.isModule ? 'body.body' : ''],
       );
-      this.buildConstructorDeclaration(oc($class).constructor([]), [
+      this.buildConstructorDeclaration(girChildren<Constructor>($class, constructorTag), [
         path,
         this.isModule ? 'body.body' : '',
-        count - 1
+        count - 1,
       ]);
       this.buildPropertyDeclarations(
-        oc($class).property([]),
+        girChildren<Property>($class, 'property'),
         [path, this.isModule ? 'body.body' : '', count - 1],
-        $class
+        $class,
       );
       this.buildPropertyDeclarations(
-        oc($class).field([]),
+        girChildren<Property>($class, 'field'),
         [path, this.isModule ? 'body.body' : '', count - 1],
         $class,
-        true
+        true,
       );
       this.buildMethodDeclarations(
-        oc($class).method([]),
-        [path, this.isModule ? 'body.body' : '', count - 1],
-        $class
-      );
-      this.buildMethodDeclarations(
-        oc($class)['virtual-method']([]),
-        [path, this.isModule ? 'body.body' : '', count - 1],
-        $class
-      );
-      this.buildMethodDeclarations(
-        oc($class).function([]),
+        girChildren<Method>($class, 'method'),
         [path, this.isModule ? 'body.body' : '', count - 1],
         $class,
-        true
+      );
+      this.buildMethodDeclarations(
+        girChildren<Method>($class, 'virtual-method'),
+        [path, this.isModule ? 'body.body' : '', count - 1],
+        $class,
+      );
+      this.buildMethodDeclarations(
+        girChildren<Function>($class, 'function'),
+        [path, this.isModule ? 'body.body' : '', count - 1],
+        $class,
+        true,
       );
     });
   }
 
-  getClassIdentifiers(
-    $class?: Class | Interface,
-    recursive = true
-  ): ClassIdentifiers {
+  /**
+   * Counts how many times each identifier appears directly on a class, so
+   * duplicates can be collapsed to an `any` overload.
+   */
+  getClassIdentifiers($class?: Class | Interface): ClassIdentifiers {
     const result: ClassIdentifiers = {};
     if (!$class) return result;
-    const $parentClass = _.find(
-      oc(this.$namespace).class([]),
-      $namespaceClass =>
-        $namespaceClass['@_name'] === $class['@_parent'] &&
-        typeof $namespaceClass['@_name'] === 'object'
-    );
-    let $properties = oc($class).property([]);
-    if (!Array.isArray($properties)) {
-      $properties = [($properties as unknown) as Property];
-    }
-    let $methods = oc($class).method([]);
-    if (!Array.isArray($methods)) $methods = [($methods as unknown) as Method];
-    let $fields = oc($class).field([]);
-    if (!Array.isArray($fields)) $fields = [($fields as unknown) as Field];
-    let $functions = oc($class).function([]);
-    if (!Array.isArray($functions)) {
-      $functions = [($functions as unknown) as Function];
-    }
-    let $virtualMethods = oc($class)['virtual-method']([]);
-    if (!Array.isArray($virtualMethods)) {
-      $virtualMethods = [($virtualMethods as unknown) as Method];
-    }
-    const parentClassIdentifiers = $parentClass
-      ? Object.keys(this.getClassIdentifiers($parentClass))
-      : [];
     const identifiers = [
-      ...(recursive ? parentClassIdentifiers : []),
-      ...$fields.map(($field: Field) => $field['@_name']),
-      ...$functions.map(($function: Function) => $function['@_name']),
-      ...$methods.map(($method: Method) => $method['@_name']),
-      ...$properties.map(($property: Property) => $property['@_name']),
-      ...$virtualMethods.map(($method: Method) => $method['@_name'])
-    ];
+      ...girChildren<Field>($class, 'field'),
+      ...girChildren<Function>($class, 'function'),
+      ...girChildren<Method>($class, 'method'),
+      ...girChildren<Property>($class, 'property'),
+      ...girChildren<Method>($class, 'virtual-method'),
+    ].map(($member) => $member['@_name']);
     identifiers.forEach((identifier: string) => {
       result[identifier] = result[identifier] ? ++result[identifier] : 1;
     });
     return result;
   }
 
-  getParentClassIdentifiers(
-    $class?: Class | Interface,
-    recursive = true
-  ): ClassIdentifiers {
+  /**
+   * Deliberately only walks one level up. Resolving the full ancestor chain
+   * reintroduces the infinite recursion this used to hit on cyclic GIR parent
+   * references.
+   */
+  getParentClassIdentifiers($class?: Class | Interface): ClassIdentifiers {
     if (!$class) return {};
     const $parentClass = _.find(
-      oc(this.$namespace).class([]),
-      $namespaceClass => $namespaceClass['@_name'] === $class['@_parent']
+      girChildren<Class>(this.$namespace, 'class'),
+      ($namespaceClass) => $namespaceClass['@_name'] === $class['@_parent'],
     );
     if (!$parentClass) return {};
-    return this.getClassIdentifiers($parentClass, recursive);
+    return this.getClassIdentifiers($parentClass);
   }
 
   buildMethodDeclarations(
     $methods: Method[] | Function[],
     path: InjectPath = '',
     $class?: Class | Interface,
-    isStatic = false
+    isStatic = false,
   ): void {
-    if (!Array.isArray($methods)) $methods = [$methods];
     const parentClassIdentifiers = this.getParentClassIdentifiers($class);
-    const classIdentifiers = this.getClassIdentifiers($class, false);
+    const classIdentifiers = this.getClassIdentifiers($class);
     $methods.forEach(($method: Method) => {
       let methodName = $method['@_name'];
       if (this.isReservedKeyword(methodName) || methodName === 'constructor') {
@@ -498,90 +352,67 @@ export default class GirTSGenerator extends BabelParserGenerator {
           if (!this.renamed.classes[$class['@_name']]) {
             this.renamed.classes[$class['@_name']] = {};
           }
-          this.renamed.classes[$class['@_name']][
-            $method['@_name']
-          ] = methodName;
+          this.renamed.classes[$class['@_name']][$method['@_name']] = methodName;
         }
         this.logger.warn(
           `method '${$method['@_name']}' renamed to '${methodName}'${
             $class ? ` in class '${$class['@_name']}'` : ''
-          }`
+          }`,
         );
       } else if (!methodName.length) {
-        this.logger.warn(
-          `empty method name${$class ? ` in class '${$class['@_name']}'` : ''}`
-        );
-        return true;
+        this.logger.warn(`empty method name${$class ? ` in class '${$class['@_name']}'` : ''}`);
+        return;
       }
-      if (
-        this.userConfig.ignoreDuplicates &&
-        (parentClassIdentifiers[methodName] || classIdentifiers[methodName] > 1)
-      ) {
+      const duplicate = parentClassIdentifiers[methodName] || classIdentifiers[methodName] > 1;
+      if (this.userConfig.ignoreDuplicates && duplicate) {
         this.logger.warn(
           `duplicate method '${methodName}' ignored${
             $class ? ` in class '${$class['@_name']}'` : ''
-          }`
+          }`,
+        );
+        return;
+      }
+      // Resolved even when unused below: getType registers cross-namespace
+      // imports as a side effect.
+      const returnType = this.getType($method['return-value']);
+      if (duplicate) {
+        this.append(
+          `class Class {${isStatic ? 'static ' : ''}${methodName}(...args: any[]): any}`,
+          [path, 'declaration.body.body'],
+          'body.body',
         );
       } else {
-        const duplicate =
-          parentClassIdentifiers[methodName] ||
-          classIdentifiers[methodName] > 1;
-        const returnType = this.getType($method['return-value']);
-        if (duplicate) {
-          this.append(
-            `class Class {${
-              isStatic ? 'static ' : ''
-            }${methodName}(...args: any[]): any}`,
-            [path, 'declaration.body.body'],
-            'body.body'
-          );
-        } else {
-          const count = this.append(
-            `class Class {${
-              isStatic ? 'static ' : ''
-            }${methodName}(): ${returnType}}`,
-            [path, 'declaration.body.body'],
-            'body.body'
-          );
-          this.buildMethodDeclarationParams(
-            oc($method).parameters.parameter([]),
-            [path, 'declaration.body.body', count - 1]
-          );
-        }
+        const count = this.append(
+          `class Class {${isStatic ? 'static ' : ''}${methodName}(): ${returnType}}`,
+          [path, 'declaration.body.body'],
+          'body.body',
+        );
+        this.buildMethodDeclarationParams(girChildren<Parameter>($method.parameters, 'parameter'), [
+          path,
+          'declaration.body.body',
+          count - 1,
+        ]);
       }
-      return true;
     });
   }
 
-  buildConstructorDeclaration(
-    $constructors: Constructor[],
-    path: InjectPath = ''
-  ): void {
-    let $constructor = ($constructors as unknown) as Constructor;
-    if (Array.isArray($constructors)) {
-      if ($constructors.length) {
-        $constructor = $constructors[0] as Constructor;
-      }
-    }
-    if (!$constructor['@_name']) return;
+  buildConstructorDeclaration($constructors: Constructor[], path: InjectPath = ''): void {
+    const $constructor = $constructors[0];
+    if (!$constructor?.['@_name']) return;
     const count = this.append(
       'class C {constructor()}',
       [path, 'declaration.body.body'],
-      'body.body.0'
+      'body.body.0',
     );
-    this.buildFunctionParams(oc($constructor).parameters.parameter([]), [
+    this.buildFunctionParams(girChildren<Parameter>($constructor.parameters, 'parameter'), [
       path,
       'declaration.body.body',
       count - 1,
-      'params'
+      'params',
     ]);
   }
 
-  buildMethodDeclarationParams(
-    $parameters: Parameter[],
-    path: InjectPath = ''
-  ): void {
-    if (!Array.isArray($parameters)) $parameters = [$parameters];
+  buildMethodDeclarationParams($parameters: Parameter[], path: InjectPath = ''): void {
     let paramRequired = true;
     $parameters.forEach(($parameter: Parameter) => {
       let paramName = this.safeWord($parameter['@_name']);
@@ -597,11 +428,9 @@ export default class GirTSGenerator extends BabelParserGenerator {
       if (paramType && paramName !== '...') {
         // TODO: some param types not supported
         this.append(
-          `function f(${paramName}${
-            paramRequired ? '' : '?'
-          }: ${paramType}) {}`,
+          `function f(${paramName}${paramRequired ? '' : '?'}: ${paramType});`,
           [path, 'params'],
-          'params.0'
+          'params.0',
         );
       }
     });
@@ -611,65 +440,42 @@ export default class GirTSGenerator extends BabelParserGenerator {
     $properties: Property[],
     path: InjectPath = '',
     $class?: Class | Interface,
-    isStatic = false
+    isStatic = false,
   ): void {
-    if (!Array.isArray($properties)) $properties = [$properties];
     const parentClassIdentifiers = this.getParentClassIdentifiers($class);
-    const classIdentifiers = this.getClassIdentifiers($class, false);
+    const classIdentifiers = this.getClassIdentifiers($class);
     $properties.forEach(($property: Property) => {
       let propertyName = $property['@_name'];
-      if (
-        this.isReservedKeyword(propertyName) ||
-        propertyName === 'constructor'
-      ) {
+      if (this.isReservedKeyword(propertyName) || propertyName === 'constructor') {
         propertyName = `g_${propertyName}`;
         if ($class) {
           if (!this.renamed.classes[$class['@_name']]) {
             this.renamed.classes[$class['@_name']] = {};
           }
-          this.renamed.classes[$class['@_name']][
-            $property['@_name']
-          ] = propertyName;
+          this.renamed.classes[$class['@_name']][$property['@_name']] = propertyName;
         }
         this.logger.warn(
           `property '${$property['@_name']}' renamed to '${propertyName}'${
             $class ? ` in class '${$class['@_name']}'` : ''
-          }`
+          }`,
         );
       }
-      if (
-        this.userConfig.ignoreDuplicates &&
-        (parentClassIdentifiers[propertyName] ||
-          classIdentifiers[propertyName] > 1)
-      ) {
+      const duplicate = parentClassIdentifiers[propertyName] || classIdentifiers[propertyName] > 1;
+      const safeName = propertyName.indexOf('-') > -1 ? `'${propertyName}'` : propertyName;
+      if (this.userConfig.ignoreDuplicates && duplicate) {
         this.logger.warn(`duplicate property '${propertyName}' ignored`);
-      } else {
-        const duplicate =
-          parentClassIdentifiers[propertyName] ||
-          classIdentifiers[propertyName] > 1;
-        const propertyType = this.getType($property);
-        if (duplicate) {
-          this.append(
-            `class Class {${isStatic ? 'static ' : ''}${
-              propertyName.indexOf('-') > -1
-                ? `'${propertyName}'`
-                : propertyName
-            }: any}`,
-            [path, 'declaration.body.body'],
-            'body.body.0'
-          );
-        } else {
-          this.append(
-            `class Class {${isStatic ? 'static ' : ''}${
-              propertyName.indexOf('-') > -1
-                ? `'${propertyName}'`
-                : propertyName
-            }: ${propertyType}}`,
-            [path, 'declaration.body.body'],
-            'body.body.0'
-          );
-        }
+        return;
       }
+      // Resolved even when unused below: getType registers cross-namespace
+      // imports as a side effect.
+      const resolvedType = this.getType($property);
+      this.append(
+        `class Class {${isStatic ? 'static ' : ''}${safeName}: ${
+          duplicate ? 'any' : resolvedType
+        }}`,
+        [path, 'declaration.body.body'],
+        'body.body.0',
+      );
     });
   }
 
@@ -680,51 +486,39 @@ export default class GirTSGenerator extends BabelParserGenerator {
       nullable?: boolean | null;
     } = {
       isArray: null,
-      nullable: null
-    }
+      nullable: null,
+    },
   ): string | null {
     let { isArray, nullable } = options;
     if (typeof isArray === 'undefined') isArray = null;
     if (typeof nullable === 'undefined') nullable = null;
     const girTypeStrict = girType as GirTypeStrict;
     // TODO: some param types not supported
-    let girTypeStr: string = '';
-    let knownType = null;
+    let girTypeStr = '';
+    let knownType: string | null = null;
     if (typeof girTypeStrict !== 'string') {
       if (girTypeStrict.array) {
         if (isArray === null) isArray = true;
-        girTypeStr = oc(girTypeStrict)
-          .array.type['@_name']('')
-          .toString();
-        nullable =
-          oc(girTypeStrict)['@_nullable']() === '1' &&
-          oc(girTypeStrict)['@_optional']() !== '1';
+        girTypeStr = (girTypeStrict.array.type?.['@_name'] ?? '').toString();
+        nullable = girTypeStrict['@_nullable'] === '1' && girTypeStrict['@_optional'] !== '1';
       } else if (girTypeStrict.callback) {
         const returnType = this.getType(girTypeStrict.callback['return-value']);
         const girTypescriptGenerator = new GirTSGenerator(
           this.$namespace,
           this.userConfig,
           this.logger,
-          this.moduleName
+          this.moduleName,
         );
-        girTypescriptGenerator.append(
-          `type T = () => ${returnType}`,
-          '',
-          'typeAnnotation'
-        );
+        girTypescriptGenerator.append(`type T = () => ${returnType}`, '', 'typeAnnotation');
         girTypescriptGenerator.moduleTypes = this.moduleTypes;
         girTypescriptGenerator.buildFunctionParams(
-          oc(girTypeStrict).callback.parameters.parameter([]),
-          ['0', 'parameters']
+          girChildren<Parameter>(girTypeStrict.callback.parameters, 'parameter'),
+          ['0', 'params'],
         );
         knownType = girTypescriptGenerator.generate();
       } else if (girTypeStrict.type) {
-        girTypeStr = oc(girTypeStrict)
-          .type['@_name']('')
-          .toString();
-        nullable =
-          oc(girTypeStrict)['@_nullable']() === '1' &&
-          oc(girTypeStrict)['@_optional']() !== '1';
+        girTypeStr = (girTypeStrict.type['@_name'] ?? '').toString();
+        nullable = girTypeStrict['@_nullable'] === '1' && girTypeStrict['@_optional'] !== '1';
       } else {
         knownType = 'any';
       }
@@ -742,36 +536,38 @@ export default class GirTSGenerator extends BabelParserGenerator {
       knownType = `${knownType}${array}`;
       return knownType;
     }
-    let tsType: string = ({
-      '': `any${array}`,
-      double: `number${array}`,
-      gboolean: `boolean${array}`,
-      gchar: `number${array}`,
-      gdouble: `number${array}`,
-      gfloat: `number${array}`,
-      gint16: `number${array}`,
-      gint32: `number${array}`,
-      gint64: `number${array}`,
-      gint8: `number${array}`,
-      gint: `number${array}`,
-      glong: `number${array}`,
-      gpointer: `object${array}`,
-      gsize: `number${array}`,
-      gssize: `number${array}`,
-      guint16: `number${array}`,
-      guint32: `number${array}`,
-      guint64: `number${array}`,
-      guint8: `number${array}`,
-      guint: `number${array}`,
-      gulong: `number${array}`,
-      gunichar: `number${array}`,
-      gushort: `number${array}`,
-      long: `number${array}`,
-      none: `void${array}`,
-      object: `any${array}`,
-      utf8: `string${array}`,
-      va_list: `any${array}`
-    } as { [key: string]: string })[girTypeStr];
+    let tsType: string = (
+      {
+        '': `any${array}`,
+        double: `number${array}`,
+        gboolean: `boolean${array}`,
+        gchar: `number${array}`,
+        gdouble: `number${array}`,
+        gfloat: `number${array}`,
+        gint16: `number${array}`,
+        gint32: `number${array}`,
+        gint64: `number${array}`,
+        gint8: `number${array}`,
+        gint: `number${array}`,
+        glong: `number${array}`,
+        gpointer: `object${array}`,
+        gsize: `number${array}`,
+        gssize: `number${array}`,
+        guint16: `number${array}`,
+        guint32: `number${array}`,
+        guint64: `number${array}`,
+        guint8: `number${array}`,
+        guint: `number${array}`,
+        gulong: `number${array}`,
+        gunichar: `number${array}`,
+        gushort: `number${array}`,
+        long: `number${array}`,
+        none: `void${array}`,
+        object: `any${array}`,
+        utf8: `string${array}`,
+        va_list: `any${array}`,
+      } as { [key: string]: string }
+    )[girTypeStr];
     if (!tsType) {
       const moduleName = this.$namespace['@_name'];
       let moduleType = girTypeStr;

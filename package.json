@@ -1,105 +1,77 @@
 {
   "name": "ts-gir",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "generate typescript from gir",
   "keywords": [
-    "ts-gir",
-    "ts",
-    "typescript",
+    "generate",
     "gir",
     "gobject",
     "introspect",
     "introspection",
-    "babel",
-    "generate"
+    "ts",
+    "ts-gir",
+    "typescript"
   ],
-  "homepage": "https://github.com/codejamninja/ts-gir",
+  "homepage": "https://gitlab.com/bitspur/misc/ts-gir",
   "bugs": {
-    "url": "https://github.com/codejamninja/ts-gir/issues",
-    "email": "jam@codejam.ninja"
+    "url": "https://gitlab.com/bitspur/misc/ts-gir/-/issues"
   },
   "license": "MIT",
   "author": {
-    "name": "Jam Risser",
-    "email": "jam@codejam.ninja",
-    "url": "https://codejam.ninja"
+    "name": "Clay Risser",
+    "email": "clayrisser@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/bitspur/misc/ts-gir.git"
+  },
+  "bin": {
+    "ts-gir": "bin/bin.js"
   },
   "files": [
     "lib",
     "bin"
   ],
+  "type": "module",
   "main": "lib/index.js",
-  "bin": {
-    "ts-gir": "bin/bin.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/codejamninja/ts-gir"
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
   },
   "scripts": {
-    "build": "npm run build:js && npm run build:types",
-    "build:types": "tsc -d --emitDeclarationOnly",
-    "build:js": "babel src -d lib --extensions \".ts,.tsx\" --source-maps inline",
-    "clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/* && jest --clearCache",
-    "clean:purge": "jest --clearCache && git clean -fXd",
-    "format": "prettier --write ./**/*.{json,md,scss,yaml,yml,js,jsx,ts,tsx} --ignore-path .gitignore",
-    "lint": "npm run format && tsc --allowJs --noEmit && eslint --ext .ts,.tsx ./",
-    "lint:fix": "npm run format && tsc --noEmit && eslint --ext .ts,.tsx --fix ./",
-    "prepublish": "npm run build",
-    "start": "babel-node --extensions \".ts,.tsx\" src",
-    "test": "npm run lint && jest"
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf lib coverage *.tsbuildinfo",
+    "format": "oxfmt .",
+    "lint": "oxlint && tsc --noEmit",
+    "test": "vitest run --coverage --coverage.reporter=text --coverage.reporter=lcov"
   },
   "dependencies": {
-    "@babel/parser": "^7.8.3",
-    "@oclif/command": "^1.5.19",
-    "@oclif/config": "^1.13.3",
-    "@oclif/errors": "^1.2.2",
-    "@oclif/plugin-help": "^2.2.3",
-    "babel-parser-generator": "^0.1.11",
-    "bluebird": "^3.7.2",
-    "core-js": "^3.6.4",
-    "cosmiconfig": "^6.0.0",
-    "err": "^2.1.11",
-    "fast-xml-parser": "^3.16.0",
-    "fs-extra": "^8.1.0",
-    "glob": "^7.1.6",
-    "lodash": "^4.17.15",
-    "pkg-dir": "^4.2.0",
-    "ts-optchain.macro": "^1.1.5"
+    "@babel/generator": "^8.0.0",
+    "@babel/parser": "^8.0.4",
+    "@babel/template": "^8.0.0",
+    "@babel/types": "^8.0.4",
+    "commander": "^15.0.0",
+    "cosmiconfig": "^10.0.0",
+    "fast-xml-parser": "^5.10.1",
+    "glob": "^13.0.6",
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/node": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
-    "@types/babel-generator": "^6.25.3",
-    "@types/bluebird": "^3.5.29",
-    "@types/cosmiconfig": "^6.0.0",
-    "@types/fs-extra": "^8.0.1",
-    "@types/glob": "^7.1.1",
-    "@types/jest": "^24.9.0",
-    "@types/lodash": "^4.14.149",
-    "@typescript-eslint/eslint-plugin": "^2.17.0",
-    "@typescript-eslint/parser": "^2.17.0",
-    "babel-preset-jam": "^0.4.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-typescript": "^6.3.1",
-    "eslint-config-jam": "^0.2.20",
-    "jest": "^24.9.0",
-    "prettier": "^1.19.1",
-    "tsc": "^1.20150623.0",
-    "typescript": "^3.7.5"
+    "@types/lodash": "^4.17.20",
+    "@types/node": "^26.2.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=20.19.0"
   },
-  "eslintIgnore": [
-    "lib"
-  ],
-  "jest": {
-    "testRegex": "tests(/|/.*/)[^_/]*[jt]sx?$",
-    "verbose": true
-  },
+  "packageManager": "pnpm@10.22.0",
   "tsgir": {
     "importMap": {},
     "dir": "@types"

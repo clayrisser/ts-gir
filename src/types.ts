@@ -73,7 +73,7 @@ export interface Record {
   '@_name': string;
   '@_parent': string;
   'virtual-method': Method[];
-  constructor: Constructor[];
+  'gir-constructor': Constructor[];
   field: Field[];
   function: Function[];
   method: Method[];
@@ -81,7 +81,7 @@ export interface Record {
 }
 
 export interface Logger {
-  info(message?: string, ...args: any[]): void;
+  info(message?: string, ...args: unknown[]): void;
   warn(input: string | Error): void;
 }
 
@@ -127,7 +127,8 @@ export interface Class {
   '@_name': string;
   '@_parent': string;
   'virtual-method': Method[];
-  constructor: Constructor[];
+  // Renamed from <constructor> at parse time — see `constructorTag` in Gir.ts.
+  'gir-constructor': Constructor[];
   field: Field[];
   function: Function[];
   method: Method[];
